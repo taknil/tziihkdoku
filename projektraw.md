@@ -1,10 +1,12 @@
 ##Vorwort
+
+
 ###Der Ausbildungsbetrieb
-//lockparagraph für Fragen zur Konzerstruktur
+
 Die mobilcom-debitel GmbH ist ein in Deutschland agierendes Unternehmen der Freenet Group. Sie vertreibt hauptsächlich Mobilfunkprodukte wie Vertäge und Mobilfunk-Endgeräte sowie dazu passendes Zubehör, betreibt aber keine eigene Mobilfunkinfrastruktur. Bereits seit 2011 bestand eine Kooperation mit der GRAVIS Computervertriebsgesellschaft, meinem ursprünglichen Ausbildungsbetrieb. Diese Kooperation mündete Ende 2012 in einer vollständigen Übernahme und einer anschließenden Integration mehrerer Abteilungen wie der Logistik und IT in den mobilcom-debitel Konzern. Infolgedessen ist die md verantwortlich für den Betrieb der GRAVIS Onlinepräsenz. Die mobilcom-debitel
 
 
-http://www.presseportal.de/pm/65489/2385382/eans-news-freenet-ag-freenet-group-uebernimmt-gravis-und-wird-einer-der-groessten-partner-von-apple
+Quelle: http://www.presseportal.de/pm/65489/2385382/eans-news-freenet-ag-freenet-group-uebernimmt-gravis-und-wird-einer-der-groessten-partner-von-apple
 
 #Einleitung
 Das Projekt beinhaltet die Analyse, Konzeption und Einrichtung einer Laufzeitumgebung für funktionale Front-End-Tests der betreuten Onlineshops, dem GRAVIS Onlineshop und dem MDS Onlineshop. Diese Umgebung soll in das Continuous-Delivery System _Go_ eingebunden werden um vollautomatisches Testen zu ermöglichen. Hauptbedarfsträger ist das Entwicklungsteam “Vertrieb Onlineshop CMS” welches eine geringere Arbeitslast beim Einsatz dieses System zum Testen erwartet.
@@ -24,6 +26,7 @@ Im Rahmen des Projekt soll eine Laufzeitumgebung für Front-End- Test bereitgest
 Schnittstelle zu Go (muss go agent laufen lassen)
 Schnittstelle zum Web (explizit zugriff von aussen)
 Schnittstelle zur Versionsverwaltung
+%Schnittstelle zu ec2
 
 ##Projektabgrenzung
 Die Erstellung von Tests oder Testzenarien über einen Bespieltest hinaus ist nicht Teil des Projektes. Andere Testarten wie etwa Performancetests muss das System nicht leisten.
@@ -51,9 +54,15 @@ Es kann Standardsoftware für Tests genutzt werden: phantom.js und ghost.js || s
 Die integration in der CI/CD System aber muss selbst programmiert werde da Go wenig verbreitet ist und bisher keine Integration solcher Art publik gemacht wurde. Da Go open-source und die API gut Dokumentiert ist , kann eine Integration aus eigener Kraft erfolgen.
 
 ###Projektkosten
-Die Projektkosten, die bei der Entwicklung des Projektes anfallen, sollen im Folgenden kalkuliert werden. Dafür müssen neben den Personalkosten für den Entwickler und  weitere Mitarbeiter auch noch die Aufwendungen für die Ressourcen berücksichtigt werden. Da Kalkulation wird anhand von branchenüblichen Stundensätzen durchgeführt Der Stundensatz eines Auszubildenden beträgt demzufolge 10 €, der eines Mitarbeiters 25 €. Für die Ressourcennutzung (Hardware und Software, Büroarbeitsplatz etc.) wurde 	ein pauschaler Stundensatz von 15 € angenommen.
+Die Projektkosten, die bei der Entwicklung des Projektes anfallen, sollen im Folgenden kalkuliert werden. Dafür müssen neben den Personalkosten für den Entwickler und  weitere Mitarbeiter auch noch die Aufwendungen für die Ressourcen berücksichtigt werden. Da Kalkulation wird anhand von branchenüblichen Stundensätzen durchgeführt. Der Stundensatz eines Auszubildenden im 3. Lehrjahr beträgt demzufolge 6,79€/h, der eines Mitarbeiters 28,45€/h. Für die Ressourcennutzung (Hardware und Software, Büroarbeitsplatz etc.) wurde 	ein pauschaler Stundensatz von 15 € angenommen.
 
-Entwicklungskosten 70azubi +infra
+$8 h/ Tag *221 Tage/ Jahr = 1768h / Jahr$    
+$1000€/ Monat * 12 Monate / Jahr = 12000€/Jahr$    
+$12000€/Jahr / 1768h/Jahr  = 6,79€/h$    
+
+$\frac{1000 \frac{€}{Monat} * 12\frac{Monate}{Jahr} }{ (8\frac{h}{Tag} *221\frac{Tage}{Jahr} )}=  6,79\frac{\euro}{h}$
+
+Entwicklungskosten 70hazubi +infra
 Fachgespräche 12h FTE +infra
 Abnahme 1h FTE +infra
 Nutzerschulung 2h 3FTE +infra
@@ -76,19 +85,24 @@ Durch die Automatisierung von immer wiederkehrenden Tests lässt sich Arbeitszei
 Regressionstest der Kernfunktionalitäten der Online-Shop erfolgen immer zu einem Deployment, einmal vorher in der Staging Umgebung und einmal im Echtsystem um eine fehlerfreie Funktionalität zu bestätigen.
 Momentan wird im Zweiwöchen Zyklus deployt. Dadurch ergäbe sich eine Amortisationsdauer von
 //formel   
-====
----> 17monate
+ 
+---> $17monate$
 
 Erst duch den einsatz von Automatisierten Test aber wird ein neues Vorgehen möglich: Es sollen nicht mehr zwei-wöchentlich Deployments erfolgen sondern kontinuierlich, also täglich.
 Durch die neue Anzahl von maximal 5 Deployments pro Woche ergibt sich eine neue minimale Amortisationsdauer
-====
----> 2monate
+    
+---> $2monate$
+
+\begin{equation}
+x+y=\text{\euro}
+\end{equation}
 
 ##Nutzwertanalyse
 ###Nicht-monetäre Vorteile
--> kann beliebig oft laufen
--> ermöglicht veränderung von Deployment und Integrationsverhalten
--> erhöht Vertrauen in den Code
+
+* kann beliebig oft laufen
+* ermöglicht veränderung von Deployment und Integrationsverhalten
+* erhöht Vertrauen in den Code    
 
 ##Anwendungsfälle
 pre- &
