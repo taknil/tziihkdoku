@@ -18,15 +18,20 @@ Auftraggeber des Projektes ist die Abteilung _Vertrieb Onlineshop CMS_. Die Abte
 
 ##Projektziel
 Im Rahmen des Projekt soll eine Laufzeitumgebung für Front-End- Test bereitgestellt werden. Diese muss in das Continuous-Delivery System GO (im folgenden CI/CD System) eingebunden werden damit vollautomatische Testszenarien damit ausgeführt werden können. Die Testingumgebung muss betriebsbereit dem Team “Vertreib Onlineshop CMS” übergeben werden.
+
 ##Projektbegründung
-*Wer will das warum haben?*
-*Wer ist daran interessiert*
+* Wer will das warum haben?
+
+* Wer ist daran interessiert
+
 
 ##Projektschnittstellen
-Schnittstelle zu Go (muss go agent laufen lassen)
-Schnittstelle zum Web (explizit zugriff von aussen)
-Schnittstelle zur Versionsverwaltung
-%Schnittstelle zu ec2
+Nein, nicht Softwareschnittstellen. Schnittstelle des Projekt
+
+* Schnittstelle zu Go (muss go agent laufen lassen)
+* Schnittstelle zum Web (explizit zugriff von aussen)
+* Schnittstelle zur Versionsverwaltung
+* Schnittstelle zu ec2
 
 ##Projektabgrenzung
 Die Erstellung von Tests oder Testzenarien über einen Bespieltest hinaus ist nicht Teil des Projektes. Andere Testarten wie etwa Performancetests muss das System nicht leisten.
@@ -39,6 +44,10 @@ Eine eigene Benutzeroberfläche muss nicht erstellt werden da die Steuerung auss
 ##Abweichung vom Projektantrag
 
 ##Ressourcenplanung
+personal
+HW
+SW
+
 
 ##Entwicklungsprozess
 
@@ -54,32 +63,47 @@ Es kann Standardsoftware für Tests genutzt werden: phantom.js und ghost.js || s
 Die integration in der CI/CD System aber muss selbst programmiert werde da Go wenig verbreitet ist und bisher keine Integration solcher Art publik gemacht wurde. Da Go open-source und die API gut Dokumentiert ist , kann eine Integration aus eigener Kraft erfolgen.
 
 ###Projektkosten
-Die Projektkosten, die bei der Entwicklung des Projektes anfallen, sollen im Folgenden kalkuliert werden. Dafür müssen neben den Personalkosten für den Entwickler und  weitere Mitarbeiter auch noch die Aufwendungen für die Ressourcen berücksichtigt werden. Da Kalkulation wird anhand von branchenüblichen Stundensätzen durchgeführt. Der Stundensatz eines Auszubildenden im 3. Lehrjahr beträgt demzufolge 6,79€/h, der eines Mitarbeiters 28,45€/h. Für die Ressourcennutzung (Hardware und Software, Büroarbeitsplatz etc.) wurde 	ein pauschaler Stundensatz von 15 € angenommen.
+Die Projektkosten, die bei der Entwicklung des Projektes anfallen, sollen im Folgenden kalkuliert werden. Dafür müssen neben den Personalkosten für den Entwickler und  weitere Mitarbeiter auch noch die Aufwendungen für die Ressourcen berücksichtigt werden. Da Kalkulation wird anhand von branchenüblichen Stundensätzen durchgeführt. Der Stundensatz eines Auszubildenden im 3. Lehrjahr beträgt demzufolge _6,79€/h_, der eines Mitarbeiters _28,45€/h_ . Als Gemeinkosten für Ressourcennutzung im Unternehmen (Hardware und Software, Büroarbeitsplatz etc.) wurde ein pauschaler Stundensatz von 15 € angenommen.
 
-$8 h/ Tag *221 Tage/ Jahr = 1768h / Jahr$    
-$1000€/ Monat * 12 Monate / Jahr = 12000€/Jahr$    
-$12000€/Jahr / 1768h/Jahr  = 6,79€/h$    
 
-$\frac{1000 \frac{€}{Monat} * 12\frac{Monate}{Jahr} }{ (8\frac{h}{Tag} *221\frac{Tage}{Jahr} )}=  6,79\frac{\euro}{h}$
 
-Entwicklungskosten 70hazubi +infra
-Fachgespräche 12h FTE +infra
-Abnahme 1h FTE +infra
-Nutzerschulung 2h 3FTE +infra
-======
-~ 2270€
+\begin{figure}
+\[ \frac{1000 \frac{€}{Monat} * 12\frac{Monate}{Jahr} }{ (8\frac{h}{Tag} *221\frac{Tage}{Jahr} )}=  6,79\frac{€}{h} \]
+\caption{Kosten eines Auszubildenden}
+\end{figure}
+
+
+
+| Vorgang | Zeit | Kosten pro Stunde | Kosten |
+| :------------ | -------------: | :------------ | --------: |
+| Entwicklungskosten | 70h  | 6,79€ + 15€ | 1525,30€|
+| Fachgespräch mit Ausbilder | 4h  | 1 FTE + infra| 173,80€|
+| Entwicklungskosten | 1h  | 1 FTE + infra| 43,45€|
+| Nutzerschulung | 2h  | 3 FTE + infra| 130,35€|
+|\vtop{\hbox{\strut Projektkosten}\hbox{\strut Gesamt}}|||2389,35 €|
+
+
 
 
 ###Amortisationsdauer
 Im Folgenden Abschnitt soll ermittelt werden, ab welchen Zeitpunkt sich die Integration der Testumgebung amortisiert hat. Anhand dieses Wertes kann beurteilt werden ob die Umsetzung des Projektes sinnvoll ist aus wirtschaftlicher Sicht und sich auf Dauer Kostenvorteil ergeben. Die Anschaffungskosten dividiert durch die Kostenersparnis berechnet die Amortisationsdauer die durch das Projekt erreicht wird.
 
+
+
+
 Durch die Automatisierung von immer wiederkehrenden Tests lässt sich Arbeitszeit des Testers einsparen. Dadurch würden sich die Personalkosten reduzieren lassen.
+
+
+
 
 //todo Tabelle mit Zeiten für Regressionstest
 //test on stage pre-deployment , test on live post-deployment, deployment bi-weekly
  Regressionstest Staging: 45min
 +Regressionstest Echt-System: 45min
 * 25€/h (Tester)+ 15€/h infra
+
+
+
 
 
 Regressionstest der Kernfunktionalitäten der Online-Shop erfolgen immer zu einem Deployment, einmal vorher in der Staging Umgebung und einmal im Echtsystem um eine fehlerfreie Funktionalität zu bestätigen.
@@ -93,11 +117,18 @@ Durch die neue Anzahl von maximal 5 Deployments pro Woche ergibt sich eine neue 
     
 ---> $2monate$
 
-\begin{equation}
-x+y=\text{\euro}
-\end{equation}
+
+
 
 ##Nutzwertanalyse
+
+manueller Tester | phantom.js+ selenium webdriver | phantom.js + ghost.js
+:----------- | :-----------: | -----------:
+3         | 3       | 4
+3        | 1        | 1
+
+
+
 ###Nicht-monetäre Vorteile
 
 * kann beliebig oft laufen
@@ -111,17 +142,22 @@ test nach jedem Check-in / stündlich
 
 ##Qualitätsanforderungen
 
+
+
 ## Lastenheft / Fachkonzept
 
 # Entwurfsphase
 
 ##Zielplatform
+gentoo GNU/Linux 
 
 ##Architekturdesign
 
 ##*more*
 
 ##Maßnamen zur Qualitässicherung
+
+* Der Beispieltext
 
 ##Pflichtenheft
 
