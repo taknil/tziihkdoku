@@ -5,10 +5,12 @@
 Die mobilcom-debitel GmbH ist ein in Deutschland agierendes Unternehmen der Freenet Group. Sie vertreibt hauptsächlich Mobilfunkprodukte wie Vertäge und Mobilfunk-Endgeräte sowie dazu passendes Zubehör, betreibt aber keine eigene Mobilfunkinfrastruktur. Bereits seit 2011 bestand eine Kooperation mit der GRAVIS Computervertriebsgesellschaft, meinem ursprünglichen Ausbildungsbetrieb. Diese Kooperation mündete Ende 2012 in einer vollständigen Übernahme[^mdkauftgra] und einer anschließenden Integration mehrerer Abteilungen wie der Logistik und IT in den mobilcom-debitel Konzern. Infolgedessen ist die md verantwortlich für den Betrieb der GRAVIS Onlinepräsenz. Die mobilcom-debitel verfügt über mehrere Verwaltungsstandorte, der Sitz der ehemaligen GRAVIS-IT in Berlin am Ernst-Reuter-Platz konnte erhalten werden. Dort sind weiterhin Abgteilungen die GRAVIS-Systeme betreuen ansässig.
 
 
-[^mdkauftgra]: http://www.presseportal.de/pm/65489/2385382/eans-news-freenet-ag-freenet-group-uebernimmt-gravis-und-wird-einer-der-groessten-partner-von-apple
+[^mdkauftgra]: Pressemitteilung zur Übernahme von GRAVIS durch md http://www.presseportal.de/pm/65489/2385382/eans-news-freenet-ag-freenet-group-uebernimmt-gravis-und-wird-einer-der-groessten-partner-von-apple
 \\
 
-Das Projekt beinhaltet die Analyse, Konzeption und Einrichtung einer Laufzeitumgebung für funktionale Front-End-Tests der betreuten Onlineshops, dem GRAVIS Onlineshop und dem MDS Onlineshop. Diese Umgebung soll in das Continuous-Delivery System _Go_ eingebunden, werden um vollautomatisches Testen zu ermöglichen. Hauptbedarfsträger ist das Entwicklungsteam “Vertrieb Onlineshop CMS”, welches eine geringere Arbeitslast beim Einsatz dieses System zum Testen erwartet.
+## 
+
+Das Projekt beinhaltet die Analyse, Konzeption und Einrichtung einer Laufzeitumgebung für funktionale Front-End-Tests der betreuten Onlineshops, dem GRAVIS Onlineshop und dem MDS Onlineshop. Diese Umgebung soll in das Continuous-Delivery System _Go_ eingebunden, werden um vollautomatisches Testen zu ermöglichen. Hauptbedarfsträger ist das Entwicklungsteam _Vertrieb Onlineshop CMS_, welches eine geringere Arbeitslast beim Einsatz dieses System zum Testen erwartet.
 
 ##Projektumfeld
 Das Projekt wurde im Rahmen der Ausbildung zum Fachinformatiker mit der Fachrichtung Anwendungsentwicklung durchgeführt.
@@ -16,18 +18,18 @@ Bedarfsträger für das Projekt ist das Unternehmen mobilcom-debitel GmbH selbst
 Auftraggeber des Projektes ist die Abteilung _Vertrieb Onlineshop CMS_. Die Abteilung beschäftigt einen Testingenieur, der neben der Abnahme von neuen Features auch immer wieder sehr zeitaufwändig Regressionstests  durchführt. Um den hohen Qualitätsstandarts gerecht zu werden, sind diese Test notwendig, halten aber die Abnahme von neuen Features zeitlich auf. Durch die hohe Wiederholungsrate der Regressionstests ist es möglich, dass Fehler übersehen werden oder erst nach dem Deployment entdeckt werden. Zudem werden zur Zeit Testläufe und Fehlerfälle in der Regel nicht oder nicht ausführlich dokumentiert und es ist nicht möglich eine Statistik, über die Fehlerhäufigkeit zu führen. Darüber hinaus gibt es keine technische Möglichkeit, die das Ausrollen von fehlerhaftem Code auf dem Echtsystem verhindert. 
 
 ##Projektziel
-Im Rahmen des Projekt soll eine Laufzeitumgebung für Front-End-Tests bereitgestellt werden. Diese muss in das Continuous-Delivery System Go (im folgenden CI/CD System) eingebunden werden, damit vollautomatische Testszenarien damit ausgeführt werden können. Die Testingumgebung muss betriebsbereit dem Team _Vertreib Onlineshop CMS_ übergeben werden.
+Im Rahmen des Projekt soll eine Laufzeitumgebung für Front-End-Tests bereitgestellt werden. Diese muss in das Continuous-Delivery System \acs{Go} (im folgenden CI/CD System) eingebunden werden, damit vollautomatische Testszenarien damit ausgeführt werden können. Die Testingumgebung muss betriebsbereit dem Team _Vertreib Onlineshop CMS_ übergeben werden.
 
 
 
 ##Projektschnittstellen
-Da das Projekt innerhalb des Teams stattfindet, knüpft es nur an interne Prozesse und technische Systeme an. 
+Da das Projekt innerhalb des Teams stattfindet, knüpft es nur an interne Prozesse, also Abnahme und Deployment der Software, und technische Systeme an. 
 Eine Auswertung durch das _Quality Assurance Team_ im Unternehmen erfolgt nicht. Die Testumgebung wird verknüpft mit Go, testet dabei über eine Webverbindung den Onlineshop und muss auf das hausinterne Versionsverwaltungssystem (SVN) zugreifen können, um dort aktuelle Tests abzuholen. 
 
 
 ##Projektabgrenzung
 Die Erstellung von Tests oder Testzenarien für einen produktiven Einsatz ist nicht Teil des Projektes. Andere Testarten wie etwa Performancetests, muss das System nicht leisten.    
-Eine eigene Benutzeroberfläche muss nicht erstellt werden, da die Steuerung ausschließlich aus dem CI/CD System heraus erfolgt welches ein eigenes Webinterface zur Verfügung stellt.
+Eine eigene Benutzeroberfläche muss nicht erstellt werden, da die Steuerung ausschließlich aus dem \acs{CI/CD} System heraus erfolgt welches ein eigenes Webinterface zur Verfügung stellt.
 <!-- eine (graphische) Aufbereitung der Testartefakte erfolgt nicht-->
 
 #Projektplanung
@@ -44,7 +46,7 @@ Für die Umsetzung des Projekt stehen 70h zur Verfügung. Diese wurden bereits v
 | Dokumentation | 10h |
 
     
-> //FUUU, es sind 73h die ich im Antrag angegeben habe. Muss ich wohl im [nächsten Abschnitt drauf eingehen](#Abweichung vom Projektantrag)
+> //FUUU, es sind 73h die ich im Antrag angegeben habe. Muss ich wohl im [nächsten Abschnitt drauf eingehen](#Ressourcenplanung)
 
 Die Hauptphasen können in kleineren Unterpunkten detailiert werden. Eine detailierte Übersicht
 
@@ -81,14 +83,15 @@ Die Hauptphasen können in kleineren Unterpunkten detailiert werden. Eine detail
 > Die Analysephase wurde im Projektantrag mit insgesamt 13h angegeben. Tatsächlich habe ich nur 10h gebraucht. Einzelnen Abweichungen innerhalb des Zeitplans enstanden durch Erleichterungen bzw. Blockaden die erst bei der Realisierung der einzelnen Teilschritte erkenntlich wur- den. Die tatsächlich benötigte Zeit für das Projekt entsprach somit der vorher veran- schlagten Planzeit. Siehe detaillierte Zeitplanung.
 
 ##Ressourcenplanung
-personal
-HW
-SW
+
+* Personal
+* Hardware: Es soll keine 
+* Software: Es soll für die Testumgebung ausschließlich kostenfreie und/oder open-source Software mit einer Lizenz die kommerzielle Nutzung erlaubt eingesetzt werden. Die Software Go ist von GRAVIS lizensiert und verursacht im Rahmen des Projekt keine zusätlichen Kosten. Go ist mittlerweile auch open-source und könnte bei Bedarf angepasst werden.
 
 
 ##Entwicklungsprozess
 
-Für die Realisierung des Projektes habe ich mich für ein Vorgehen, angelehnt an den klassischen Wasserfall Prozess entschieden. Ermöglicht wird dies durch den Umstand dass die Anforderungen klar definiert sind und sich im Zeitraum der Realisierung nicht signifikant ändern werden. In der Entwurfsphase wurde die Vorgehensweise der Entwicklung klar aufgestellt sodass ständige Rückfragen wie etwa in einem agilen Prozess nicht nötig sind. Es wird eine Nutzerschulung für alle potentielle Nutzer am Ende des Projekt geben sodass eine Eingewöhnung der Nutzer mit der Testumgebung schon während der Entwicklung nicht notwändig ist. Eine Aufnahme der Entwicklung in den agilen Regelprozess erschien nicht sinvoll.
+Für die Realisierung des Projektes habe ich mich für ein Vorgehen, das angelehnt an den klassischen Wasserfall Prozess ist, entschieden. Ermöglicht wird dies durch den Umstand dass die Anforderungen klar definiert sind und sich im Zeitraum der Realisierung nicht signifikant ändern werden. In der Entwurfsphase wurde die Vorgehensweise der Entwicklung klar aufgestellt sodass ständige Rückfragen wie etwa in einem agilen Prozess nicht nötig sind. Es wird eine Nutzerschulung für alle potentielle Nutzer am Ende des Projekt geben sodass eine Eingewöhnung der Nutzer mit der Testumgebung schon während der Entwicklung nicht notwändig ist. Eine Aufnahme der Entwicklung in den agilen Regelprozess erschien nicht sinvoll.
 
 #Analysephase
 
@@ -107,7 +110,7 @@ Die Projektkosten, die bei der Entwicklung des Projektes anfallen, sollen im Fol
 
 
 \begin{figure}
-\[ \frac{1000 \frac{\euro}{Monat} * 12\frac{Monate}{Jahr} }{ (8\frac{h}{Tag} *221\frac{Tage}{Jahr} )}=  6,79\frac{\euro}{h} \]
+\[ \frac{1000 \frac{€}{Monat} * 12\frac{Monate}{Jahr} }{ (8\frac{h}{Tag} *221\frac{Tage}{Jahr} )}=  6,79\frac{€}{h} \]
 \caption{Kosten eines Auszubildenden}
 \end{figure}
 
