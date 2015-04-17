@@ -8,7 +8,8 @@ Die mobilcom-debitel GmbH ist ein in Deutschland agierendes Unternehmen der Free
 [^mdkauftgra]: Pressemitteilung zur Übernahme von GRAVIS durch md http://www.presseportal.de/pm/65489/2385382/eans-news-freenet-ag-freenet-group-uebernimmt-gravis-und-wird-einer-der-groessten-partner-von-apple
 \\
 
-## 
+##Das Projekt
+>unklar wo dieser § hin soll
 
 Das Projekt beinhaltet die Analyse, Konzeption und Einrichtung einer Laufzeitumgebung für funktionale Front-End-Tests der betreuten Onlineshops, dem GRAVIS Onlineshop und dem MDS Onlineshop. Diese Umgebung soll in das Continuous-Delivery System _Go_ eingebunden, werden um vollautomatisches Testen zu ermöglichen. Hauptbedarfsträger ist das Entwicklungsteam _Vertrieb Onlineshop CMS_, welches eine geringere Arbeitslast beim Einsatz dieses System zum Testen erwartet.
 
@@ -58,11 +59,11 @@ Die Hauptphasen können in kleineren Unterpunkten detailiert werden. Eine detail
 | Analyse des IST-Zustand der bisherigen Testingumgebung | 2h | |
 | Analyse des IST-Zustand Einbindung in das CI/CD System | 2h | |
 | Entwurfsphase | | 8h |
+| Wahl eines Test-Runtime| 4h ||
 | Lösungskonzept erstellen| 4h  ||
-| Wahl eines Testrunner| 4h ||
 | Implementierungsphase | | 40h |
 | Installation Test-Runtime | 3h | |
-|  Erstellen Beispieltestsuite | 2h | |
+|  Erstellen Beispieltest | 2h | |
 |  Testing der Runtime | 2h | |
 |  Implementieren der Schnittstelle vom Testsystem zum CI/CD System | 30h | |
 | Detailphase der Implementation | 12h |  |
@@ -84,9 +85,25 @@ Die Hauptphasen können in kleineren Unterpunkten detailiert werden. Eine detail
 
 ##Ressourcenplanung
 
-* Personal
-* Hardware: Es soll keine 
+* Personal: 
+	* Entwickler: Umsetzung des Projekt
+	* 1 QA Mensch
+* Hardware: Es soll keine zusätzliche Hardware für das Projekt angeschafft werden. Zum Einsatz kommt die Testumgebung auf den vorhandenen Serversystemen. Dem Entwickler steht ein Arbeitsplatzrecher (MacBookPro) zur Verfügung auf dem zur Entwicklung
 * Software: Es soll für die Testumgebung ausschließlich kostenfreie und/oder open-source Software mit einer Lizenz die kommerzielle Nutzung erlaubt eingesetzt werden. Die Software Go ist von GRAVIS lizensiert und verursacht im Rahmen des Projekt keine zusätlichen Kosten. Go ist mittlerweile auch open-source und könnte bei Bedarf angepasst werden.
+
+###Liste der eingesetzen Software
+* MacOS X
+* Gentoo GNU/Linux
+* Ubuntu GNU/Linux 14.04
+* Oracle VirtualBox
+* SublimeText2 als Texteditor
+* git, svn zur Versionsverwaltung der Projektsoftware, -Dokumentation und Tests.
+* phantom.js als Headless Browser
+* ghost.js als Testrunner
+* ghostdriver als Testrunner
+* Thoughtworks \acs{Go} also \acs{CI/CD} Platform
+* SeleniumIDE Plugin für Firefox
+* pandoc, pdflatex, MacTeX, MacDown zur Erstellung der Projektdokumentation
 
 
 ##Entwicklungsprozess
@@ -170,6 +187,8 @@ manueller Tester | phantom.js+ selenium webdriver | phantom.js + ghost.js
 3        | 1        | 1
 
 
+// Tabellen, vorselektion, entscheidung aus zwei
+
 
 ###Nicht-monetäre Vorteile
 
@@ -180,7 +199,9 @@ manueller Tester | phantom.js+ selenium webdriver | phantom.js + ghost.js
 ##Anwendungsfälle
 pre- &
 post- deployment
-test nach jedem Check-in / stündlich
+test nach jedem Check-in 
+
+Tom will hier usecase Diagram
 
 ##Qualitätsanforderungen
 
@@ -193,29 +214,50 @@ test nach jedem Check-in / stündlich
 ##Zielplattform
 Die Testumgebung soll auf den vorhandenen Servern, auf denen auch der GRAVIS Onlineshop betrieben wird, betrieben werden. Dort läuf aktuell ein gentoo GNU/Linux mit jeweils mindestens 2Gb RAM. 
 
+
+->> Freiheit: Ich schlage vor egal auf welchem Unix da S11, EC2 oder RZdus 
+
 ##Architekturdesign
 
-##*more*
+
 
 ##Maßnamen zur Qualitässicherung
 
 Es wird früh in der Implementierungsphase ein Beispieltest erstellt der die Funktionalität des System beweisen kann. Der Code der Tests als auch der Schnittstelle wird in SVN versionsverwaltet sodass es einfach möglich ist funktionierende Versionen wiederherzustellen.
 
+ggf Empfehlung zur Veriosnierung des Testrunner
+
 ##Pflichtenheft
 
-#Implementierungsphase
+> ist im Anhang zu finden
 
-##Implementierte Datenstrukturen
-
-##Implementierung der Benutzeroberfläche
+<!-- ##Implementierung der Benutzeroberfläche
 * Ausgelöst wird in Go
 * Keine Eigene GUI
 * Ergebnisse in ANT boolen in Go
 * Testartifacts werden in Go geladen
 
-##Implementierung der Geschäftslogik
+%##Implementierung der Geschäftslogik--->
+
+#Implementierungsphase
+
+> Hier erzähle ich was ich tatsächlich gemacht habe, auch welche Probleme aufgetreten sind
+
 
 #Testphase
+
+###Kritereien an Beispieltest
+
+> Die können ggf auch in das Pflichtenheft
+
+* 1 Fail
+* 1 Success
+* 1 Artefakterzeugung
+* 1 Commentar / Beschreibung (Debug output für Step-by-Step debugging)
+* HTTPS fähig ?
+* Form submission "wie ein Mensch im grafischen Interface / in den Feldern" nicht nur ein HTTP-POST request.
+
+-> Ziel ist eine Bestellung aufgeben zu können
 
 #Abnahmnephase
 

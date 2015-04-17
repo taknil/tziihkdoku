@@ -40,19 +40,7 @@
 \tableofcontents
 \clearpage
 
-\listoffigures
-\clearpage
 
-\listoftables
-\clearpage
-
-\newcommand{\abkvz}{Abkürzungsverzeichnis}
-\renewcommand{\nomname}{\abkvz}
-\section*{\abkvz}
-\markboth{\abkvz}{\abkvz}
-\addcontentsline{toc}{section}{\abkvz}
-\input{Abkuerzungen}
-\clearpage
 
 % Inhalt ---------------------------------------------------------------------
 \pagenumbering{arabic}
@@ -71,6 +59,24 @@
 %\appendix
 %\pagenumbering{roman}
 %\input{Anhang.tex}
+
+% Formaler Anhang ----------
+\clearpage
+\listoffigures
+
+
+
+\listoftables
+\clearpage
+
+\newcommand{\abkvz}{Abkürzungsverzeichnis}
+\renewcommand{\nomname}{\abkvz}
+\section*{\abkvz}
+\markboth{\abkvz}{\abkvz}
+\addcontentsline{toc}{section}{\abkvz}
+\input{Abkuerzungen}
+\clearpage
+
 
 %credit for author of LaTeX Template
 %Diese \LaTeX-Vorlage wurde von Stefan Macke\footnote{Blog des Autors: \url{http://blog.macke.it}, Twitter: \Eingabe{@StefanMacke}} entwickelt. Download-Link für diese Vorlage: \url{http://f.macke.it/LaTeXVorlageFIAE}
