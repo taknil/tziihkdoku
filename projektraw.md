@@ -197,6 +197,10 @@ manueller Tester | phantom.js+ selenium webdriver | phantom.js + ghost.js
 * erhöht Vertrauen in den Code    
 
 ##Anwendungsfälle
+Im laufe der Analysephase wurde mit dem Anforderer ein Anwendungsfalldiagramm erstellt welches eine Übersicht der Anwedungesfällt gibt. Es gibt alle Funktionen an die aus sicht des Endanwender benötigt werden. 
+
+Die Anforderungskriterien im Lastenheften wurden entlang einer User-Story 
+
 pre- &
 post- deployment
 test nach jedem Check-in 
@@ -218,7 +222,23 @@ Die Testumgebung soll auf den vorhandenen Servern, auf denen auch der GRAVIS Onl
 ->> Freiheit: Ich schlage vor egal auf welchem Unix da S11, EC2 oder RZdus 
 
 ##Architekturdesign
+Als headless-Browser wurde Phantom.js gewählt. Phantom.js hat sich als Industriestandart für Browseranwendungen in headless Umgebungen etabliert, verfügt von sich aus bereits über Funktionalitäten für Front-End Tests, bringt vor allem aber eine große Zahl unterstüzender Frameworks mit. Bei Phantom.js handelt es sich um die Webkit layout engine bekannt aus Apples Safari Browser gekoppelt mit einer Javascript runtime und einer Kapselung in QT. Eine alternative Anwendung die auf der Gecko layout engine des Firefox Browser aufbaut, slimer.js ist in seiner Architektur noch nicht gefestigt und konnte so nicht für den Einsatz in Betracht gezogen werden.
 
+Die Auswahl der Test-Runtime, mit der das Projekt realisiert werden soll wurde anhand einer Nutzwertanalyse durchgeführt.
+ [...] Die Gewichtung der Kriterien erfolgte entsprechend der Anforderungen an das Projekt, aber auch mit Ausblick an zukünftige Anwendungen und Erweiterungen
+
+Hier auch Nutzwertanalyse zwischen Frameworks
+
+| Kriterium | Gewichtung | phantom.js + selenium webdriver | phantom.js + ghost.js|
+| --------- | ---------: | -----: | ----------: |
+| Sexyness | 4 | 2| 3 |
+| Geschmaksrichtung | 1 | 2 | 5 |
+| Siedetemperatur | 1 | 2 | 5 |
+| open-sourceiness | 1 | 2 | 5 |
+| wiederverwendbarkeit von alten Tests | 1 | 2 | 5 |
+
+Gewichtung: 1 = verzichtbar , 2 = wünschenswert, 4 = erforderlich, 5 = unbeding erforderlich
+Bewertung: 0 = nicht vorhanden, 1 = mangelhaft, 2 = ausreichend, 3 = befriedigend, 4 = gut, 5 = sehr gut
 
 
 ##Maßnamen zur Qualitässicherung
@@ -283,4 +303,4 @@ ggf Empfehlung zur Veriosnierung des Testrunner
 
 ##Datenmodell
 
-##Benutzeroberfläche
+##Benutzeroberfläche
