@@ -1,5 +1,5 @@
 
-#Anforderungen
+##Anforderungen
 Im folgenden Auszug aus dem Lastenheft werden die Anforderungen definiert, die die Testumgebung erfülen muss.
 
 Die Anforderungen orientieren sich an einem minimalen/basis- Testscenario, der Bestellung eine Produkt im Webshop, welches vom Anforderer gewüscht ist. 
@@ -8,6 +8,7 @@ Testscenario:
 Seite des Shop aufrufen, prüfen ob richtige Seite, Anmeldeformular finden, einlogen, Produktseite aufrufen, Produkt in den Warenkorb legen, zum Warenkorb navigieren, Adresse auswählen, Bezahlen, Bestellung abschicken.
 
 Daraus abgeleitete Funktionalitäten:
+
 ###Testfähigkeiten
 * Seiten aufraufen
 * Überprüfen ob Element auf Seite vorhanden.
@@ -39,4 +40,4 @@ Zusätzlich zu den Fähigkeiten der Tests gibt es Anforderungen an die Testumgeb
 * muss aktuelle Tests, also deren Quellcode, aus der Versionsverwaltung _svn.gravis.de_ auschecken können
 
 
-#Nutzwertanalyse
+

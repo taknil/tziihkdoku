@@ -161,6 +161,15 @@ Durch die Automatisierung von immer wiederkehrenden Tests lässt sich Arbeitszei
 +Regressionstest Echt-System: 45min
 * 25€/h (Tester)+ 15€/h infra
 
+----------------------------
+Testumgebung         Dauer
+
+------------------   -------
+Stagingsystem        45 min
+
+Livesystem           45 min
+
+------------------   -------
 
 
 > // Daniel Sagt Amortisation nicht ausrechnen da 1000€ heute haben $\neq$ 1000€ morgen haben
@@ -171,20 +180,19 @@ Momentan wird im Zweiwöchen Zyklus deployt. Dadurch ergäbe sich eine Amortisat
  
 ---> $17monate$
 
-Erst duch den einsatz von Automatisierten Test aber wird ein neues Vorgehen möglich: Es sollen nicht mehr zwei-wöchentlich Deployments erfolgen sondern kontinuierlich, also täglich.
-Durch die neue Anzahl von maximal 5 Deployments pro Woche ergibt sich eine neue minimale Amortisationsdauer
-    
----> $2monate$
+
 
 
 
 
 ##Nutzwertanalyse
 
-manueller Tester | phantom.js+ selenium webdriver | phantom.js + ghost.js
-:----------- | :-----------: | -----------:
-3         | 3       | 4
-3        | 1        | 1
+> //Ich will eigentlich 2 Nutzwertanalysen machen, hier eine "Eignungsprüfung", einmal fallen tools raus wie htmlunit
+
+manueller Tester |  selenium webdriver | ghost.js | HTMLUnit |
+:----------- | :-----------: | -----------: | --- :
+3         | 3       | 4 | 8
+3        | 1        | 1  | 9 
 
 
 // Tabellen, vorselektion, entscheidung aus zwei
@@ -222,23 +230,38 @@ Die Testumgebung soll auf den vorhandenen Servern, auf denen auch der GRAVIS Onl
 ->> Freiheit: Ich schlage vor egal auf welchem Unix da S11, EC2 oder RZdus 
 
 ##Architekturdesign
-Als headless-Browser wurde Phantom.js gewählt. Phantom.js hat sich als Industriestandart für Browseranwendungen in headless Umgebungen etabliert, verfügt von sich aus bereits über Funktionalitäten für Front-End Tests, bringt vor allem aber eine große Zahl unterstüzender Frameworks mit. Bei Phantom.js handelt es sich um die Webkit layout engine bekannt aus Apples Safari Browser gekoppelt mit einer Javascript runtime und einer Kapselung in QT. Eine alternative Anwendung die auf der Gecko layout engine des Firefox Browser aufbaut, slimer.js ist in seiner Architektur noch nicht gefestigt und konnte so nicht für den Einsatz in Betracht gezogen werden.
+Als headless-Browser wurde Phantom.js gewählt. Phantom.js hat sich als quasi-Industriestandart[^phantomjscookbook] für Browseranwendungen in headless Umgebungen etabliert, verfügt von sich aus bereits über Funktionalitäten für Front-End Tests, bringt vor allem aber eine große Zahl unterstüzender Frameworks mit. Bei Phantom.js handelt es sich um die Webkit layout engine bekannt aus Apples Safari Browser gekoppelt mit einer Javascript runtime und einer Kapselung in QT. Eine alternative Anwendung die auf der Gecko layout engine des Firefox Browser aufbaut, slimer.js ist in seiner Architektur noch nicht gefestigt und konnte so nicht für den Einsatz in Betracht gezogen werden.
+
+[^phantomjscookbook]: phantomjs cookbook, packt-publishing (2014)
 
 Die Auswahl der Test-Runtime, mit der das Projekt realisiert werden soll wurde anhand einer Nutzwertanalyse durchgeführt.
- [...] Die Gewichtung der Kriterien erfolgte entsprechend der Anforderungen an das Projekt, aber auch mit Ausblick an zukünftige Anwendungen und Erweiterungen
+ [...] Die Gewichtung[^nugewichtung] und Bewertung[^nubewertung] der Kriterien erfolgte entsprechend der Anforderungen an das Projekt, aber auch mit Ausblick an zukünftige Anwendungen und Erweiterungen
 
 Hier auch Nutzwertanalyse zwischen Frameworks
 
-| Kriterium | Gewichtung | phantom.js + selenium webdriver | phantom.js + ghost.js|
-| --------- | ---------: | -----: | ----------: |
-| Sexyness | 4 | 2| 3 |
-| Geschmaksrichtung | 1 | 2 | 5 |
-| Siedetemperatur | 1 | 2 | 5 |
-| open-sourceiness | 1 | 2 | 5 |
-| wiederverwendbarkeit von alten Tests | 1 | 2 | 5 |
 
-Gewichtung: 1 = verzichtbar , 2 = wünschenswert, 4 = erforderlich, 5 = unbeding erforderlich
-Bewertung: 0 = nicht vorhanden, 1 = mangelhaft, 2 = ausreichend, 3 = befriedigend, 4 = gut, 5 = sehr gut
+a different table format
+
+--------------------------------------------------------------
+Kriterium        Gewichtung  pjhantom.js          pjhantom.js 
+                              selenium webdriver   ghost.js 
+----------------- ----------  -------------------  ------------
+hipster faktor         4           23                    5
+
+sexyness               4           3rt                   34
+
+viscosität bei                    3m/sl                 3m/sl
+Raumteperatur              4
+
+Siedetemperatur        4           5                    34
+
+open-sourceiness       4           23                    3434
+----------------- ----------  -------------------  ------------
+
+
+
+[^nugewichtung]: Gewichtung: 1 = verzichtbar , 2 = wünschenswert, 4 = erforderlich, 5 = unbeding erforderlich
+[^nubewertung]: Bewertung: 0 = nicht vorhanden, 1 = mangelhaft, 2 = ausreichend, 3 = befriedigend, 4 = gut, 5 = sehr gut
 
 
 ##Maßnamen zur Qualitässicherung
@@ -281,6 +304,8 @@ ggf Empfehlung zur Veriosnierung des Testrunner
 
 #Abnahmnephase
 
+Abgleich der Punkte aus Lastenheft, alle abgehakt? -> abgenommen.
+
 #Einführungsphase
 
 #Dokumentation
@@ -294,13 +319,4 @@ ggf Empfehlung zur Veriosnierung des Testrunner
 ##Ausblick
 
 ---------
-
-#Anhang
-
-##Detaillierte Zeitplanung
-
-##lastenheft
-
-##Datenmodell
-
-##Benutzeroberfläche
+
