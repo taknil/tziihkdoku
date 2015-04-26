@@ -9,6 +9,7 @@ Die mobilcom-debitel GmbH ist ein in Deutschland agierendes Unternehmen der Free
 \\
 
 ##Das Projekt
+
 >unklar wo dieser § hin soll
 
 Das Projekt beinhaltet die Analyse, Konzeption und Einrichtung einer Laufzeitumgebung für funktionale Front-End-Tests der betreuten Onlineshops, dem GRAVIS Onlineshop und dem MDS Onlineshop. Diese Umgebung soll in das Continuous-Delivery System _Go_ eingebunden, werden um vollautomatisches Testen zu ermöglichen. Hauptbedarfsträger ist das Entwicklungsteam _Vertrieb Onlineshop CMS_, welches eine geringere Arbeitslast beim Einsatz dieses System zum Testen erwartet.
@@ -223,6 +224,21 @@ Tom will hier usecase Diagram
 
 # Entwurfsphase
 
+>//habe auch hosted lösungen wie casperbox (tot) und ghostinspektor angesehen. Letzeres gefällt aber ist nicht eigene infrastruktur, keine Integration in GO möglich und kosten viel geld (geht so, aber mehr als budget 0€ für software) 
+
+> //ich habe hier mehrere Software evaluiert und rausgefunden dass slimerjs (Gecko) nicht wirklich headless ist und immer noch einen XVFB (X-Window Virtual frame buffer) braucht.
+> Die entscheidung Fiel dann auf phantom.js
+> // versucht phantomjs 2 zum laufen zu kriegen: keine chance, kompiliert nicht auf Linux, starte nicht auf dem mac
+>    – ok, nehme phantomjs1.9.8
+> casperjs ist es geworden weil industristandart.
+
+>//unabhängige entwickler (aus Philips Firma) haben von Dalekjs abgeraten da unfertig und kaum support vom entwickler, gar pullrequest für fixes wurden ignoriert.
+
+
+>// grobe struktur für Test und Beispieltest angesehen. Casper ist schick.
+
+
+
 ##Zielplattform
 Die Testumgebung soll auf den vorhandenen Servern, auf denen auch der GRAVIS Onlineshop betrieben wird, betrieben werden. Dort läuf aktuell ein gentoo GNU/Linux mit jeweils mindestens 2Gb RAM. 
 
@@ -285,6 +301,7 @@ ggf Empfehlung zur Veriosnierung des Testrunner
 #Implementierungsphase
 
 > Hier erzähle ich was ich tatsächlich gemacht habe, auch welche Probleme aufgetreten sind
+
 
 
 #Testphase

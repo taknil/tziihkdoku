@@ -2,19 +2,20 @@
 >//ich bin ein Lösungskonzept, quasi, glaube ich
 
 Im folgenden Auszug aus dem Pflichtenheft wird die geplante Umsetzung der im Lastenheft definierten Anforderungen beschrieben
+
 ###Umsetzung der Anforderungen Test-Runtime
 
 > // Todo: habe wohl manchmal ghost und ghostjs geschrieben, ist falsch, das ist was anderes. Alles so Gespensterworte, da kommt man durcheinander.
 
 * Als Browser der Testumgebung wird PhantomJS[^phantomjsweb] gewählt. Die Installation erfolgt über die Paketverwaltung der jeweiligen Distribution, das heißt portage[^portageweb] für Gentoo, APT[^aptweb] auf Ubuntu, brew[^brewweb] auf MacOS. `ich möchte das extra ansprechen, muss aber nicht im Pflichtenheft sein ->` Es werden die Binärdateien aus den jeweiligen Repositories genutzt. Zum Projektzeitpunkt wird PhantomJS 1.9.8 verteil.  PhantomJS sollte nicht selbst kompiliert werden da es enorm viele Abhängigkeiten hat, was viele zusätzliche Fehlerquellen mit sich ziehen kann, und weil der Kompiliervorgang auch einem modernen Applikationsserver mehrere Stunden dauert. Da PhantomJS 2.0.0 auf dem Macintosh noch nicht startet und für linux nicht compiliert und die Tests und Testsuiten auf solchen Rechnern erstellt werden sollen, ist es empfohlen bei der stabilen Version 1.9.8 zu bleiben die sowohl unter Linux als auch Mac und Windows eingesetzt werden kann.
 
-     #asert you are on a 32 bit system
+     #asert you are on a 32 bit system`
     cd /usr/local/share
     sudo wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-i686.tar.bz2
     sudo tar xjf phantomjs-1.9.8-linux-i686.tar.bz2
     sudo ln -s /usr/local/share/phantomjs-1.9.8-linux-i686/bin/phantomjs /usr/local/share/phantomjs
     sudo ln -s /usr/local/share/phantomjs-1.9.8-linux-i686/bin/phantomjs /usr/local/bin/phantomjs
-    sudo ln -s /usr/local/share/phantomjs-1.9.8-linux-i686/bin/phantomjs /usr/bin/phantomjs
+    sudo ln -s /usr/local/share/phantomjs-1.9.8-linux-i686/bin/phantomjs /usr/bin/phantomjs`
 
 
 *  Als Test Runtime wird casperJS[^casperjsweb] genutzt, es steht ebenfalls in den gängigen Repositories zur Verfügung und muss nicht selbst kompiliert werden.
