@@ -1,0 +1,55 @@
+    <pipeline name="UL.iamacasperpieline">
+      <materials>
+        <svn url="https://svn.gravis.de/go/trunk/" username="go" encryptedPassword="flPzi3+53VWc4hhm6bmQqg==" checkexternals="true" dest="go" autoUpdate="false" materialName="go" />
+        <svn url="https://svn.gravis.de/testing/trunk" username="go" encryptedPassword="flPzi3+53VWc4hhm6bmQqg==" dest="testing" materialName="testing" />
+      </materials>
+      <stage name="prepare">
+        <jobs>
+          <job name="db.init">
+            <tasks>
+              <ant buildfile="go/casperjs.xml" target="db.init">
+                <runif status="failed" />
+              </ant>
+            </tasks>
+            <resources>
+              <resource>admin</resource>
+            </resources>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="test">
+        <jobs>
+        <jobs>
+          <job name="test">
+            <tasks>
+              <ant buildfile="go/casperjs.xml">
+                <runif status="passed" />
+              </ant>
+            </tasks>
+            <tabs>
+              <tab name="TestResult" path="html/html/index.html" />
+            </tabs>
+            <resources>
+              <resource>phpunit</resource>
+            </resources>
+            <artifacts>
+              <test src="artifacts" dest="tests" />
+              <artifact src="artifacts/html" dest="html" />
+            </artifacts>
+          </job>
+        </jobs>
+        </jobs>
+      </stage>
+      <stage name="postprocessing">
+        <jobs>
+          <job name="gather_artefacts">
+            <tasks>
+              <exec command="echo">
+                <arg>"will get screenshots"</arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
