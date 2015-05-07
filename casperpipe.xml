@@ -1,43 +1,50 @@
-    <pipeline name="UL.iamacasperpieline">
+ <pipeline name="UL.iamacasperpieline">
+      <environmentvariables>
+        <variable name="testproducts">129990,471100,134000,118836</variable>
+        <variable name="greet">TZI</variable>
+      </environmentvariables>
       <materials>
-        <svn url="https://svn.gravis.de/go/trunk/" username="go" encryptedPassword="flPzi3+53VWc4hhm6bmQqg==" checkexternals="true" dest="go" autoUpdate="false" materialName="go" />
-        <svn url="https://svn.gravis.de/testing/trunk" username="go" encryptedPassword="flPzi3+53VWc4hhm6bmQqg==" dest="testing" materialName="testing" />
+        <svn url="https://svn.gravis.de/testing/trunk" username="tzimmerl" encryptedPassword="stWAR6Tqgc8q2IU7e7ryIw==" dest="testing" materialName="testing" />
+        <svn url="https://svn.gravis.de/go/trunk/" username="tzimmerl" encryptedPassword="stWAR6Tqgc8q2IU7e7ryIw==" dest="go" materialName="go" />
       </materials>
       <stage name="prepare">
         <jobs>
-          <job name="db.init">
+          <job name="cleanup">
             <tasks>
-              <ant buildfile="go/casperjs.xml" target="db.init">
-                <runif status="failed" />
+              <ant buildfile="go/casperjs.xml" target="test.prepare">
+                <runif status="passed" />
+              </ant>
+              <ant buildfile="go/casperjs.xml" target="test.inform">
+                <runif status="passed" />
               </ant>
             </tasks>
             <resources>
-              <resource>admin</resource>
+              <resource>casperjs</resource>
             </resources>
           </job>
         </jobs>
       </stage>
-      <stage name="test">
+      <stage name="teststage" fetchMaterials="false">
         <jobs>
-        <jobs>
-          <job name="test">
+          <job name="runtests">
             <tasks>
-              <ant buildfile="go/casperjs.xml">
+              <ant buildfile="go/casperjs.xml" target="test.assesscasperjs">
+                <runif status="any" />
+              </ant>
+              <ant buildfile="go/casperjs.xml" target="test.casperwarguments">
+                <runif status="any" />
+              </ant>
+              <ant buildfile="go/casperjs.xml" target="test.example">
                 <runif status="passed" />
               </ant>
             </tasks>
-            <tabs>
-              <tab name="TestResult" path="html/html/index.html" />
-            </tabs>
             <resources>
-              <resource>phpunit</resource>
+              <resource>casperjs</resource>
             </resources>
             <artifacts>
               <test src="artifacts" dest="tests" />
-              <artifact src="artifacts/html" dest="html" />
             </artifacts>
           </job>
-        </jobs>
         </jobs>
       </stage>
       <stage name="postprocessing">
