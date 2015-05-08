@@ -112,6 +112,8 @@ detailierte Übersicht befindet sich im Anhang "Detaillierte Zeitplanung"
 
 >Tabelle mit Latex Formatierung folgt im Anhang
 
+
+
   Projektphase                                                         Detailzeit   Phasenzeit
   ------------------------------------------------------------------ ------------ ------------
   Analysephase                                                                             10h
@@ -153,16 +155,19 @@ somit der vorher veranschlagten Planzeit. Siehe detaillierte Zeitplanung.
 ##Ressourcenplanung
 
 
-Personal:
-* 1 Entwickler: Umsetzung des Projekt
-* 1 Softwarestratege / Projektleiter "Testing" für Anforderungsaufnahme, technische Rücksprachen und Abnahme
-* 1 Team *Vertrieb Onlineshop CMS* für einführende Schulung 
-* Hardware:
-	 Es soll keine zusätzliche Hardware für das Projekt angeschafft werden. Zum Einsatz kommt die Testumgebung auf den vorhandenen Serversystemen. Dem Entwickler steht ein Arbeitsplatzrecher (MacBookPro) zur Verfügung auf dem die Entwicklung und Evaluation von Software stattfinden soll.
-	 * Software: 
-	Es soll für die Testumgebung ausschließlich kostenfreie und/oder open-source Software mit einer Lizenz die kommerzielle Nutzung erlaubt eingesetzt werden. Die Software Go ist von GRAVIS lizensiert und verursacht im Rahmen des Projekt keine zusätzlichen Kosten. Go ist mittlerweile auch open-source und könnte bei Bedarf angepasst werden.
+###Personal  
+
+* 1 Entwickler: Umsetzung des Projekt
+* 1 Softwarestratege / Projektleiter "Testing" für Anforderungsaufnahme, technische Rücksprachen und Abnahme
+* 1 Team _Vertrieb Onlineshop CMS_ für einführende Schulung
+
+
+###Hardware
+Es soll keine zusätzliche Hardware für das Projekt angeschafft werden. Zum Einsatz kommt die Testumgebung auf den vorhandenen Serversystemen. Dem Entwickler steht ein Arbeitsplatzrecher (MacBookPro) zur Verfügung auf dem die Entwicklung und Evaluation von Software stattfinden soll.
+	 ###Software
+Es soll für die Testumgebung ausschließlich kostenfreie und/oder open-source Software mit einer Lizenz die kommerzielle Nutzung erlaubt eingesetzt werden. Die Software Go ist von GRAVIS lizensiert und verursacht im Rahmen des Projekt keine zusätzlichen Kosten. Go ist mittlerweile auch open-source und könnte bei Bedarf angepasst werden.
 ###Liste der eingesetzen Software
-* MacOS X* Gentoo GNU/Linux* Ubuntu GNU/Linux 14.04* Oracle VirtualBox* SublimeText2 als Texteditor* git & svn zur Versionsverwaltung der Projektsoftware, -Dokumentation und Tests. * phantomJS als Headless Browser* casperJS als Testrunner* ghostdriver als Testrunner* Thoughtworks Go also CI/CD Platform* SeleniumIDE Plugin für Firefox* pandoc, pdflatex, MacTeX, MacDown, Mou zur Erstellung der Projektdokumentation
+* MacOS X* Gentoo GNU/Linux* Ubuntu GNU/Linux 14.04* Oracle VirtualBox* SublimeText2 als Texteditor* git & svn zur Versionsverwaltung der Projektsoftware, -Dokumentation und Tests. * phantomJS als Headless Browser* casperJS als Testrunner* ghostdriver als Testrunner* Thoughtworks Go also CI/CD Platform* SeleniumIDE Plugin für Firefox* pandoc, pdflatex, MacTeX, MacDown, Mou zur Erstellung der Projektdokumentation
 
 ##Entwicklungsprozess
 
@@ -200,7 +205,7 @@ Ausrollen von fehlerhaftem Code auf dem Echt-System verhindert.
 
 ##Wirschaftlichkeitsanalyse
 
-Auf Grund der Probleme des momentanen Prozess, der im Abschnitt \ref Ist-Analysegeschildert wurde ist die Umsetzung des Projekt unbedingt erforderlich.
+Auf Grund der Probleme des momentanen Prozess, der im Abschnitt \ref Ist-Analyse geschildert wurde ist die Umsetzung des Projekt unbedingt erforderlich.
 
 
 ### Make or Buy Entscheidung
@@ -224,25 +229,30 @@ Personalkosten für den Entwickler und weitere Mitarbeiter auch noch die
 Aufwendungen für die Ressourcen berücksichtigt werden. Da Kalkulation
 wird anhand von branchenüblichen Stundensätzen durchgeführt. Der
 Stundensatz eines Auszubildenden im 3. Lehrjahr beträgt demzufolge
-*6,79€/h* [^hourlyrate], der eines Mitarbeiters *28,45€/h* [^hourlyrate]. Als Gemeinkosten für
+*6,79€/h* , der eines Mitarbeiters *28,45€/h* [^hourlyrate]. Als Gemeinkosten für
 Ressourcennutzung im Unternehmen (Hardware und Software, Büroarbeitsplatz etc.) wurde ein berechneter Stundensatz von 7,90€/FTE von Controling mitgeteilt.
 angenommen.
 
-[^hourlyrate]: Stundensätze wurden aus dem Unternehmensinternen Controling bereitgestellt
+[^hourlyrate]: Stundensätze wurden aus dem uUnternehmensinternen Controling bereitgestellt
+
+
 
 \begin{figure}
-\[ \frac{ \eur{1000}\mbox{/Monat} \cdot 12\frac{Monate}{Jahr} }{ (8\frac{h}{Tag} \cdot 221\frac{Tage}{Jahr} )}=  \eur{6,79}\mbox{/h} \]
+\begin{equation}
+\frac{ \eur{1000}\mbox{/Monat} \cdot 12\mbox{Monate/Jahr} }{ (8\mbox{h/Tag} \cdot 221\mbox{Tage/Jahr} )}=  \frac{\eur{6,79}}{h}
+\end{equation}
 \caption{Kosten eines Auszubildenden}
 \end{figure}
 
 
-  Vorgang                                                    Zeit Kosten pro Stunde        Kosten
-  -------------------------------------------------------- ------ ------------------- -----------
-  Entwicklungskosten                                          70h 6,79€ + 7,90€         1028,30€
-  Fachgespräch mit Projektanforderer                           3h 28,45€ + 7,90€        109,05€
-  Abnahmetest                                                  1h 28,45€ + 7,90€        36,35€
-  Nutzerschulung  (4 Entwickler)                               2h 113,8€ + 31,60€       290,80€
-  \vtop{\hbox{\strut Projektkosten}\hbox{\strut Gesamt}}                                1464,50 €
+
+Vorgang                                                    Zeit Kosten pro Stunde        Kosten
+-------------------------------------------------------- ------ ------------------- -----------
+Entwicklungskosten                                          70h 6,79€ + 7,90€         1028,30€
+Fachgespräch mit Projektanforderer                           3h 28,45€ + 7,90€        109,05€
+Abnahmetest                                                  1h 28,45€ + 7,90€        36,35€
+Nutzerschulung  (4 Entwickler)                               2h 113,8€ + 31,60€       290,80€
+\vtop{\hbox{\strut Projektkosten}\hbox{\strut Gesamt}}                                1464,50 €
 
 ### Kostenersparnis
 
@@ -252,18 +262,25 @@ Durch die Automatisierung von immer wiederkehrenden Tests lässt sich
 Arbeitszeit des Testingenieuren einsparen. Dadurch würden sich die
 Personalkosten reduzieren lassen. 
 
-----------------------------
+-------------------  -------
 Testumgebung         Dauer
-
-------------------   -------
+-------------------  -------
 Staging-System        45 min
 
-live-System           45 min
+Live-System           45 min
+-------------------  -------
 
-------------------   -------
 
-Für Regressionstests werden 45min veranschlagt. Pro Deployment wird einmal vorab auf dem Staging System getestet und nach dem Ausspiel noch einmal im Echtestem. Beim aktuellen Vorgehen wird alle 2 Wochen ausgespielt was eine Ersparnis von $ 2 \cdot 45min \cdot \frac{2 Deployments}{Monat} \cdot 28,45\frac{\euro}{h} = 85,35\frac{\euro}{Monat} $    
-Der Einsatz automatisierter Tests aber ermöglicht ein neues Vorgehen mit höherer Kadenz mit bis zu 3 Deployments pro Woche, also ca 12 Deployments pro Monat. Dadurch ergibt sich eine Ersparnis von $ 2 * 45min * \frac{12 Deployments}{Monat} * 28,45\frac{\euro}{h} = 512,1\frac{\euro}{Monat} $.    
+
+Für Regressionstests werden 45min veranschlagt. Pro Deployment wird einmal vorab auf dem Staging System getestet und nach dem Ausspiel noch einmal im Echtestem. Beim aktuellen Vorgehen wird alle 2 Wochen ausgespielt was eine Ersparnis von 
+\begin{eqnarray}
+ 2 \cdot 45min \cdot 2\frac{Deployments}{Monat} \cdot \frac{\eur{28,45}}{h} =  \frac{\eur{85,35}}{h}
+\end{eqnarray}
+    
+Der Einsatz automatisierter Tests aber ermöglicht ein neues Vorgehen mit höherer Kadenz mit bis zu 3 Deployments pro Woche, also ca 12 Deployments pro Monat. Dadurch ergibt sich eine Ersparnis von 
+\begin{eqnarray}
+ 2 * 45min \cdot 12 \frac{ Deployments}{Monat} \cdot \frac{\eur{28,45}}{h} =  \frac{\eur{512,10}}{h} 
+\end{eqnarray}   
 Tatsächlich aber wir der Tester in der gesparten Zeit anderweitig eingesetzt sodass sich keine reale Ersparnis ergibt.
 
 <!-- ###Nutzwertanalyse 
@@ -289,7 +306,7 @@ Tatsächlich aber wir der Tester in der gesparten Zeit anderweitig eingesetzt so
 ##Anwendungsfälle
 
 
-Im Laufe der Analysephase wurde mit dem Anforderer ein Anwendungsfalldiagramm (siehe Anhang) erstellt welches eine Übersicht der Anwedungesfälle gibt. Es gibt alle Funktionen an die aus Sicht des Endanwender benötigt werden wieder. Automatisierte Tests können als aktive und kontinuierliche Qualitätssicherungsmaßname genutzt werden. Der Entwickler kann sich entscheiden bereits auf der Integrationsumgebung den aktuellen Entwicklungsstand zu testen. Auf der anderen Seite kann können die Regressionstests auch direkt in den Deploymentprozess integriert werden und ggf. das Ausspiel von fehlerbehafteter Software verhindern wenn im Vorfeld bereits Testfälle fehlschlagen. Im Zusammenhang mit dem CI/CD System wird auch eine Historie der Softwarequalität vorgehalten.
+Im Laufe der Analysephase wurde mit dem Anforderer ein Anwendungsfalldiagramm (siehe Anhang) erstellt welches eine Übersichtt der Anwedungesfälle gibt. Es gibt alle Funktionen an die aus Sicht des Endanwender benötigt werden wieder. Automatisierte Tests können als aktive und kontinuierliche Qualitätssicherungsmaßname genutzt werden. Der Entwickler kann sich entscheiden bereits auf der Integrationsumgebung den aktuellen Entwicklungsstand zu testen. Auf der anderen Seite kann können die Regressionstests auch direkt in den Deploymentprozess integriert werden und ggf. das Ausspiel von fehlerbehafteter Software verhindern wenn im Vorfeld bereits Testfälle fehlschlagen. Im Zusammenhang mit dem CI/CD System wird auch eine Historie der Softwarequalität vorgehalten.
 
 
 
@@ -334,7 +351,7 @@ Bei diesem Projekt sind mehrere Komponenten involviert deren Entwicklung getrenn
 Die Testsuiten und deren Abhängigkeiten werden in einem separaten SVN-Repository "testing" verwaltet in dem bereits Code für Performancetests und Unit-Tests vorgehalten wird.
 Im "testing" Repository bestimmt die Ordnerstruktur die Testsuite sodass später im ANT-Task nur noch der Pfad spezifiziert werden muss um eine Testsuite auszuwählen. Ich habe zur Demonstration 5 Testsuiten angelegt, 2 tiefgründige und 2 oberflächliche Testszenarien für jeweils das Echt- und Stagingsystem und eine "demo"-Testsuite die den Anforderungen entsprechend die Funktionalität der Testumgebung unter Beweis stellt.
 \begin{figure}
-
+<!--
     casperjs
     ├── setup
     │   ├── basicauth.js
@@ -348,7 +365,8 @@ Im "testing" Repository bestimmt die Ordnerstruktur die Testsuite sodass später
          │   ├── testthesearch.js
          ├── shallow_live
          └── shallow_stage
-
+-->
+\begin{equation}5 ordner + 1 ordner \end{equation}
 \caption{Ordnerstruktur der Testsuiten im}
 \label{fig:testingfolderstructure}
 \end{figure}
@@ -362,7 +380,7 @@ Im "testing" Repository bestimmt die Ordnerstruktur die Testsuite sodass später
 Die Benutzer der Testumgebung sollen sich schnell zurecht finden und sind bereits gewohnt Go zu benutzen. Es kann darauf verzichtet werden zusätzliche Bedienelemente und -oberflächen einzuführen. Testläufe werden wie jede Pipeline in Go ausgelöst, entweder durch einen einfachen Klick in der Weboberfläche, siehe \ref{fig:goguitrigger}  oder als post-commit-hook des Testing Repositories.
 Die Auswahl der Testsuite und die Konfiguration weiterer Optionen erfolgt in den Umgebungsvariablen der Pipeline, ebenfalls standardmäßig in der Weboberfläche zu erreichen.
 Ausgaben von Testläufen werden in der standardmäßigen Ansicht einer Pipeline in Go sichtbar. Go sieht es vor eine zusätzliche Registerkarte in der Auswertung anzuzeigen in der Artefakte präsentiert werden können. In der Registerkarte kann
-
+<!--
 \begin{figure}
 \centering
 \includegraphicsKeepAspektratio{gouitrigger.png}{0.9}
@@ -376,6 +394,7 @@ Ausgaben von Testläufen werden in der standardmäßigen Ansicht einer Pipeline 
 \caption{Abbildung Go UI Pipeline Auswertung}
 \label{fig:goguisummary}
 \end{figure}
+-->
 
 ##Datenmodell
 
@@ -386,7 +405,7 @@ Go leitet Ausgabe der ANT-Skripte in eine Datei namens `console.log` die  pro St
 In dieser Ausgabe finden sich alle Ausgaben der ANT Tasks und der Prozesse und Skripte die ANT Startet.
 Zum Debugging beschriebt CasperJS auf Wunsch in die Standardausgabe (`--verbose=true --log-level=debug`) jeden einzelnen Schritt der im Browser gegangen wird, von HTTP-Request, Javascript-Operationen und Veränderungen des DOM.
 Im produktiven Einsatz genügt das Log-Level`--log-level=error` bei dem nur Fehler ausgegeben werden. Dies mach das Log lesbarer und hilft bei der Fehlerdiagnose.
-
+<!--
 \begin{figure}
 
     /var/lib/go-server/artifacts/pipelines/UL.iamacasperpieline/14
@@ -417,16 +436,17 @@ Im produktiven Einsatz genügt das Log-Level`--log-level=error` bei dem nur Fehl
 \caption{Ordnerstruktur der Artefakte}
 \label{fig:gofolderstructure}
 \end{figure}
+-->
 
 
 
-Eine Datei im "JUNIT XML result Format" in der die Ergebnisse der Testläufe in Testsuiten gebündelt für jeden Testfall aufgelistet werden ist gefordert.  Das Schema dieses XML Austauschformat ist als de-facto Standard festgeschrieben [^junitxmlxsd] und wird von vielen *Unit* Testframeworks erstellt und von weiteren Systemen verarbeitet. Dieses Austauschformat ermöglicht in Zukunft tiefergehende Auswertung von Testergebnissen da es vollständig Maschinenlesbar ist.
+Eine Datei im "JUNIT XML result Format" in der die Ergebnisse der Testläufe in Testsuiten gebündelt für jeden Testfall aufgelistet werden ist gefordert.  Das Schema dieses XML Austauschformat ist als de-facto Standard festgeschrieben [^unitxsl] und wird von vielen *Unit* Testframeworks erstellt und von weiteren Systemen verarbeitet. Dieses Austauschformat ermöglicht in Zukunft tiefergehende Auswertung von Testergebnissen da es vollständig Maschinenlesbar ist.
 CasperJS liefert mit dem Argument `--XUNIT=junit.xml` eine solche Datei.
 
 
 
 CasperJS Tests sind sind so designt dass sie im Fehlerfalleine Screenshots der aktuellen Seite im PGN-Format aufnehmen. Auch damit lässt sich ein Problem leichter lokalisieren und visualisieren. Screenshots werden in der Ordner "artifacts" der jeweiligen Stage gespeichert und sind dadurch auch leicht im Webinterface von Go zu erreichen.
-[^junitxmlxsd]:JUNIT XML result schema https://windyroad.com.au/dl/Open%20Source/JUnit.xsd
+[^unitxsd]:JUNIT XML result schema https://windyroad.com.au/dl/Open%20Source/JUnit.xsd
 
 
 
@@ -470,8 +490,8 @@ Bei der Abnahme wurde noch ein Instalationsprotokoll gewünscht damit das vorgeh
 > das Instalationsprotokoll kommt nicht in den Anhang.
    
 ###Erstellen der Beispieltestsuite
-Das CasperJS Modul "tester" stellt die stellt die meisten in Lastenheft geforderten Funktionalität bereit. Mit Hilfe der sehr guten online Dokumentation von CasperJS und seiner Module [^casperdocstester] und entlang des Szenarios eines Kunden der im GRAVIS Online Shop einkaufen möchte wurde eine Bespieltestsuite geschrieben.
-Es musste besondere Sorgfalt auf die Konvention der Tests in CasperJS gelegt werden, denn die Test werden in Javascript geschrieben und dies wird Asynchron ausgeführt wenn nicht explizit eine Schrittfolge mit `caserper.then()` definiert wird. Es wurden auch explizite Fehlerpunkte eingebaut die einen Test scheitern lassen um das Verhalten im Fehlerfall reproduzieren und testen zu können.
+Das CasperJS Modul `tester` stellt die stellt die meisten in Lastenheft geforderten Funktionalität bereit. Mit Hilfe der sehr guten online Dokumentation von CasperJS und seiner Module [^casperdocstester] und entlang des Szenarios eines Kunden der im GRAVIS Online Shop einkaufen möchte wurde eine Bespieltestsuite geschrieben.
+Es musste besondere Sorgfalt auf die Konvention der Tests in CasperJS gelegt werden, denn die Test werden in Javascript geschrieben und dies wird Asynchron ausgeführt wenn nicht explizit eine Schrittfolge mit `caserper.then()` definiert wird. Es wurden auch absichtliche Fehlerpunkte eingebaut die einen Test scheitern lassen um das Verhalten im Fehlerfall reproduzieren und testen zu können.
 
 [^casperdocstester]:http://casperjs.readthedocs.org/en/latest/modules/tester.htm
    
