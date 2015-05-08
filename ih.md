@@ -266,7 +266,7 @@ Für Regressionstests werden 45min veranschlagt. Pro Deployment wird einmal vora
 Der Einsatz automatisierter Tests aber ermöglicht ein neues Vorgehen mit höherer Kadenz mit bis zu 3 Deployments pro Woche, also ca 12 Deployments pro Monat. Dadurch ergibt sich eine Ersparnis von $ 2 * 45min * \frac{12 Deployments}{Monat} * 28,45\frac{\euro}{h} = 512,1\frac{\euro}{Monat} $.    
 Tatsächlich aber wir der Tester in der gesparten Zeit anderweitig eingesetzt sodass sich keine reale Ersparnis ergibt.
 
-###Nutzwertanalyse
+<!-- ###Nutzwertanalyse 
 
 
 > unfinished
@@ -275,6 +275,9 @@ Tatsächlich aber wir der Tester in der gesparten Zeit anderweitig eingesetzt so
   ------------------ -------------------------------- -----------------------
   3                                 3                                       4
   3                                 1                                       1
+  
+  
+  -->
 
 ### Nicht-monetäre Vorteile
 
@@ -307,7 +310,15 @@ Ausgaben und Artefakte werden in einer Ordnerstruktur auf dem Dateisystem gespei
 
 ##Architekturdesign
 
+###Front-End-Tests
 
+> Schreibe ich hier für welchen *Testrunner* ich mich warum entscheiden habe?
+
+Die Anforderungen geboten Funktionale Tests durchzuführen und wie ein Nutzer mit der Website zu interagieren. Damit musste ein echter Webbrowser herangezogen werden und Frameworks wie HTMLUnit fielen aus der Auswahl.
+
+Da die Entscheidung der Test-Runntime für *casperJS*  getroffen wurde sollen Front-End-Tests das tester-Modul von CasperJS ansprechen hierfür gibt es 2 Möglichkeiten: Test in JavaScript schreiben oder in CoffeeScript. Das Team *Vertrieb Onlineshop CMS* setzt traditionell auf bewährte Technologie, darum wurde der Bespieltest in JavaScript geschrieben. Es bleibt weiterhin möglich CoffeScript zu nuzten, auch ein Mischbetrieb kann erreicht werden. Um eine sequenzielle Abarbeitung von Testschritten in der Funktionalen Programmiersprache Javascript zu gewährleisten bietet *casperJS* `.start()`, `.then()` und `.done()` Funktionen zum Kontrollfluss an.
+
+###Integration in *Go*
 Die Integration der Testumgebung  erfolgt mit ANT. Es wird eine XML Build-Datei erstellt die Targets, vergleichbar mit Funktionen in Programmiersprachen, definiert die durch Go in Pipelines gesteuert von ANT ausgeführt werden. Die Targets müssen die Gesamtheit der Aufgaben für einen Testlauf notwendig sind abbilden.
 Die Targets warden hit Tasks, also Befehlen gefüllt die zusammen eine Aufgabe erledigen. ANT kann von sich aus häufig benötigte Aufgaben wie das Kopieren, Verschieben, Entpacken von Dateien selber ausführen und Variablen, hier Properties genannt, erstellen und einsetzen. Darüber hinaus können ANT-Skripte weitere Werkzeuge, wie etwa Shell-Skripte, Java Programme oder PHP-Scripte auslösen.
 
@@ -420,10 +431,6 @@ CasperJS Tests sind sind so designt dass sie im Fehlerfalleine Screenshots der a
 
 
 
-##Beispieltest
-
- >// Testlogik
-
 
 ##Maßnamen zur Qualitätssicherung
 
@@ -436,19 +443,17 @@ CasperJS Sefltest
 
 ##Pflichtenheft
 
+Am Ende der Entwurfsphase wurde ein Pflichtenheft erstellt. Es baut auf dem Lastenheft auf. Dort wird beschrieben wie und mit welchen Werkzeugen der Author die Anforderungen des Fachbereich umsetzen möchte.
+Das Pflichtenheft dient als Leitpfaden für die Umsetzung des Projekt. Ein Auszug aus dem Pflichtenheft befindet sich im Anhang.
+
 
 #Implementierungsphase
 
 ##Setup
-Versionvverwaltung
-struktur der Ordner
+Vor Begin der Umsetzung von Funktionalität wurden die notwendigen SVN-Repositories auf dem Entwicklerrechner ausgecheckt damit bereits vorhandene Funktionalität für das Projekt mitbenutzt werden können.
 
-
-
-
-Instalation Dokumentiert "Instalationsprotokoll"
-
-
+Kurzes durchstöbern der Repositories legte es nahe eigene Unterordner und Builddateien für dieses Projekt anzulegen. Siehe ref Versionsverwaltung.
+Für den Texteditor wurden Linter für JavaScript und XML installiert um früh Tippfehler erkennen zu können.
 
 
 ###Installation Test-Runtime 
@@ -459,6 +464,10 @@ Der analoge Befehl `emerge Phantoms` brachte allerdings eine enorme dependency-L
 CasperJS wurde über portage auch nur in einer sehr veralteten Version verteilt sodass ich auch hier eine manuelle Installation vornehmen musste. Ein `git clone` des aktuellen casperJS Quellcode von github brachte mich auf die gewünschte Version 1.1.0-beta3.
 
 Trotz der erwarteten 2 Befehlszeilen und gefühlten 10 Minuten für die Installation der Software bin ich froh 3h dafür eingeplant zu haben da die Erfahrungen mit gentoo gelehrt haben dass immer mehr Zeit bei der Installation eingeplant werden muss da es immer Unstimmigkeiten mit Abhängigkeiten gibt.
+
+Bei der Abnahme wurde noch ein Instalationsprotokoll gewünscht damit das vorgehen Reproduzierbar und nachvollziehbar ist.
+
+> das Instalationsprotokoll kommt nicht in den Anhang.
    
 ###Erstellen der Beispieltestsuite
 Das CasperJS Modul "tester" stellt die stellt die meisten in Lastenheft geforderten Funktionalität bereit. Mit Hilfe der sehr guten online Dokumentation von CasperJS und seiner Module [^casperdocstester] und entlang des Szenarios eines Kunden der im GRAVIS Online Shop einkaufen möchte wurde eine Bespieltestsuite geschrieben.
@@ -485,7 +494,8 @@ Interaktive loginshell notwendig für casperjs Aufruf . Viel trial and error.
 ###Einsatz von Umgebungsvariablen   
 Einrichtung der Umgebungsvariablen aus den vorher definierten Tasks in der Pipeline und der Umgebung
 
-###Erweiterung des Bespieltest um Screenshots  
+###Erweiterung des Bespieltest um Screenshots 
+In *casperJS* können Bildschrimaufnahmen gespeichert werden. Über die Art der Bildschrimaufnahmen schweigen sich sowohl die Anforderungen als auch die Dokumentation von *casperJS* aus. Nach mehreren Versuchen stellte sich heraus `capture()` speichert standardmäßig das Element `<body>` was bei langen Listen auf der Website sehr lange Screenshot weit über die Grenze des Browser Viewport hinaus erzeugt. Nur die jeweils getesteten Elemente aufzunehmen erhört die Komplexität der Tests unnötigerweise und ist im Fehlerfall auch unsinnig da es natürlich nicht möglich ist nicht vorhanden Elementen aufzunehmen.
 
 ###Pipeline um Artefaktensammlung erweitern      
 
@@ -495,17 +505,18 @@ Einrichtung der Umgebungsvariablen aus den vorher definierten Tasks in der Pipel
 
 #Testphase
 
-in implementationsphase
+In der Implementierungsphase wurden die Beispieltests immer wieder ausgeführt, erst auf dem Entwicklungsrechner, dann auf dem Server. Zur Inbetriebnahme von *casperJS* wurde auch der Selbsttest des Framework `casperjs selftest` ausgeführt bei dem alle Funktionen ausgeführt wurden.
+Auf dem Server wurde nach dem Ausführen von Tests per ssh überprüft ob Artefakte an der richtigen Stelle erzeugt wurden. 
 
 #Abnahmephase
-
+Nachdem die Anwendung fertig gestellt war wurde sie dem Fachbereich zur Abnahme vorgelegt.
 
 
 #Einführungsphase
 
 
 ###Schulung
-Demo und Doku an die Hand geben
+Die Applikation wurde dem gesamten Team *Vertrieb Onlienshop CMS* vorgeführt-
 
 #Dokumentation
 
@@ -527,18 +538,23 @@ Demo und Doku an die Hand geben
 #Anhang
 
 
-Detaillierte Zeitplanung
-------------------------
+##Detaillierte Zeitplanung
 
-lastenheft
-----------
+##use case diagram
 
-Datenmodell
------------
+##lastenheft Auszug
 
-Benutzeroberfläche
-------------------
+##Benutzeroberfläche
 
 
-    \\
+
+##Pflichtenheft Auszug
+
+##komponentendiagramm
+
+##source of example test
+
+##source of casperjs build.xml
+
+##source of casperjs pipeline
 
