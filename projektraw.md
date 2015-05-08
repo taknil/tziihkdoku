@@ -8,11 +8,7 @@ Die mobilcom-debitel GmbH ist ein in Deutschland agierendes Unternehmen der Free
 [^mdkauftgra]: Pressemitteilung zur Übernahme von GRAVIS durch md http://www.presseportal.de/pm/65489/2385382/eans-news-freenet-ag-freenet-group-uebernimmt-gravis-und-wird-einer-der-groessten-partner-von-apple
 \\
 
-##Das Projekt
 
->unklar wo dieser § hin soll
-
-Das Projekt beinhaltet die Analyse, Konzeption und Einrichtung einer Laufzeitumgebung für funktionale Front-End-Tests der betreuten Onlineshops, dem GRAVIS Onlineshop und dem MDS Onlineshop. Diese Umgebung soll in das Continuous-Delivery System _Go_ eingebunden, werden um vollautomatisches Testen zu ermöglichen. Hauptbedarfsträger ist das Entwicklungsteam _Vertrieb Onlineshop CMS_, welches eine geringere Arbeitslast beim Einsatz dieses System zum Testen erwartet.
 
 ##Projektumfeld
 Das Projekt wurde im Rahmen der Ausbildung zum Fachinformatiker mit der Fachrichtung Anwendungsentwicklung durchgeführt.
