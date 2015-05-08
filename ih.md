@@ -30,7 +30,6 @@ Arbeitslast beim Einsatz dieses System zum Testen erwartet.
 
 ##Das Projekt
 
->unklar wo dieser § hin soll
 
 Das Projekt beinhaltet die Analyse, Konzeption und Einrichtung einer Laufzeitumgebung für funktionale Front-End-Tests der betreuten Onlineshops, dem GRAVIS Onlineshop und dem MDS Onlineshop. Diese Umgebung soll in das Continuous-Delivery System _Go_ eingebunden, werden um vollautomatisches Testen zu ermöglichen. Hauptbedarfsträger ist das Entwicklungsteam _Vertrieb Onlineshop CMS_, welches eine geringere Arbeitslast beim Einsatz dieses System zum Testen erwartet.
 
@@ -155,19 +154,32 @@ somit der vorher veranschlagten Planzeit. Siehe detaillierte Zeitplanung.
 ##Ressourcenplanung
 
 
-###Personal  
++ Personal  
 
-* 1 Entwickler: Umsetzung des Projekt
-* 1 Softwarestratege / Projektleiter "Testing" für Anforderungsaufnahme, technische Rücksprachen und Abnahme
-* 1 Team _Vertrieb Onlineshop CMS_ für einführende Schulung
+	* 1 Entwickler: Umsetzung des Projekt
+	* 1 Softwarestratege / Projektleiter "Testing" für Anforderungsaufnahme, technische Rücksprachen und Abnahme
+	* 1 Team _Vertrieb Onlineshop CMS_ für einführende Schulung
+    
+        
++ HardwareEs soll keine zusätzliche Hardware für das Projekt angeschafft werden. Zum Einsatz kommt die Testumgebung auf den vorhandenen Serversystemen. Dem Entwickler steht ein Arbeitsplatzrecher (MacBookPro) zur Verfügung auf dem die Entwicklung und Evaluation von Software stattfinden soll.
++ Software   
+Es soll für die Testumgebung ausschließlich kostenfreie und/oder open-source Software mit einer Lizenz die kommerzielle Nutzung erlaubt eingesetzt werden. Die Software Go ist von GRAVIS lizensiert und verursacht im Rahmen des Projekt keine zusätzlichen Kosten. Go ist mittlerweile auch open-source und könnte bei Bedarf angepasst werden.    
+ 
+  
+###Liste der eingesetzen Software
 
-
-###Hardware
-Es soll keine zusätzliche Hardware für das Projekt angeschafft werden. Zum Einsatz kommt die Testumgebung auf den vorhandenen Serversystemen. Dem Entwickler steht ein Arbeitsplatzrecher (MacBookPro) zur Verfügung auf dem die Entwicklung und Evaluation von Software stattfinden soll.
-	 ###Software
-Es soll für die Testumgebung ausschließlich kostenfreie und/oder open-source Software mit einer Lizenz die kommerzielle Nutzung erlaubt eingesetzt werden. Die Software Go ist von GRAVIS lizensiert und verursacht im Rahmen des Projekt keine zusätzlichen Kosten. Go ist mittlerweile auch open-source und könnte bei Bedarf angepasst werden.
-###Liste der eingesetzen Software
-* MacOS X* Gentoo GNU/Linux* Ubuntu GNU/Linux 14.04* Oracle VirtualBox* SublimeText2 als Texteditor* git & svn zur Versionsverwaltung der Projektsoftware, -Dokumentation und Tests. * phantomJS als Headless Browser* casperJS als Testrunner* ghostdriver als Testrunner* Thoughtworks Go also CI/CD Platform* SeleniumIDE Plugin für Firefox* pandoc, pdflatex, MacTeX, MacDown, Mou zur Erstellung der Projektdokumentation
+* MacOS X
+* Gentoo GNU/Linux
+* Ubuntu GNU/Linux 14.04
+* Oracle VirtualBox
+* SublimeText2 als Texteditor
+* git & svn zur Versionsverwaltung der Projektsoftware, -Dokumentation und Tests.
+* phantomJS als Headless Browser
+* casperJS als Testrunner
+* ghostdriver als Testrunner
+* Thoughtworks Go also CI/CD Platform
+* SeleniumIDE Plugin für Firefox
+* pandoc, pdflatex, MacTeX, MacDown, Mou zur Erstellung der Projektdokumentation
 
 ##Entwicklungsprozess
 
@@ -350,26 +362,17 @@ Der Go-Server, welcher ein ANT-Skript auslöst ist in der Regel nicht der ausfü
 Bei diesem Projekt sind mehrere Komponenten involviert deren Entwicklung getrennt erfolgen kann. ANT-Skripte die Funktionalität für das CI/CD System bereitstellen werden in einem SVN-Repository "go" versioniert.
 Die Testsuiten und deren Abhängigkeiten werden in einem separaten SVN-Repository "testing" verwaltet in dem bereits Code für Performancetests und Unit-Tests vorgehalten wird.
 Im "testing" Repository bestimmt die Ordnerstruktur die Testsuite sodass später im ANT-Task nur noch der Pfad spezifiziert werden muss um eine Testsuite auszuwählen. Ich habe zur Demonstration 5 Testsuiten angelegt, 2 tiefgründige und 2 oberflächliche Testszenarien für jeweils das Echt- und Stagingsystem und eine "demo"-Testsuite die den Anforderungen entsprechend die Funktionalität der Testumgebung unter Beweis stellt.
-\begin{figure}
-<!--
-    casperjs
-    ├── setup
-    │   ├── basicauth.js
-    │   ├── init-casper-deep.sql 
-    │   └── init-casper-shallow.sql
-    └── tests
-         ├── deep_live
-         ├── deep_stage
-         ├── demo
-         │   ├── capture_gra_screenshot.js
-         │   ├── testthesearch.js
-         ├── shallow_live
-         └── shallow_stage
--->
-\begin{equation}5 ordner + 1 ordner \end{equation}
+
+
+\begin{figure}[htb]
+\centering
+\includegraphicsKeepAspectRatio{Bilder/caspertestlist.pdf}{0.3}
 \caption{Ordnerstruktur der Testsuiten im}
 \label{fig:testingfolderstructure}
 \end{figure}
+
+
+
       
  Die Aufspaltung der verschiedenen Codebasen bietet 2 Vorteile: der Zugriff auf den Code der Tests kann separat gewährt werden, ohne dass die Funktionalität des CI/CD System angepasst werden kann. Es können dritten problemlos Rechte eingeräumt werden Testsuiten zu erstellen ohne dass die gesamte Administration aus den Händen gegeben werden muss.
  In Go ist es möglich die Version und den Zweig von einzelner Materialien, also Code-Quellen separat einzustellen um sehr agil auf Anpassungen im Code zu reagieren.
@@ -380,21 +383,23 @@ Im "testing" Repository bestimmt die Ordnerstruktur die Testsuite sodass später
 Die Benutzer der Testumgebung sollen sich schnell zurecht finden und sind bereits gewohnt Go zu benutzen. Es kann darauf verzichtet werden zusätzliche Bedienelemente und -oberflächen einzuführen. Testläufe werden wie jede Pipeline in Go ausgelöst, entweder durch einen einfachen Klick in der Weboberfläche, siehe \ref{fig:goguitrigger}  oder als post-commit-hook des Testing Repositories.
 Die Auswahl der Testsuite und die Konfiguration weiterer Optionen erfolgt in den Umgebungsvariablen der Pipeline, ebenfalls standardmäßig in der Weboberfläche zu erreichen.
 Ausgaben von Testläufen werden in der standardmäßigen Ansicht einer Pipeline in Go sichtbar. Go sieht es vor eine zusätzliche Registerkarte in der Auswertung anzuzeigen in der Artefakte präsentiert werden können. In der Registerkarte kann
-<!--
-\begin{figure}
+
+
+\begin{figure}[htb]
 \centering
-\includegraphicsKeepAspektratio{gouitrigger.png}{0.9}
-\caption{Abbildung Go UI trigger pipeline}
+\includegraphicsKeepAspectRatio{Bilder/gouitrigger.png}{0.9}
+\caption{Anzeige und Filterung der Module nach Tags}
 \label{fig:goguitrigger}
 \end{figure}
 
-\begin{figure}
+
+\begin{figure}[htb]
 \centering
-\includegraphicsKeepAspektratio{test_Job_Details_Go.png}{0.9}
+\includegraphicsKeepAspectRatio{Bilder/test_Job_Details_Go.png}{0.8}
 \caption{Abbildung Go UI Pipeline Auswertung}
 \label{fig:goguisummary}
 \end{figure}
--->
+
 
 ##Datenmodell
 
@@ -405,51 +410,26 @@ Go leitet Ausgabe der ANT-Skripte in eine Datei namens `console.log` die  pro St
 In dieser Ausgabe finden sich alle Ausgaben der ANT Tasks und der Prozesse und Skripte die ANT Startet.
 Zum Debugging beschriebt CasperJS auf Wunsch in die Standardausgabe (`--verbose=true --log-level=debug`) jeden einzelnen Schritt der im Browser gegangen wird, von HTTP-Request, Javascript-Operationen und Veränderungen des DOM.
 Im produktiven Einsatz genügt das Log-Level`--log-level=error` bei dem nur Fehler ausgegeben werden. Dies mach das Log lesbarer und hilft bei der Fehlerdiagnose.
-<!--
-\begin{figure}
 
-    /var/lib/go-server/artifacts/pipelines/UL.iamacasperpieline/14
-    ├── postprocessing
-    │   └── 1
-    │       └── gather_artefacts
-    │           └── cruise-output
-    │               └── console.log
-    ├── teststage
-    │   └── 1
-    │       └── runtests
-    │           ├── cruise-output
-    │           │   ├── console.log
-    │           │   └── md5.checksum
-    │           ├── testoutput
-    │           │   ├── index.html
-    │           │   └── result
-    │           │       └── index.html
-    │           └── tests
-    │               └── artifacts
-    └── prepare
-        └── 1
-            └── cleanup
-                └── cruise-output
-                    └── console.log
-
-
-\caption{Ordnerstruktur der Artefakte}
-\label{fig:gofolderstructure}
+\begin{figure}[htb]
+\centering
+\includegraphicsKeepAspectRatio{Bilder/artifactslist.pdf}{0.45}
+\caption{Ordnerstruktur der Artefakte auf dem Server}
+\label{fig:artifactsfolderstructure}
 \end{figure}
--->
 
 
 
-Eine Datei im "JUNIT XML result Format" in der die Ergebnisse der Testläufe in Testsuiten gebündelt für jeden Testfall aufgelistet werden ist gefordert.  Das Schema dieses XML Austauschformat ist als de-facto Standard festgeschrieben [^unitxsl] und wird von vielen *Unit* Testframeworks erstellt und von weiteren Systemen verarbeitet. Dieses Austauschformat ermöglicht in Zukunft tiefergehende Auswertung von Testergebnissen da es vollständig Maschinenlesbar ist.
+
+Eine Datei im "JUNIT XML result Format" in der die Ergebnisse der Testläufe in Testsuiten gebündelt für jeden Testfall aufgelistet werden ist gefordert.  Das Schema dieses XML Austauschformat ist als de-facto Standard festgeschrieben[^xunitwebdoku] und wird von vielen *Unit* Testframeworks erstellt und von weiteren Systemen verarbeitet. Dieses Austauschformat ermöglicht in Zukunft tiefergehende Auswertung von Testergebnissen da es vollständig Maschinenlesbar ist.
 CasperJS liefert mit dem Argument `--XUNIT=junit.xml` eine solche Datei.
 
 
 
 CasperJS Tests sind sind so designt dass sie im Fehlerfalleine Screenshots der aktuellen Seite im PGN-Format aufnehmen. Auch damit lässt sich ein Problem leichter lokalisieren und visualisieren. Screenshots werden in der Ordner "artifacts" der jeweiligen Stage gespeichert und sind dadurch auch leicht im Webinterface von Go zu erreichen.
-[^unitxsd]:JUNIT XML result schema https://windyroad.com.au/dl/Open%20Source/JUnit.xsd
 
 
-
+[^xunitwebdoku]:JUNIT XML result schema https://windyroad.com.au/dl/Open%20Source/JUnit.xsd
 
 
 ##Maßnamen zur Qualitätssicherung
