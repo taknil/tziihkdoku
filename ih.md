@@ -1,31 +1,30 @@
 #Einleitung
 
 
-## Der Ausbildungsbetrieb
+## Ausbildungsbetrieb
 
-Die mobilcom-debitel GmbH ist ein in Deutschland agierendes Unternehmen
-der Freenet Group. Sie vertreibt hauptsächlich Mobilfunkprodukte wie
+Die mobilcom-debitel GmbH ist ein in Deutschland agierendes Tochterunternehmen
+der Freenet Group AG. Das Unternehmen vertreibt hauptsächlich Mobilfunkprodukte wie
 Vertäge und Mobilfunk-Endgeräte sowie dazu passendes Zubehör, betreibt
-aber keine eigene Mobilfunkinfrastruktur. Bereits seit 2011 bestand eine
-Kooperation mit der GRAVIS Computervertriebsgesellschaft, meinem
+aber keine eigene Mobilfunkinfrastruktur. Seit 2011 bestand eine
+Kooperation mit der GRAVIS Computervertriebsgesellschaft mbH, meinem
 ursprünglichen Ausbildungsbetrieb. Diese Kooperation mündete Ende 2012
 in einer vollständigen Übernahme[^grauebernahme] und einer anschließenden
 Integration mehrerer Abteilungen wie  Logistik und IT in den
-mobilcom-debitel Konzern. Infolgedessen ist die mobilcom-debitel GmbH [md] verantwortlich für
+mobilcom-debitel Konzern. Infolgedessen ist der Freenet Konzern verantwortlich für
 den Betrieb der GRAVIS Onlinepräsenz. Die mobilcom-debitel verfügt über
-mehrere Verwaltungsstandorte. Der Sitz der ehemaligen GRAVIS-IT in
-Berlin am Ernst-Reuter-Platz konnte erhalten werden. Dort sind weiterhin
-Abteilungen die GRAVIS-Systeme betreuen ansässig.
+mehrere Standorte. Der Standort der ehemaligen GRAVIS-IT in
+Berlin am Ernst-Reuter-Platz konnte erhalten werden. Einige der GRAVIS-IT-Systeme werden weiterhin von diesem Standort aus betreut.
 
 
 
 [^grauebernahme]:Pressemitteilung zur Übernahme von GRAVIS durch md http://www.presseportal.de/pm/65489/2385382/eans-news-freenet-ag-freenet-group-uebernimmt-gravis-und-wird-einer-der-groessten-partner-von-apple
 
 
-##Das Projekt
+## Projekt
 
 
-Das Projekt beinhaltet die Analyse, Konzeption und Einrichtung einer Laufzeitumgebung für funktionale Front-End-Tests der betreuten Onlineshops, dem GRAVIS Onlineshop[^graweb] und dem MDS Onlineshop[^mdsweb]. Diese Umgebung soll in das Continuous-Delivery System _Go_  eingebunden, werden um vollautomatisches Testen zu ermöglichen. Hauptbedarfsträger ist das Entwicklungsteam _Vertrieb Onlineshop CMS_, welches eine geringere Arbeitslast beim Einsatz dieses System zum Testen erwartet.
+Das Projekt beinhaltet die Analyse, Konzeption und Einrichtung einer Laufzeitumgebung für funktionale Front-End-Tests der betreuten Onlineshops, dem GRAVIS Onlineshop[^graweb] und dem MDS Onlineshop[^mdsweb]. Diese Umgebung soll in das bestehende Continuous-Delivery System _Go_  eingebunden, werden um vollautomatisches Testen zu ermöglichen. Hauptbedarfsträger ist das Entwicklungsteam _Vertrieb Onlineshop CMS_, welches eine geringere Arbeitslast und gesteigerte Codequalität beim Einsatz dieses Systems zum Testen erwartet.
 
 [^graweb]: GRAVIS Onlineshop www.gravis.de
 [^mdsweb]: MDS Onlineshop mds.mobilcom-debitel.de
@@ -46,13 +45,13 @@ zeitlich auf. Durch die hohe Wiederholungsrate der Regressionstests ist
 es möglich, dass bei manueller Testdurchführung Fehler übersehen oder erst nach dem \acs{Deployment} entdeckt werden. Zudem werden zur Zeit Testläufe und Fehlerfälle in der
 Regel nicht oder nicht ausführlich dokumentiert und es ist nicht möglich
 eine Statistik, über die Fehlerhäufigkeit zu führen. Darüber hinaus gibt
-es keine technische Möglichkeit, die das Ausrollen von fehlerhaftem Code
+es keine technische Möglichkeit, die das deployen von fehlerhaftem Code
 auf das \acs{Echt-System} verhindert.
 
-##Projektziel
+##Projektziele
 
 
-Im Rahmen des Projekt soll eine Laufzeitumgebung für Front-End-Tests
+Im Rahmen des Projektes soll eine Laufzeitumgebung für Front-End-Tests
 bereitgestellt werden. Diese muss in das Continuous-Delivery System
 \acs{Go} (im folgenden "Go"[^listofsoftware]) eingebunden werden, damit
 vollautomatische Testszenarien damit ausgeführt werden können. Die
@@ -64,11 +63,11 @@ Test-Umgebung muss betriebsbereit dem Team *Vertreib Onlineshop CMS*
 ##Projektschnittstellen
 
 
-Da das Projekt innerhalb des Teams stattfindet, knüpft es nur an interne
-Prozesse, also Abnahme und \acs{Deployment} der Software, und technische
+Da das Projekt innerhalb des Teams stattfindet, knüpft es an interne
+Prozesse, also Abnahme und \acs{Deployment} der Software und technische
 Systeme an. Eine Auswertung durch das *Quality Assurance Team* im
 Unternehmen erfolgt nicht. Die Testumgebung wird verknüpft mit *Go*,
-testet dabei über eine Webverbindung den Onlineshop und muss auf das
+testet dabei über eine \acs{HTTP}-Verbindung den Onlineshop und muss auf das
 hausinterne Versionsverwaltungssystem (\acs{SVN}) zugreifen können, um dort
 aktuelle Tests abzuholen.
 
@@ -89,8 +88,8 @@ welches ein eigenes Webinterface zur Verfügung stellt.
 ##Projektphasen
 
 
-Für die Umsetzung des Projekt stehen 70h zur Verfügung. Diese wurden
-bereits vor Projektbeginn in verschiedene Phasen aufgeteilt, die den
+Für die Umsetzung des Projekt stehen 70 Stunden zur Verfügung. Diese wurden
+bereits vor Projektbeginn in verschiedene Phasen geplant, die den
 typischen Phasen in der Softwareentwicklung entsprechen. Eine grobe
 Zeitplanung sowie die Hauptphasen enthält die folgenden Tabelle.
 
@@ -106,7 +105,7 @@ Zeitplanung sowie die Hauptphasen enthält die folgenden Tabelle.
   Gesamt                              70h
 
 
-Die Hauptphasen können in kleinere Unterpunkten detailliert werden. Eine
+Die Hauptphasen können in  Unterpunkten detailliert werden. Eine
 detaillierte Übersicht befindet sich im Anhang "Detaillierte Zeitplanung" \ref{app:Zeitplanung}.
 
 <!--
@@ -145,39 +144,39 @@ detaillierte Übersicht befindet sich im Anhang "Detaillierte Zeitplanung" \ref{
 ##Abweichung vom Projektantrag
 
 
-Die Analysephase wurde im Projektantrag mit insgesamt 13h angegeben. Tatsächlich habe ich nur 10h gebraucht. Nach der Besprechung mit dem Projektanforderer waren die Anforderungen klar genug abgesteckt sodass die Phase der Analyse der alten, defekten Testumgebung entfallen konnte. 
- Im Projektantrag wurde leider die Abnahme unterschlagen und fälschlicherweise mehr als 70 Stunden (73) insgesamt geplant.
- Einzelne Abweichungen innerhalb des Zeitplans entstanden durch Erleichterungen bzw. Blockaden die erst bei der Realisierung der einzelnen Teilschritte erkenntlich wurden. Die tatsächlich benötigte Gesamtzeit für das Projekt entsprach
-somit der vorher veranschlagten Planzeit. Siehe "Detaillierte Zeitplanung" \ref{app:Zeitplanung}.
+> //ist ins Fazit gewandert
 
 ##Ressourcenplanung
 
 
 + Personal  
 
-	* 1 Entwickler: Umsetzung des Projekt
-	* 1 Softwarestratege / Projektleiter "Testing" für Anforderungsaufnahme, technische Rücksprachen und Abnahme
-	* 1 Team _Vertrieb Onlineshop CMS_ für einführende Schulung
+	* 1 Entwickler: Umsetzung des Projektes
+
+	* 1 Softwarestratege / Projektleiter "Testing" für Anforderungsaufnahme, technische Rücksprachen und Abnahme
+	* 1 Team _Vertrieb Onlineshop CMS_ für einführende Schulung
     
         
-+ Hardware   
-Es soll keine zusätzliche Hardware für das Projekt angeschafft werden. Zum Einsatz kommt die Testumgebung auf den vorhandenen Serversystemen. Dem Entwickler steht ein Arbeitsplatzrecher (MacBookPro) zur Verfügung auf dem die Entwicklung und Evaluation von Software stattfinden soll.
-+ Software   
-Es soll für die Testumgebung ausschließlich kostenfreie und/oder open-source Software mit einer Lizenz, die kommerzielle Nutzung erlaubt, eingesetzt werden. Die Software Go ist von GRAVIS lizensiert und verursacht im Rahmen des Projekt keine zusätzlichen Kosten. Go ist mittlerweile auch open-source und könnte bei Bedarf angepasst werden.    
- 
-  
+
++ Hardware   
+Es soll keine zusätzliche Hardware für das Projekt angeschafft werden. Zum Einsatz kommt die Testumgebung auf den vorhandenen Serversystemen. Dem Entwickler steht ein Arbeitsplatzrecher (Apple MacBook Pro) zur Verfügung auf dem die Entwicklung und Evaluation von Software stattfinden soll.
++ Software   
+Es soll für die Testumgebung ausschließlich kostenfreie bzw. open-source Software mit einer Lizenz, die kommerzielle Nutzung erlaubt, eingesetzt werden. Die Software *Go* ist von GRAVIS lizenziert und verursacht im Rahmen des Projektes keine zusätzlichen Kosten. *Go* ist mittlerweile auch open-source und könnte bei Bedarf angepasst werden.    
+ 
+  
 
 
 ##Entwicklungsprozess
 
+>// vertiefen
 
 Für die Realisierung des Projektes habe ich mich für ein Vorgehen, das
 an den klassischen Wasserfall Prozess angelehnt  ist, entschieden.
 Ermöglicht wird dies durch den Umstand, dass die Anforderungen klar
 definiert sind und sich im Zeitraum der Realisierung nicht signifikant
 ändern werden. In der Entwurfsphase wurde die Vorgehensweise der
-Entwicklung klar aufgestellt sodass ständige Rückfragen wie etwa in
-einem agilen Prozess nicht nötig sind. Es wird eine Nutzerschulung für
+Entwicklung klar aufgestellt sodass ständige Rückfragen, wie etwa in
+einem agilen Prozess, nicht nötig sind. Es wird eine Nutzerschulung für
 alle potentielle Nutzer am Ende des Projekt geben sodass eine
 Eingewöhnung der Nutzer mit der Testumgebung schon während der
 Entwicklung nicht notwendig ist. Eine Aufnahme der Entwicklung in den
@@ -188,10 +187,10 @@ agilen Regelprozess erschien nicht sinnvoll.
 
 ##Ist-Analyse
 
+>// revise
 
-Zum Zeitpunkt des Projektbegin werden Regressionstests also Front-End-Tests ausschließlich
-manuell von Testingenieuren oder Entwicklern aus dem Team vorgenommen. Bei bevorstehendem \acs{Ausspiel} muss der Testingenieur seine aktuelle Aufgabe niederlegen und den gewünschten Softwarestand auf dem \acs{Staging-System} testen. Ein Handzeichen und eine mündliche Abstimmung mit dem Team signalisieren dann die Bereitschaft zum Ausspiel. Anschließend müssen die Tests im Echt-System wiederholt werden um sicher zu gehen dass das Ausspiel erfolgreich war. Tritt hier ein Fehler auf muss geklärt werden ob der Fehler vorher übersehen wurde (menschlicher Faktor) oder die Umgebungsparameter ursächlich sind. Oft ist dies nicht mehr nachvollziehbar. 
-  
+Zum Zeitpunkt des Projektbeginn werden Regressionstests also Front-End-Tests ausschließlich
+manuell von Testingenieuren oder Entwicklern aus dem Team vorgenommen. Bei bevorstehendem \acs{Ausspiel} muss der Testingenieur seine aktuelle Aufgabe unterbrechen und den gewünschten Softwarestand auf dem \acs{Staging-System} testen. Ein Handzeichen und eine mündliche Abstimmung mit dem Team signalisieren dann die Bereitschaft zum Ausspiel. Anschließend müssen die Tests im Echt-System wiederholt werden um sicher zu gehen dass das Ausspiel erfolgreich war. Tritt hier ein Fehler auf muss geklärt werden ob der Fehler vorher übersehen wurde (menschlicher Faktor) oder die Umgebungsparameter ursächlich sind. 
 <!--
  Zudem werden Testläufe
 und Fehlerfälle in der Regel nicht oder nicht ausführlich dokumentiert
@@ -199,25 +198,25 @@ und es ist nicht möglich eine Statistik über die Fehlerhäufigkeit zu
 führen. Darüber hinaus gibt es keine technische Möglichkeit die das
 Ausrollen von fehlerhaftem Code auf dem Echt-System verhindert.
 -->
-
+<!--
  Zu einem früheren Zeitpunkt war eine Testumgebung auf Basis von Selenium in Betrieb genommen worden. Diese Testumgebung hing von Diensten dritter ab die mittlerweile eingestellt wurden. Für diese Umgebung wurden ursprünglich Testabläufe definiert die befolgt werden um alle Funktionalitäten zu testen. Diese Testabläufe werden nach besten gewissen bei manuellen Test befolgt.
  Das vertrauen in die Tests ist zu diesem Zeitpunkt nicht sehr hoch da in der Vergangenheit Funktionen an unerwarteter Stelle brachen und den gesamten Entwicklungsprozess aufgehalten haben.
+-->
 
 ##Wirschaftlichkeitsanalyse
 
-Auf Grund der Probleme des momentanen Prozesses ist die Umsetzung des Projekt unbedingt erforderlich.
+
 
 
 ### Make or Buy Entscheidung
 
-Front-End-Test von Web-Applikationen sind ein häufiger Anwendungsfall und es gibt viele Anbieter von Werkzeugen dafür auf dem Mark und noch viel mehr experimentelle Ansätze dafür.
+Front-End-Test von Web-Applikationen sind ein häufiger Anwendungsfall und es gibt viele Anbieter von Werkzeugen dafür auf dem Markt und noch viel mehr experimentelle Ansätze dafür.
 
-Es kann also Standardsoftware für Tests genutzt werden: Die Produkte phantomJS und
-casperJS oder Selenium webdriver und ghostdriver bieten sich als Lösungen an.
+Es kann also Standardsoftware für Tests genutzt werden: Die Produkte phantomJS zusammen mit
+casperJS oder Selenium in Verbindung mit dem Selenium webdriver und ghostdriver bieten sich als Lösungen an.
 
 Die Integration von Front-End-Test in das CI/CD-System *Go* ist eine Unternehmensspezifische Anforderung. Go ist ein wenig verbreitetes System und keine Integration solcher Art wurde bisher publik gemacht.
-Da *Go* open-source und die API gut dokumentiert[^gowebdoku] ist , kann eine Integration aus
-eigener Kraft erfolgen.
+Da *Go* open-source und die API gut dokumentiert[^gowebdoku] ist , kann eine Integration aus eigener Kraft erfolgen.
 
 [^gowebdoku]:http://www.go.cd/documentation/user/current/
 
@@ -226,8 +225,8 @@ eigener Kraft erfolgen.
 Die Projektkosten, die bei der Entwicklung des Projektes anfallen,
 sollen im Folgenden kalkuliert werden. Dafür müssen neben den
 Personalkosten für den Entwickler und weitere Mitarbeiter auch noch die
-Aufwendungen für die Ressourcen berücksichtigt werden. Da Kalkulation
-wird anhand von branchenüblichen Stundensätzen durchgeführt. Der
+Aufwendungen für die Ressourcen berücksichtigt werden. Die Kalkulation
+wird anhand von durchschnittlichen Stundensätzen im Freenet Konzern durchgeführt. Der
 Stundensatz eines Auszubildenden im 3. Lehrjahr beträgt demzufolge
 *6,79€/h* , der eines Mitarbeiters *28,45€/h* [^hourlyrate]. Als Gemeinkosten für
 Ressourcennutzung im Unternehmen (Hardware und Software, Büroarbeitsplatz etc.) wurde ein berechneter Stundensatz von 7,90€/FTE von Controling mitgeteilt.
@@ -236,13 +235,14 @@ angenommen.
 [^hourlyrate]: Stundensätze wurden aus dem Unternehmensinternen Controling bereitgestellt
 
 
-
+<!--
 \begin{figure}
 \begin{equation}
 \frac{ \eur{1000}\mbox{/Monat} \cdot 12\mbox{Monate/Jahr} }{ (8\mbox{h/Tag} \cdot 221\mbox{Tage/Jahr} )}=  \frac{\eur{6,79}}{h}
 \end{equation}
 \caption{Kosten eines Auszubildenden}
 \end{figure}
+-->
 
 Die Kosten, die für Vorgänge den Projektes anfallen sowie die gesamten Projektkosten sind in Tabelle \ref{kostenaufstellung} zu finden.
 
@@ -250,7 +250,7 @@ Die Kosten, die für Vorgänge den Projektes anfallen sowie die gesamten Projekt
 
 Vorgang                                                    Zeit Kosten pro Stunde        Kosten
 -------------------------------------------------------- ------ ------------------- -----------
-Entwicklungskosten                                          70h 6,79€ + 7,90€         1028,30€
+Entwicklungskosten                                          70h 6,79€ + 7,90€         1028,30€  k676
 Fachgespräch mit Projektanforderer                           3h 28,45€ + 7,90€        109,05€
 Abnahmetest                                                  1h 28,45€ + 7,90€        36,35€
 Nutzerschulung  (4 Entwickler)                               2h 113,8€ + 31,60€       290,80€
@@ -283,16 +283,22 @@ Live-System           45 min
 
 -->
 
-Für Regressionstests werden 45min veranschlagt. Pro Deployment wird einmal vorab auf dem \acs{Staging-System} getestet und nach dem Ausspiel noch einmal im Echtsysstem. Beim aktuellen Vorgehen wird alle 2 Wochen ausgespielt was eine Ersparnis von 
+Für Regressionstests werden 45min veranschlagt. Pro Deployment wird einmal vorab auf dem \acs{Staging-System} getestet und nach dem Deployment noch einmal im Echtsysstem. Beim aktuellen Vorgehen wird alle 2 Wochen ausgespielt was eine Ersparnis von 3 Stunden pro Monat bedeutet.
+
+<!--
 \begin{eqnarray}
  2 \cdot 45min \cdot 2\frac{Deployments}{Monat} \cdot \frac{\eur{28,45}}{h} =  \frac{\eur{85,35}}{Monat}
-\end{eqnarray}
-    <!-- 
+\end{eqnarray} -->
+
+ <!-- 
 Der Einsatz automatisierter Tests aber ermöglicht ein neues Vorgehen mit höherer Kadenz mit bis zu 3 Deployments pro Woche, also ca 12 Deployments pro Monat. Dadurch ergibt sich eine Ersparnis von 
 \begin{eqnarray}
  2 * 45min \cdot 12 \frac{ Deployments}{Monat} \cdot \frac{\eur{28,45}}{h} =  \frac{\eur{512,10}}{h} 
 \end{eqnarray}    -->
+<!--
 Tatsächlich aber wir der Tester in der gesparten Zeit anderweitig eingesetzt sodass sich keine reale Ersparnis ergibt.
+
+-->
 
 <!-- ###Nutzwertanalyse 
 
@@ -309,20 +315,22 @@ Tatsächlich aber wir der Tester in der gesparten Zeit anderweitig eingesetzt so
 
 ### Nicht-monetäre Vorteile
 
+Auster der Zahlenwerte sind noch einige andere Fraktoren zu nennen die mehr als nur finanzielle Bedeutung haben:
+
 *   Tests können beliebig oft laufen
-*   ermöglicht Veränderung von Deployment und Integrationsverhalten und damit eine höhere Reaktionsfähigkeit.
-*   erhöht Vertrauen in den Code, da Kernfunktionalität ständig getestet wird
+*   Ermöglicht Veränderung von Deployment- und Integrationsverhalten und damit eine höhere Reaktionsfähigkeit.
+*   Erhöht Vertrauen in den Code, da Kernfunktionalität ständig getestet wird
 *   Die Arbeit eines Testingenieuren oder Entwickler muss nicht für Front-End-Tests unterbrochen werden.
 
 ##Einsatzmöglichkeiten
 
 
-Im Laufe der Analysephase wurde mit dem Anforderer ein Anwendungsfalldiagramm (siehe Anhang) erstellt welches eine Übersichtt der Anwedungesfälle gibt. Es gibt alle Funktionen an die aus Sicht des Endanwender benötigt werden wieder. Automatisierte Tests können als aktive und kontinuierliche Qualitätssicherungsmaßname genutzt werden. Der Entwickler kann sich entscheiden bereits auf der Integrationsumgebung den aktuellen Entwicklungsstand zu testen. Auf der anderen Seite kann können die Regressionstests auch direkt in den Deploymentprozess integriert werden und ggf. das Ausspiel von fehlerbehafteter Software verhindern wenn im Vorfeld bereits Testfälle fehlschlagen. Im Zusammenhang mit dem CI/CD System wird auch eine Historie der Softwarequalität vorgehalten.
+Im Laufe der Analysephase wurde mit dem Anforderer ein Anwendungsfalldiagramm (siehe Anhang \ref{usecasediagram}) erstellt welches eine Übersicht der Anwedungesfälle gibt. Es gibt alle Funktionen an die aus Sicht des Endanwenders benötigt werden wieder. Automatisierte Tests können als aktive und kontinuierliche Qualitätssicherungsmaßname genutzt werden. Der Entwickler kann sich entscheiden bereits auf der Integrationsumgebung den aktuellen Entwicklungsstand zu testen. Zusätzlich können die Regressionstests auch direkt in den Deploymentprozess integriert werden. Eine solche enge Integration verhintert, wenn im Vorfeld bereits Testfälle fehlschlagen, das Deployment von fehlerbehafteter Software. Im Zusammenhang mit dem CI/CD System wird auch eine Historie der Softwarequalität vorgehalten.
 
 
 
 ##Lastenheft / Fachkonzept
-Im Anhang ist ein Auszug aus dem Lastenheft zu finden.
+Wesentliche Bestandteile zur technischen Anforderung  aus dem Lastenheft sind im Anhang \ref{lasterhaft}zu finden.
 
 #Entwurfsphase
 
@@ -449,8 +457,8 @@ CasperJS Sefltest
 
 ##Pflichtenheft
 
-Am Ende der Entwurfsphase wurde ein Pflichtenheft erstellt. Es baut auf dem Lastenheft auf. Dort wird beschrieben wie und mit welchen Werkzeugen der Author die Anforderungen des Fachbereich umsetzen möchte.
-Das Pflichtenheft dient als Leitpfaden für die Umsetzung des Projekt. Ein Auszug aus dem Pflichtenheft befindet sich im Anhang.
+Am Ende der Entwurfsphase wurde ein Pflichtenheft erstellt. Es baut auf dem Lastenheft auf. Dort wird beschrieben wie und mit welchen Werkzeugen der Autor die Anforderungen des Fachbereich umsetzen möchte.
+Das Pflichtenheft dient als Leitpfaden für die Umsetzung des Projekt. Ein Auszug aus dem Pflichtenheft befindet sich im Anhang \ref{app:Pflichtenheft}.
 
 
 #Implementierungsphase
@@ -489,13 +497,15 @@ Damit war der erste Meilenstein erreicht.
 
 [^sshfs]:Abstraktion von sFTP auf dem Entwicklerrechner als FUSE-Dateisystem.
 ###Implementieren der Schnittstelle vom Testsystem zum CI/CD System  
-Die neu hinzugewonnene Fähigkeit CasperJS wurde im Admin-Interface von Go dem Server namens "manager" hinzugefügt und kann von nun an als Ressource in Pipelines verlangt werden. Stages die diese Ressource verlangen werden dann automatisch dem "manager" Server zugeordnet und dort ausgeführt.
+Die neu hinzugewonnene Anwendung CasperJS wurde im Admin-Interface von *Go* dem Server namens "manager" als "Ressource" hinzugefügt und kann von nun an als Ressource in Pipelines verlangt werden. Stages die diese Ressource verlangen werden dann automatisch dem "manager" Server zugeordnet und dort ausgeführt.
 
 ###Erstellung von ANT Targets
-Alle Anwendungsfälle aus dem Anwendungsfalldiagramm //ref die noch nicht in ANT zu Verfügung standen würden in einer neuen ANT build Datei als Tasks aufgenommen. Zusätzlich zu ein paar Hilfstasks die die Fehlerdiagnose vereinfachen sollten wurden diese Tasks implementiert. Im buildfile wurden Ordner für Artefakte, Screenshots und Tests als Properties definiert. Parameter der ANT Tasks wurden durch Properties und Umgebungsvariablen ausgefüllt sodass die Tasks mit maximaler Flexibilität eingesetzt werden können. Es wurden auch Nachbereitungstasks eingeführt die Artefakte bereinigen und einsammeln.
+*Go* benutzt in seinem Unterbau \acs{ANT}.
+Alle Anwendungsfälle aus dem Anwendungsfalldiagramm \ref{app:UseCase} die noch nicht in *Go* oder als generische ANT-Tasks zu Verfügung standen wurden in einer neuen ANT build Datei als Tasks aufgenommen. Zusätzlich zu ein paar Hilfstasks die die Fehlerdiagnose vereinfachen sollten, wurden diese Tasks implementiert. In der build Datei wurden Ordner für Artefakte, Screenshots und Tests als Properties definiert. Parameter der ANT Tasks wurden durch Properties und Umgebungsvariablen ausgefüllt sodass die Tasks mit maximaler Flexibilität eingesetzt werden können. Es wurden auch Tasks für die Nachbereitungs eingeführt die Artefakte bereinigen und einsammeln.
 	 
 ###Einrichtung der Pipeline zur Testausführung 
 
+Die Komponenten die für einen erfolgreichen Testlauf benötigt werden wurden im Vorherigen Schritt erstellt. Jetzt wurden die Tasks in eine Reihenfolge gebracht. 
 
 Interaktive loginshell notwendig für casperjs Aufruf . Viel trial and error.
 
@@ -507,7 +517,7 @@ Einrichtung der Umgebungsvariablen aus den vorher definierten Tasks in der Pipel
 In *casperJS* können Bildschrimaufnahmen gespeichert werden. Über die Art der Bildschrimaufnahmen schweigen sich sowohl die Anforderungen als auch die Dokumentation von *casperJS* aus. Nach mehreren Versuchen stellte sich heraus `capture()` speichert standardmäßig das Element `<body>` was bei langen Listen auf der Website sehr lange Screenshot weit über die Grenze des Browser Viewport hinaus erzeugt. Nur die jeweils getesteten Elemente aufzunehmen erhört die Komplexität der Tests unnötigerweise und ist im Fehlerfall auch unsinnig da es natürlich nicht möglich ist nicht vorhanden Elementen aufzunehmen.
 
 ###Pipeline um Artefaktensammlung erweitern
-Go bietet von Haus aus einen Mechanismus um Artefakte von ausführenden Server einzusammeln. Diese wurde in die Pipeline eingebaut.
+*Go* bietet von Haus aus einen Mechanismus um Artefakte von ausführenden Server einzusammeln. Diese wurde in die Pipeline eingesetzt.
 
 ###Pipeline um Screenshotsammlung erweitern   
 
@@ -517,7 +527,7 @@ Analog zur Artefaktensammlung wurde ein Task zum einsammeln von Screenshots erst
 
 #Testphase
 
-In der Implementierungsphase wurden die Beispieltests immer wieder ausgeführt, erst auf dem Entwicklungsrechner, dann auf dem Server. Zur Inbetriebnahme von *casperJS* wurde auch der Selbsttest des Framework `casperjs selftest` ausgeführt bei dem alle Funktionen ausgeführt wurden.
+Schon in der Implementierungsphase wurden die Beispieltests immer wieder ausgeführt, erst auf dem Entwicklungsrechner, dann auf dem Server. Zur Inbetriebnahme von *casperJS* wurde auch der Selbsttest des Framework `casperjs selftest` angestoßen bei dem alle Funktionen ausgeführt wurden.
 Auf dem Server wurde nach dem Ausführen von Tests per ssh überprüft ob Artefakte an der richtigen Stelle erzeugt wurden. 
 
 #Abnahmephase
@@ -527,7 +537,7 @@ Bei der Abnahme entstand noch der Wunsch nach einer Instalationsdokumentation. E
 
 #Einführungsphase
 
-Im Anschluss an die erfolgreiche Abnahme wurde die Piepline für Front-End-Tests allen Benutzern in *Go* über die integrierte Rechteverwaltung zugänglich gemacht. Da der Bespieltest bereits einen breites Spektrum an Kernfunktionen des GRAVIS Onlineshop testet kann die Testumgebung ab diesem Zeitpunkt eingesetzt werden.
+Im Anschluss an die erfolgreiche Abnahme wurde die Pipeline für Front-End-Tests allen Benutzern in *Go* über die integrierte Rechteverwaltung zugänglich gemacht. Da der Bespieltest bereits einen breites Spektrum an Kernfunktionen des GRAVIS Onlineshop testet kann die Testumgebung ab diesem Zeitpunkt eingesetzt werden.
 
 
 ##Schulung
@@ -537,10 +547,21 @@ Die Applikation wurde dem gesamten Team *Vertrieb Onlienshop CMS* vorgeführt. N
 
 #Dokumentation
 
+>//Dieser Abschnitt ist sehr unbefriedigend
+
+
+
+
 Im Firmeninternen Intranet wurde eine Seite mit einer Kurzanleitung  angelegt und den Unterlagen der Nutzerschulung angelegt.
 
 In CasperJS Tests können Anmerkungen zu Funktionalität mit als Argumenten beim Funktionsaufruf angegeben werden, die finden sich dann im Testprotokoll wieder, helfen aber auch als Dokumentation im Code.
 Auf generative Dokumentation wie "AntDoc" oder "JSDoc" wurde auf Grund des engen Zeitplan verzichtet da hier noch zusätzlich die Generatoren installiert hätten werden müssten.
+
+>// War auch nicht gefordert. Der Code ist großteils selbsterklärend
+
+Das Hauptaugenmerk galt dieser Projektdokumentation die alle Schritte von der Idee bis zur Inbetriebnahme dokumentiert.
+
+>//super selbst refferenziell
 
 Die bei der Abnahme nachträglich geforderte Installationsdokumentation wurde nach Projektabschluss erstellt.
 
@@ -550,7 +571,16 @@ Die bei der Abnahme nachträglich geforderte Installationsdokumentation wurde na
 
 ##Soll/Ist Vergleich
 
+Alle Anforderungen aus dem Pflichtenheft wurden erfüllt
 Keine Analyse der alten Testumgebung
+
+###Abweichung vom Projektantrag
+
+
+Die Analysephase wurde im Projektantrag mit insgesamt 13 Stunden angegeben. Tatsächlich habe ich nur 10 Stunden gebraucht. Nach der Besprechung mit dem Softwarestrategen waren die Anforderungen klar genug abgesteckt, sodass die Phase der Analyse der alten, defekten Testumgebung entfallen konnte. 
+ Im Projektantrag wurde leider die Abnahme unterschlagen und fälschlicherweise mehr als 70 Stunden (73) insgesamt geplant.
+ Einzelne Abweichungen innerhalb des Zeitplans entstanden durch Erleichterungen bzw. Blockaden, die erst bei der Realisierung der einzelnen Teilschritte erkenntlich wurden. Die tatsächlich benötigte Gesamtzeit für das Projekt entsprach
+somit der vorher veranschlagten Planzeit. 
 
 ##Lessons learned
 Puffer bei Sysadmitasks gut angelegt.
@@ -559,13 +589,13 @@ Puffer bei Sysadmitasks gut angelegt.
 ##Ausblick
 In naher Zukunft werden für den Einsatz der Testumgebung mehr Tests implementiert die mehr Funktionen und Grenzbedingungen untersuchen.
 Obwohl alles im Lastenheft definierten Anforderungen realisiert wurden zeichnen sich bereits neue Featurewünsche und Einsatzszenarien ab.
-Das Team strebt danach die Front-End-Tests fest in den Deploymentprozess zu integrieren was auch ohne Probleme möglich ist.
+Das Team strebt danach die Front-End-Tests fest in den Deploymentprozess zu integrieren, was auch ohne Probleme möglich ist.
 
 Bei der Abnahme wurde entdeckt dass laufende Tests die parallele Ausführung von anderen Pipelines verhindert. Sollte dies die Arbeit des Team erschweren ist ein Umzug der Test-Runntime auf einen anderen Server ohne Anpassungen des Code möglich.
 
 Der Modulare Aufbau der Testumgebung ermöglicht somit eine gute Erweiterbarkeit und noch tiefere Integration von Tests in vorhandene Prozesse.
 
-Zur Dokumentation der Tests beleibt anzumerken dass es im Unternehmen Bestrebungen gibt hier die Kausalität umzukehren. Das bedeuten dass die Testdokumentation in Zukunft in einer domänenspezifischen (\acs{DSL}) Sprache geschrieben werden könnten und daraus Testfälle generiert werden.
+Zur Dokumentation der Tests bleibt anzumerken dass es im Unternehmen Bestrebungen gibt hier die Kausalität umzukehren. Das bedeuten dass die Testdokumentation in Zukunft in einer domänenspezifischen (\acs{DSL}) Sprache geschrieben werden könnten und daraus Testfälle generiert werden.
 
 
 * * * * *
