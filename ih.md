@@ -372,7 +372,7 @@ Die Folge der Anwendungsfälle wird in einer so genannten \acs{Pipeline} definie
 Der Go-Server, welcher ein ANT-Skript auslöst ist in der Regel nicht der ausführende Server. Einzelne Server die alle notwendigen Ressourcen für die Ausführung einer Stage bereitstellen (im folgenden Agentenserver) melden sich mit ihrem Go-Agent beim Go-Server an und bekommen Aufgaben zugeteilt.
 
 
-###Versionsverwaltung
+###Versionsverwaltung {#versionsverwaltung}
 Bei diesem Projekt sind mehrere Komponenten involviert deren Entwicklung getrennt erfolgen kann. ANT-Skripte die Funktionalität für das CI/CD System bereitstellen werden in einem SVN-Repository "go" versioniert.
 Die Testsuiten und deren Abhängigkeiten werden in einem separaten SVN-Repository "testing" verwaltet in dem bereits Code für Performancetests und Unit-Tests vorgehalten wird.
 Im "testing" Repository bestimmt die Ordnerstruktur die Testsuite sodass später im ANT-Task nur noch der Pfad spezifiziert werden muss um eine Testsuite auszuwählen. Ich habe zur Demonstration 5 Testsuiten angelegt, 2 tiefgreifende und 2 oberflächliche Testszenarien für jeweils das Echt- und \acs{Staging-System} und eine "demo"-Testsuite die den Anforderungen entsprechend die Funktionalität der Testumgebung unter Beweis stellt.
@@ -448,14 +448,14 @@ CasperJS Tests werden gemäß der Anforderung so designt dass sie im Fehlerfall 
 
 ##Maßnamen zur Qualitätssicherung
 
-Es wird früh in der Implementierungsphase ein Beispieltest erstellt der
-die Funktionalität des System beweisen kann. Der Code der Tests als auch
+Es wird früh in der Implementierungsphase ein Beispieltest erstellt, der
+die Funktionalität des Systems beweisen kann. Der Code der Tests als auch
 der Schnittstelle wird in SVN versionsverwaltet sodass es einfach
 möglich ist funktionierende Versionen wiederherzustellen.
 Go führt selbständig Pipelines an denen Änderungen vorgenommen wurden oder deren Abhängigkeiten sich verändert haben sofort aus. Hierdurch bleibt kein Code ungetestet und Fehlerfälle sind leicht erkennbar. Im Büro des Entwicklungsteam steht ein Dashboard auf dem fehlgeschlagene Pipelines angezeigt werden. Das Entwicklerteam ist motiviert alle Anzeigewerte auf dem Dashboard "im grünen Bereich" zu halten und greift im Fehlerfall schnell ein. Der Verursacher des Fehler ist dank Integration der Versionsverwaltung in Go schnell ausfindig gemacht.
 CasperJS Sefltest
 
-##Pflichtenheft
+##Pflichtenheft/Feinkonzept
 
 Am Ende der Entwurfsphase wurde ein Pflichtenheft erstellt. Es baut auf dem Lastenheft auf. Dort wird beschrieben wie und mit welchen Werkzeugen der Autor die Anforderungen des Fachbereich umsetzen möchte.
 Das Pflichtenheft dient als Leitpfaden für die Umsetzung des Projekt. Ein Auszug aus dem Pflichtenheft befindet sich im Anhang \ref{app:Pflichtenheft}.
@@ -464,75 +464,92 @@ Das Pflichtenheft dient als Leitpfaden für die Umsetzung des Projekt. Ein Auszu
 #Implementierungsphase
 
 ##Setup
-Vor Begin der Umsetzung von Funktionalität wurden die notwendigen SVN-Repositories auf dem Entwicklerrechner ausgecheckt damit bereits vorhandene Funktionalität für das Projekt mitbenutzt werden können.
+Vor Beginn der Umsetzung von Funktionalitäten wurden die notwendigen SVN-Repositories auf dem Entwicklerrechner ausgecheckt. damit bereits vorhandene Funktionalität für das Projekt mitbenutzt werden können.
 
-Kurzes durchstöbern der Repositories legte es nahe eigene Unterordner und Builddateien für dieses Projekt anzulegen. Siehe \ref{versionsverwaltung}.
+In Übereinstimmung mit der vorhandenen Struktur im Respositry empfiehlt es sich eigene Unterordner und Builddateien für dieses Projekt anzulegen. Siehe \ref{versionsverwaltung}.
 Für den Texteditor wurden Linter für JavaScript und XML installiert um früh Tippfehler erkennen zu können.
 
 
 ###Installation Test-Runtime 
-Nach der erfolgreichen Begutachtung von PhantomJS und casperJS auf der Entwicklermaschine mit MacOS, wo diese beiden Tools mit dem packetmanager "brew" rasch installiert waren ging es daran diese Anwendungen auf einem Server zu installieren. PhantomJS 1.9.8 ist ein Paket aus QTWebkit, der Rendering-Engine, einer Javascript Laufzeitumgebung und QT4 als Wrapper. PhantomJS hat enorm viele Abhängigkeiten und es ist nicht empfohlen es selbst zu kompilieren da es wahrscheinlich ist dass mindestens eine Abhängigkeit zu Komplikationen führt. Im "brew" Paketsystem wurde also eine vorkompilierte Binärdatei verteilt und mit `brew install phantomjs` anschließend ohne Probleme installiert.   
- Auf dem Zeilserver mit Gentoo Linux wird das Paketverwaltungssystem "portage" genutzt.
-Der analoge Befehl `emerge Phantoms` brachte allerdings eine enorme dependency-Liste zu Tage. Ich habe manuell versucht die Konflikte von Abhängigkeiten und Patch-Fehler zu lösen. Nach 2 Stunden war noch immer kein Ende in Sicht sodass ich mich entschied ein vorkompiliertes PhantomJS herunterzulassen und manuell zu installieren. 
+Nach der erfolgreichen Begutachtung von PhantomJS und casperJS auf der Entwicklermaschine mit MacOS, wo diese beiden Tools mit dem packetmanager `brew` rasch installiert waren, ging es daran diese Anwendungen auf einem Server zu installieren. 
 
-CasperJS wurde über portage auch nur in einer sehr veralteten Version verteilt sodass ich auch hier eine manuelle Installation vornehmen musste. Ein `git clone` des aktuellen casperJS Quellcode von github brachte mich auf die gewünschte Version 1.1.0-beta3.
+<!--
+PhantomJS 1.9.8 ist ein Paket aus QTWebkit, der Rendering-Engine, einer Javascript Laufzeitumgebung und QT4 als Wrapper. PhantomJS hat enorm viele Abhängigkeiten und es ist nicht empfohlen es selbst zu kompilieren da es wahrscheinlich ist dass mindestens eine Abhängigkeit zu Komplikationen führt. Im "brew" Paketsystem wurde also eine vorkompilierte Binärdatei verteilt und mit `brew install phantomjs` anschließend ohne Probleme installiert.   -->
+ Auf dem Zielserver mit gentoo Linux wird das Paketverwaltungssystem `portage` genutzt.
+Der Befehl `emerge phantomjs` zeigte allerdings eine enorme Liste von Abhängigkeiten auf. Ich habe manuell versucht die Konflikte von Abhängigkeiten und Patch-Fehler zu lösen. Nach 2 Stunden habe ich dieses Vorgehen als nicht zielführend betrachtet entschied ich mich ein vorkompiliertes PhantomJS herunterzuladen und manuell zu installieren. 
 
-Trotz der erwarteten 2 Befehlszeilen und gefühlten 10 Minuten für die Installation der Software bin ich froh 3h dafür eingeplant zu haben da die Erfahrungen mit gentoo gelehrt haben dass immer mehr Zeit bei der Installation eingeplant werden muss da es immer Unstimmigkeiten mit Abhängigkeiten gibt.
+CasperJS wurde über `portage` auch nur in einer sehr veralteten Version verteilt, sodass ich auch hier eine manuelle Installation vornehmen musste. Ein `git clone` des aktuellen casperJS Quellcodes von github, also ein abholen der aktuellen Version aus der öffentlich casperJS Versionsverwaltung, brachte mich auf die gewünschte Version 1.1.0-beta3.
 
-Bei der Abnahme wurde noch ein Instalationsprotokoll gewünscht damit das vorgehen Reproduzierbar und nachvollziehbar ist. Diese wurde als zusätzliche Anforderung nach dem Projektabschluss erstellt.
+Erfahrungen mit gentoo gelehrt haben dass immer mehr Zeit bei der Installation eingeplant werden muss, denn es treten sehr häufig Unstimmigkeiten mit Abhängigkeiten auf.
+
+Bei der Abnahme wurde noch ein Instalationsprotokoll gewünscht damit das Vorgehen reproduzierbar und nachvollziehbar ist. Dieser zusätzlichen Anforderung konnte noch in der Dokumentationsphase nachgekommen werden.
 
 
    
 ###Erstellen der Beispieltestsuite
-Das CasperJS Modul `tester` stellt die stellt die meisten in Lastenheft geforderten Funktionalität bereit. Mit Hilfe der sehr guten online Dokumentation von CasperJS und seiner Module [^casperdocstester] und entlang des Szenarios eines Kunden der im GRAVIS Online Shop einkaufen möchte wurde eine Bespieltestsuite geschrieben.
-Es musste besondere Sorgfalt auf die Konvention der Tests in CasperJS gelegt werden, denn die Test werden in Javascript geschrieben und dies wird Asynchron ausgeführt wenn nicht explizit eine Schrittfolge mit `caserper.then()` definiert wird. Es wurden auch absichtliche Fehlerpunkte eingebaut die einen Test scheitern lassen um das Verhalten im Fehlerfall reproduzieren und testen zu können.
+Das casperJS Modul `tester` stellt die meisten im Lastenheft geforderten Funktionalität bereit. Mit Hilfe der sehr guten online Dokumentation von casperJS und seiner Module[^casperdocstester] und entlang des Szenarios eines Kunden der im GRAVIS Online Shop einkaufen möchte, wurde eine Bespieltestsuite geschrieben.
+Es musste besondere Sorgfalt auf die Struktur der Testskripte für casperJS gelegt werden, denn die Tests werden in Javascript geschrieben und dies wird Asynchron ausgeführt, wenn nicht explizit eine Schrittfolge mit `caserper.then()` definiert wird. Es wurden auch absichtliche Fehlerpunkte eingebaut, die einen Test scheitern lassen, um das Verhalten im Fehlerfall reproduzieren und testen zu können.
 
 [^casperdocstester]:http://casperjs.readthedocs.org/en/latest/modules/tester.htm
    
 ###Testing der Runtime  
 Nach der Überprüfung der Versionen wurde ein Selbsttest von casperjs auf dem Server durchgeführt. Der Selbsttest führt alle Funktionen in CasperJS einmal aus und diagnostiziert die vollständige Funktionsfähigkeit.    
-Die auf dem Entwicklerrechner erstellten Javascript Tests wurden per sshFS[^sshfs], auf den Server übertragen. Dort wurden sie manuell mit dem Befehl `casperjs test /home/it/casperjs/ --log-level=debug --verbose=true` ausgeführt und die ausführliche Ausgabe beurteilt. Die übertragenen Tests funktionierten  einwandfrei und Test-Runntime attestierte sich volle Einsatzbereitschaft. 
-Damit war der erste Meilenstein erreicht.
+Die auf dem Entwicklerrechner erstellten Javascript Tests wurden per sshFS[^sshfs], auf den Server übertragen. Dort wurden sie manuell mit dem Befehl `casperjs test /home/it/casperjs/ --log-level=debug --verbose=true` ausgeführt und die ausführliche Ausgabe beurteilt. Die übertragenen Tests funktionierten  einwandfrei und die Einsatzbereitschaftder  Test-Runtime war bewiesen. 
 
 
 [^sshfs]:Abstraktion von sFTP auf dem Entwicklerrechner als FUSE-Dateisystem.
-###Implementieren der Schnittstelle vom Testsystem zum CI/CD System  
-Die neu hinzugewonnene Anwendung CasperJS wurde im Admin-Interface von *Go* dem Server namens "manager" als "Ressource" hinzugefügt und kann von nun an als Ressource in Pipelines verlangt werden. Stages die diese Ressource verlangen werden dann automatisch dem "manager" Server zugeordnet und dort ausgeführt.
+
+###Einbinden des Testsystem in das CI/CD System 
+
+
+
+\begin{figure}[htb]
+\centering
+\includegraphicsKeepAspectRatio{Bilder/pipelinestruct.pdf}{0.25}
+\caption{Struktur einer Pipeline in Go}
+\label{fig:gopipelines}
+\end{figure}
+
+In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt unterteilen. Stages werden nacheinender ausgeführt. Jobs, die zusammen eine Stage bilden, können aber in beliebiger Reihenfolge oder sogar parallel ausgeführt werden. Jobs werden nicht auf dem *Go* Server selbst, sonder auf so genannten Agenten-Servern ausgeführt. *Go* benutzt für die Ausführung der Pipelines \acs{ANT}. Jeder Job hat mindesten einen Task der ein ANT-Target anspricht oder einer Standard ANT-Funktion entspricht. Der Hierarchische Aufbau von Pipelines ist in Abbildung \ref{fig:gopipelines} verdeutlicht.
+ Die Aufgabenverteilung geschieht anhand verfügbarer Ressourcen. Ressourcen sind in diesem Kontext die Fähigkeit von Agenten-Servern Anwendungen auszuführen, weil sie dort installiert sind. Diese müssen explizit im Admin-Interface von *Go* konfiguriert werden.
+Die neu hinzugewonnene Anwendung *casperJS* wurde  dem Server namens "manager" als Ressource hinzugefügt und kann von nun an als Ressource in Pipelines verlangt werden. Jobs die diese Ressource verlangen werden dann automatisch dem "manager" Server zugeordnet und dort ausgeführt.
 
 ###Erstellung von ANT Targets
-*Go* benutzt in seinem Unterbau \acs{ANT}.
-Alle Anwendungsfälle aus dem Anwendungsfalldiagramm \ref{app:UseCase} die noch nicht in *Go* oder als generische ANT-Tasks zu Verfügung standen wurden in einer neuen ANT build Datei als Tasks aufgenommen. Zusätzlich zu ein paar Hilfstasks die die Fehlerdiagnose vereinfachen sollten, wurden diese Tasks implementiert. In der build Datei wurden Ordner für Artefakte, Screenshots und Tests als Properties definiert. Parameter der ANT Tasks wurden durch Properties und Umgebungsvariablen ausgefüllt sodass die Tasks mit maximaler Flexibilität eingesetzt werden können. Es wurden auch Tasks für die Nachbereitungs eingeführt die Artefakte bereinigen und einsammeln.
+
+Alle Anwendungsfälle aus dem Anwendungsfalldiagramm \ref{app:UseCase}, die noch nicht in *Go* oder als standard ANT-Tasks zu Verfügung standen, wurden in einer neuen ANT build Datei als \acs{Tasks} aufgenommen. Zusätzlich zu ein paar Helferfunktionen, die die Fehlerdiagnose vereinfachen sollten, wurden diese Tasks implementiert. In der build Datei wurden Ordner für Artefakte, Screenshots und Tests als Properties definiert. Parameter der ANT Tasks wurden durch Properties und Umgebungsvariablen ausgefüllt, sodass die Tasks mit maximaler Flexibilität eingesetzt werden können. Es wurden auch Tasks für die Nachbereitungs eingeführt die Artefakte bereinigen und einsammeln.
 	 
+	 	 
 ###Einrichtung der Pipeline zur Testausführung 
 
-Die Komponenten die für einen erfolgreichen Testlauf benötigt werden wurden im Vorherigen Schritt erstellt. Jetzt wurden die Tasks in eine Reihenfolge gebracht. 
+Die Komponenten die für einen erfolgreichen Testlauf benötigt werden wurden im vorherigen Schritt erstellt. Jetzt wurden die Tasks in eine Reihenfolge gebracht. Es wurde eine Pipeline geschrieben, die alle notwendigen Schritte zum automatisieren Durchführen von Front-End-Test abarteitet.
 
 Interaktive loginshell notwendig für casperjs Aufruf . Viel trial and error.
 
-###Einsatz von Umgebungsvariablen   
-Einrichtung der Umgebungsvariablen aus den vorher definierten Tasks in der Pipeline und der Umgebung
-
+###Einsatz von Umgebungsvariablen  
+Um die gewünschte Modularität zu erreichen wurden statische Werte in der in den ANT-Tasks durch Umgebungsvariblen getauscht. Einige Tasks mussten erweitert werden, z.B. um die Parameterweitergabe an *casperJS* zu ermöglichen. Die Umgebungsvariablen können in der Web-Obefläche von *Go* leicht verändert werden.
 
 ###Erweiterung des Bespieltest um Screenshots 
-In *casperJS* können Bildschrimaufnahmen gespeichert werden. Über die Art der Bildschrimaufnahmen schweigen sich sowohl die Anforderungen als auch die Dokumentation von *casperJS* aus. Nach mehreren Versuchen stellte sich heraus `capture()` speichert standardmäßig das Element `<body>` was bei langen Listen auf der Website sehr lange Screenshot weit über die Grenze des Browser Viewport hinaus erzeugt. Nur die jeweils getesteten Elemente aufzunehmen erhört die Komplexität der Tests unnötigerweise und ist im Fehlerfall auch unsinnig da es natürlich nicht möglich ist nicht vorhanden Elementen aufzunehmen.
+In *casperJS* können Bildschrimaufnahmen gespeichert werden. Die Funktionalität der Bildschrimaufnahmen ist leider schlecht dokumentiert. Nach mehreren Versuchen stellte sich heraus der JavaScrip Befehl `casper.capture()`  standardmäßig  die grafische Darstellung des Elementes `<body>` einer HTML Seite speichert.  Um Speicherplatz zu sparen können auch nur einzelne, dem `<body>`untergeordnete HTML Elemente aufgenommen werden. Am häufigsten verursachen aber fehlende HTML Elemente Testabbrüche, sodass dieser Ansatz nicht weiter verfolgt wurde. 
 
 ###Pipeline um Artefaktensammlung erweitern
-*Go* bietet von Haus aus einen Mechanismus um Artefakte von ausführenden Server einzusammeln. Diese wurde in die Pipeline eingesetzt.
+Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung. In diesem Fall sind unter anderem die Test-Suite und das Testprotokoll gemeint.
+
+*Go* bietet von Haus aus einen Mechanismus um Artefakte von Agenten-Server einzusammeln. Diese wurde in die Pipeline eingesetzt und konfiguriert. Damit kann sichergestellt werden dass die maschinenlesbare Testauswertung in der Historie in *Go* immer zur Verfügung steht.
 
 ###Pipeline um Screenshotsammlung erweitern   
 
-Analog zur Artefaktensammlung wurde ein Task zum einsammeln von Screenshots erstellt und in die Pipeline integriert.
+Es wurde zusätzlich ein ANT-Task erstellt und in die Pipeline integriert der erzeugte Screenshot in die entsprechenden Ordner der Historie verschiebt.
 
 <!-- ###Testen der Schnittstelle Testsystem zum CI/CD System   -->
 
 #Testphase
 
-Schon in der Implementierungsphase wurden die Beispieltests immer wieder ausgeführt, erst auf dem Entwicklungsrechner, dann auf dem Server. Zur Inbetriebnahme von *casperJS* wurde auch der Selbsttest des Framework `casperjs selftest` angestoßen bei dem alle Funktionen ausgeführt wurden.
+Schon in der Implementierungsphase wurden die Beispieltests immer wieder ausgeführt, erst auf dem Entwicklungsrechner, dann auf dem Server. Zur Inbetriebnahme von *casperJS* wurde auch der Selbsttest des Frameworks `casperjs selftest` angestoßen bei dem alle Funktionen ausgeführt wurden.
 Auf dem Server wurde nach dem Ausführen von Tests per ssh überprüft ob Artefakte an der richtigen Stelle erzeugt wurden. 
 
 #Abnahmephase
-Nachdem die Anwendung fertig gestellt war wurde sie dem Fachbereich zur Abnahme vorgelegt. Zusammen mit dem Anforderer wurden alle Anwendungsfälle und Akzeptanzkriterien für das System im Einsatz des Beispieltest  geprüft. Die ursprünglichen Anforderung wurden alle zur Zufriedenheit erfüllt. Ein Codereview wurde nicht durchgeführt.
-Bei der Abnahme entstand noch der Wunsch nach einer Instalationsdokumentation. Es wurde entschieden diese Dokumentation nach Abschluss des Projektes zu erstellen da sonst der Projektrahmen überschritten würde.
+Nachdem die Anwendung fertig gestellt war, wurde sie dem Fachbereich zur Abnahme vorgelegt. Zusammen mit dem Anforderer wurden alle Anwendungsfälle und Akzeptanzkriterien für das System im Einsatz des Beispieltest  geprüft. Die ursprünglichen Anforderung wurden alle zur Zufriedenheit erfüllt. Ein Codereview wurde nicht durchgeführt.
+Bei der Abnahme entstand noch der Wunsch nach einer Instalationsprotokoll.
 
 
 #Einführungsphase
@@ -541,33 +558,25 @@ Im Anschluss an die erfolgreiche Abnahme wurde die Pipeline für Front-End-Tests
 
 
 ##Schulung
-Die Applikation wurde dem gesamten Team *Vertrieb Onlienshop CMS* vorgeführt. Nachdem einem Überblick über den Funktionsumfang gegeben wurde, wurden dem Team die eingesetzten Technologien erläutert und wie die aktuelle Testsuite einzusetzen und über Umgebungsvariablen zu konfigurieren ist.  Anschließend wurde die Struktur von CasperJS Tests erläutert und wie diese erstellt werden können. Auch ein Testaufnahmewerkzeug namens "Resurrectio"[^ressurectioweb] , mit dem sich im Webbrowser Front-End-Test aufnehmen lassen, wurde als Unterstützung den Nutzern vorgeschlafen.  Die Fähigkeiten und Erweiterungsmöglichkeiten von CasperJS in der aktuellen Umgebung wurden anhand der Webdokumentation[^casperdocstester] präsentiert. Zum Abschluss wurde die hieratische Organisation von Tests aufgezeigt und wie neue Testsuiten zu strukturieren sind.
+Die Applikation wurde dem gesamten Team *Vertrieb Onlienshop CMS* vorgeführt. Nach dem Funktionsüberblick wurden dem Team die eingesetzten Technologien erläutert. Ich habe dem Team vorgeführt wie die aktuelle Testsuite einzusetzen und über Umgebungsvariablen zu konfigurieren ist.  Anschließend wurde die Struktur von CasperJS Tests erläutert und wie diese erstellt werden können. <!-- Auch ein Testaufnahmewerkzeug namens "Resurrectio"[^ressurectioweb] , mit dem sich im Webbrowser Front-End-Test aufnehmen lassen, wurde als Unterstützung den Nutzern vorgeschlagen. --> Die Fähigkeiten und Erweiterungsmöglichkeiten von CasperJS in der aktuellen Umgebung wurden anhand der Webdokumentation[^casperdocstester] präsentiert. Zum Abschluss wurde die hieratische Organisation von Tests aufgezeigt und wie neue Testsuiten zu strukturieren sind.
 
 [^ressurectioweb]:https://chrome.google.com/webstore/detail/resurrectio/kicncbplfjgjlliddogifpohdhkbjogm
 
 #Dokumentation
 
->//Dieser Abschnitt ist sehr unbefriedigend
+
+Das Hauptaugenmerk bei der Dokumentation galt dieser Projektdokumentation die alle Schritte von der Anforderung bis zur Inbetriebnahme schildert.
 
 
-
-
-Im Firmeninternen Intranet wurde eine Seite mit einer Kurzanleitung  angelegt und den Unterlagen der Nutzerschulung angelegt.
-
-In CasperJS Tests können Anmerkungen zu Funktionalität mit als Argumenten beim Funktionsaufruf angegeben werden, die finden sich dann im Testprotokoll wieder, helfen aber auch als Dokumentation im Code.
+In casperJS Tests können Anmerkungen zu Funktionalität mit Argumenten beim Funktionsaufruf angegeben werden, die finden sich dann im Testprotokoll wieder, helfen aber auch als Dokumentation im Code.
 Auf generative Dokumentation wie "AntDoc" oder "JSDoc" wurde auf Grund des engen Zeitplan verzichtet da hier noch zusätzlich die Generatoren installiert hätten werden müssten.
 
->// War auch nicht gefordert. Der Code ist großteils selbsterklärend
-
-Das Hauptaugenmerk galt dieser Projektdokumentation die alle Schritte von der Idee bis zur Inbetriebnahme dokumentiert.
-
->//super selbst refferenziell
-
-Die bei der Abnahme nachträglich geforderte Installationsdokumentation wurde nach Projektabschluss erstellt.
+Dem Anforderer wurde zum Abschluss das gewünschte Instalationsprotokoll vorgelegt. 
 
 
 #Fazit
 
+>>//Fehlt noch
 
 ##Soll/Ist Vergleich
 
@@ -576,6 +585,7 @@ Keine Analyse der alten Testumgebung
 
 ###Abweichung vom Projektantrag
 
+>>// Dieser Kapitel ist hierher gewandert
 
 Die Analysephase wurde im Projektantrag mit insgesamt 13 Stunden angegeben. Tatsächlich habe ich nur 10 Stunden gebraucht. Nach der Besprechung mit dem Softwarestrategen waren die Anforderungen klar genug abgesteckt, sodass die Phase der Analyse der alten, defekten Testumgebung entfallen konnte. 
  Im Projektantrag wurde leider die Abnahme unterschlagen und fälschlicherweise mehr als 70 Stunden (73) insgesamt geplant.
