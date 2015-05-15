@@ -11,7 +11,7 @@ ursprünglichen Ausbildungsbetrieb des Autors. Diese Kooperation mündete Ende 2
 in einer vollständigen Übernahme[^grauebernahme] und einer anschließenden
 Integration mehrerer Abteilungen, Logistik und IT, in den
 mobilcom-debitel Konzern. Infolgedessen ist der Freenet Konzern, zusätzlich zu den eigenen Onlineshops und Online-Kundenportalen, verantwortlich für
-den Betrieb der GRAVIS Onlinepräsenz. Die Onlineshops werden großteils Die mobilcom-debitel GmbH verfügt über
+den Betrieb der GRAVIS Onlinepräsenz. Die Onlineshops und zugehörigen Warenwirtschaftssysteme werden überwiegend firmenintern weiterentwickelt und betreut. Die mobilcom-debitel GmbH verfügt über
 mehrere Standorte. Der Standort der ehemaligen GRAVIS-IT in
 Berlin am Ernst-Reuter-Platz konnte erhalten werden. Einige der GRAVIS-IT-Systeme werden weiterhin von diesem Standort aus betreut.
 
@@ -23,7 +23,7 @@ Berlin am Ernst-Reuter-Platz konnte erhalten werden. Einige der GRAVIS-IT-System
 ## Projekt
 
 
-Das Projekt beinhaltet die Analyse, Konzeption und Einrichtung einer Laufzeitumgebung für funktionale Front-End-Tests der betreuten Onlineshops, dem GRAVIS Onlineshop[^graweb] und dem MDS Onlineshop[^mdsweb]. Diese Umgebung soll in das bestehende Continuous-Delivery System _Go_  eingebunden, werden um vollautomatisches Testen zu ermöglichen. Hauptbedarfsträger ist das Entwicklungsteam _Vertrieb Onlineshop CMS_, welches eine geringere Arbeitslast und gesteigerte Codequalität beim Einsatz dieses Systems zum Testen erwartet.
+Das Projekt beinhaltet die Analyse, Konzeption und Einrichtung einer Laufzeitumgebung für funktionale Front-End-Tests der betreuten Onlineshops: dem GRAVIS Onlineshop[^graweb] und dem MDS Onlineshop[^mdsweb]. Diese Umgebung soll in das bestehende Continuous-Delivery System _Go_, ein einfach zu bedienendes System basierend auf den Java build-System \acs{ANT} , eingebunden werden um vollautomatisches Testen zu ermöglichen. Hauptbedarfsträger ist das Entwicklungsteam _Vertrieb Onlineshop CMS_, welches eine geringere Arbeitslast und gesteigerte Codequalität beim Einsatz dieses Systems zum Testen erwartet.
 
 [^graweb]: GRAVIS Onlineshop www.gravis.de
 [^mdsweb]: MDS Onlineshop mds.mobilcom-debitel.de
@@ -36,24 +36,23 @@ Fachrichtung Anwendungsentwicklung durchgeführt. <!-- Bedarfsträger für das
 Projekt ist das Unternehmen mobilcom-debitel GmbH selbst, da es als
 Maßname für die Qualitässicherung dienen soll. Auftraggeber des
 Projektes ist die Abteilung *Vertrieb Onlineshop CMS*. --> Die auftraggebende Abteilung
-beschäftigt einen Testingenieur, der neben der Abnahme von neuen
+beschäftigt einen Software-Tester, der neben der Abnahme von neuen
 Features auch immer wieder sehr zeitaufwändig Regressionstests
 durchführt. Um dem hohen Qualitätsstandard gerecht zu werden, sind
-diese Test notwendig, halten aber die Abnahme von neuen Features
+diese Tests notwendig, halten aber die Abnahme von neuen Features
 zeitlich auf. Durch die hohe Wiederholungsrate der Regressionstests ist
-es möglich, dass bei manueller Testdurchführung Fehler übersehen oder erst nach dem \acs{Deployment} entdeckt werden. Zudem werden zur Zeit Testläufe und Fehlerfälle in der
+es möglich, dass bei manueller Testdurchführung Fehler übersehen oder erst nach dem \acs{Deployment}, d.h. nach dem aktualisieren der Software auf den Servern auf den neusten Stand, entdeckt werden. Zudem werden zur Zeit Testläufe und Fehlerfälle in der
 Regel nicht oder nicht ausführlich dokumentiert und es ist nicht möglich
 eine Statistik, über die Fehlerhäufigkeit zu führen. Darüber hinaus gibt
-es keine technische Möglichkeit, die das deployen von fehlerhaftem Code
-auf das \acs{Echt-System} verhindert.
+es keine technische Möglichkeit die das deployen von fehlerhaftem Code
+auf das \acs{Echt-System}, also den Servern zu denen sich Kunden verbinden, verhindert.
 
 ##Projektziele
 
 
 Im Rahmen des Projektes soll eine Laufzeitumgebung für Front-End-Tests
 bereitgestellt werden. Diese muss in das Continuous-Delivery System
-\acs{Go} (im folgenden "Go"[^listofsoftware]) eingebunden werden, damit
-vollautomatische Testszenarien damit ausgeführt werden können. Die
+\acs{Go} (im folgenden "Go"[^listofsoftware]) eingebunden werden. Die
 Test-Umgebung muss betriebsbereit dem Team *Vertreib Onlineshop CMS*
 übergeben werden.
 
@@ -62,20 +61,20 @@ Test-Umgebung muss betriebsbereit dem Team *Vertreib Onlineshop CMS*
 ##Projektschnittstellen
 
 
-Da das Projekt innerhalb des Teams stattfindet, knüpft es an interne
+Da das Projekt innerhalb des Teams *Vertreib Onlineshop CMS* stattfindet, knüpft es an interne
 Prozesse, also Abnahme und \acs{Deployment} der Software und technische
 Systeme an. Eine Auswertung durch das *Quality Assurance Team* im
-Unternehmen erfolgt nicht. Die Testumgebung wird verknüpft mit *Go*,
-testet dabei über eine \acs{HTTP}-Verbindung den Onlineshop und muss auf das
+Unternehmen erfolgt nicht; das Entwicklerteam möchte auch nach der Konzernintegration felxibilität bewahren und betreibst selbst die Qualitätskontrolle. Die Testumgebung wird verknüpft mit *Go*,
+testet dabei über eine \acs{HTTP}-Verbindung den Onlineshop. Sie muss auf das
 hausinterne Versionsverwaltungssystem (\acs{SVN}) zugreifen können, um dort
-aktuelle Tests abzuholen.
+aktuelle Testskripte abzuholen.
 
 ##Projektabgrenzung
 
 
-Die Erstellung von Tests oder Testzenarien für einen produktiven Einsatz
+Die Erstellung von Tests oder Testszenarien für einen produktiven Einsatz
 ist nicht Teil des Projektes. Andere Testarten wie etwa
-Performancetests, muss das System nicht leisten.\
+Performancetests, muss das System nicht leisten denn zu diesem Zweck wurden bereits andere Werkzeuge erfolgreich eingebunden.\
 Eine eigene Benutzeroberfläche muss nicht erstellt werden, da die
 Steuerung ausschließlich aus dem \acs{CI/CD} System heraus erfolgt
 welches ein eigenes Webinterface zur Verfügung stellt.
@@ -83,14 +82,15 @@ welches ein eigenes Webinterface zur Verfügung stellt.
 
 #Projektplanung
 
+Den Beginn der Planungsphase widme ich zunächst der Zeitplanung, danach folgt als nächster Punkt die  Ressourcenplanung, und abschließend die Kostenplanung für das Projekt.
+
+ 
 
 ##Projektphasen
 
 
-Für die Umsetzung des Projekt stehen 70 Stunden zur Verfügung. Diese wurden
-bereits vor Projektbeginn in verschiedene Phasen geplant, die den
-typischen Phasen in der Softwareentwicklung entsprechen. Eine grobe
-Zeitplanung sowie die Hauptphasen enthält die folgenden Tabelle.
+Für die Umsetzung des Projekt stehen nach den Vorgaben der Industrie und Handelskammer maximal 70 Stunden zur Verfügung. Für den Projektverlauf wurden verschiedene Phasen geplant. Eine grobe
+Zeitplanung in Hauptphasen enthält die folgenden Tabelle.
 
   Projektphase              Geplante Zeit
   ----------------------- ---------------
@@ -104,8 +104,8 @@ Zeitplanung sowie die Hauptphasen enthält die folgenden Tabelle.
   Gesamt                              70h
 
 
-Die Hauptphasen können in  Unterpunkten detailliert werden. Eine
-detaillierte Übersicht befindet sich im Anhang "Detaillierte Zeitplanung" \ref{app:Zeitplanung}.
+Die Hauptphasen wurden bei der Projektplanung bei bekanntwerden der Anforderungen successive in Unterpunkte detailliert. Eine
+Eine detaillierte Übersicht befindet sich im Anhang "Detaillierte Zeitplanung" \ref{app:Zeitplanung}.
 
 <!--
 
@@ -140,10 +140,6 @@ detaillierte Übersicht befindet sich im Anhang "Detaillierte Zeitplanung" \ref{
 -->
 
 
-##Abweichung vom Projektantrag
-
-
-> //ist ins Fazit gewandert
 
 ##Ressourcenplanung
 
@@ -174,22 +170,21 @@ an den klassischen Wasserfall Prozess angelehnt  ist, entschieden.
 Ermöglicht wird dies durch den Umstand, dass die Anforderungen klar
 definiert sind und sich im Zeitraum der Realisierung nicht signifikant
 ändern werden. In der Entwurfsphase wurde die Vorgehensweise der
-Entwicklung klar aufgestellt sodass ständige Rückfragen, wie etwa in
-einem agilen Prozess, nicht nötig sind. Es wird eine Nutzerschulung für
-alle potentielle Nutzer am Ende des Projekt geben sodass eine
+Entwicklung klar aufgestellt sodass häufige Rückfragen und Anpassungen der Anforderungen , wie etwa in
+einem agilen Prozess, nicht nötig sind. Eine
 Eingewöhnung der Nutzer mit der Testumgebung schon während der
-Entwicklung nicht notwendig ist. Eine Aufnahme der Entwicklung in den
-agilen Regelprozess erschien nicht sinnvoll.
+Entwicklung ist nicht notwendig, denn es wird eine Nutzerschulung für
+alle potentielle Nutzer am Ende des Projekt geben.  Eine Aufnahme der Entwicklung in den
+agilen Regelprozess, der den Alltag im Entwicklerteam prägt, erschien nicht sinnvoll. Dadurch konnte das Projekt ohne Unterbrechung, voller Aufmerksamkeit und ohne Veränderung der Priorität durchgeführt werden.
 
 #Analysephase
 
 
 ##Ist-Analyse
 
->// revise
 
-Zum Zeitpunkt des Projektbeginn werden Regressionstests also Front-End-Tests ausschließlich
-manuell von Testingenieuren oder Entwicklern aus dem Team vorgenommen. Bei bevorstehendem \acs{Ausspiel} muss der Testingenieur seine aktuelle Aufgabe unterbrechen und den gewünschten Softwarestand auf dem \acs{Staging-System} testen. Ein Handzeichen und eine mündliche Abstimmung mit dem Team signalisieren dann die Bereitschaft zum Ausspiel. Anschließend müssen die Tests im Echt-System wiederholt werden um sicher zu gehen dass das Ausspiel erfolgreich war. Tritt hier ein Fehler auf muss geklärt werden ob der Fehler vorher übersehen wurde (menschlicher Faktor) oder die Umgebungsparameter ursächlich sind. 
+Zum Zeitpunkt des Projektbeginns werden Regressionstests in Form von Front-End-Tests ausschließlich
+manuell von Testingenieuren oder Entwicklern aus dem Team vorgenommen. Bei bevorstehendem \acs{Deployment} muss der Software-Tester seine aktuelle Aufgabe unterbrechen und den gewünschten Softwarestand auf dem \acs{Staging-System}, einer produktionsnahen Serverumgebung für Tests und Abnahmen, testen. Eine mündliche Abstimmung mit dem Team signalisiert dann die Bereitschaft zum Deployment. Anschließend müssen die Tests im \acs{Echt-System} wiederholt werden um sicher zu gehen dass das Ausspiel erfolgreich war. Das erneute durchführen von Regressionstests ist erforderlich da andere Datensätze und Serverkonfigurationen bisher unentdecktes Fehlverhalten verursachen können. Tritt hier ein Fehler auf, muss geklärt werden ob der Fehler vorher übersehen wurde (menschlicher Faktor) oder die Umgebungsparameter, z.B. die Nutzung von mehr Applikations- und Datenbankservern oder weitaus größere Datenmengen, ursächlich sind. 
 <!--
  Zudem werden Testläufe
 und Fehlerfälle in der Regel nicht oder nicht ausführlich dokumentiert
@@ -198,9 +193,9 @@ führen. Darüber hinaus gibt es keine technische Möglichkeit die das
 Ausrollen von fehlerhaftem Code auf dem Echt-System verhindert.
 -->
 <!--
- Zu einem früheren Zeitpunkt war eine Testumgebung auf Basis von Selenium in Betrieb genommen worden. Diese Testumgebung hing von Diensten dritter ab die mittlerweile eingestellt wurden. Für diese Umgebung wurden ursprünglich Testabläufe definiert die befolgt werden um alle Funktionalitäten zu testen. Diese Testabläufe werden nach besten gewissen bei manuellen Test befolgt.
- Das vertrauen in die Tests ist zu diesem Zeitpunkt nicht sehr hoch da in der Vergangenheit Funktionen an unerwarteter Stelle brachen und den gesamten Entwicklungsprozess aufgehalten haben.
--->
+ Zu einem früheren Zeitpunkt war eine Testumgebung auf Basis von Selenium in Betrieb genommen worden. Diese Testumgebung hing von Diensten dritter ab die mittlerweile eingestellt wurden. Für diese Umgebung wurden ursprünglich Testabläufe definiert die befolgt werden um alle Funktionalitäten zu testen. Diese Testabläufe werden nach besten gewissen bei manuellen Test befolgt.-->
+ Das vertrauen in die manuelle Regressionstests ist zu diesem Zeitpunkt nicht sehr hoch da in der Vergangenheit Softwarebugs an unerwarteter Stelle auftraten, lange unentdeckt blieben und bei Feststellung den gesamten Entwicklungsprozess aufgehalten haben.
+
 
 ##Wirschaftlichkeitsanalyse
 
@@ -209,14 +204,13 @@ Ausrollen von fehlerhaftem Code auf dem Echt-System verhindert.
 
 ### Make or Buy Entscheidung
 
-Front-End-Test von Web-Applikationen sind ein häufiger Anwendungsfall und es gibt viele Anbieter von Werkzeugen dafür auf dem Markt und noch viel mehr experimentelle Ansätze dafür.
+Front-End-Tests von Web-Applikationen sind ein häufiger Anwendungsfall in der Entwicklung von e-Commerce Anwendungen und es gibt viele Anbieter von Werkzeugen dafür auf dem Markt und noch viel mehr experimentelle Ansätze dafür.
 
-Es kann also Standardsoftware für Tests genutzt werden: Die Produkte phantomJS zusammen mit
-casperJS oder Selenium in Verbindung mit dem Selenium webdriver und ghostdriver bieten sich als Lösungen an.
+Es kann daher Standardsoftware für Front-End-Tests genutzt werden: Die Produkte phantomJS, ein Webbrowser, zusammen mit
+casperJS, einem Javascipt Framework zur vereinfachten Bowsersteuerung, oder Selenium in Verbindung mit dem Selenium webdriver, einer Schnittstelle zur Browserfernsteuerung,  bieten sich als Lösungen an. Alle genannten System sind kostenfrei und open-source erhältlich und sind gut dokumentiert.
 
-Die Integration von Front-End-Test in das CI/CD-System *Go* ist eine Unternehmensspezifische Anforderung. Go ist ein wenig verbreitetes System und keine Integration solcher Art wurde bisher publik gemacht.
-Da *Go* open-source und die API gut dokumentiert[^gowebdoku] ist , kann eine Integration aus eigener Kraft erfolgen.
-
+Die Integration von Front-End-Test in das CI/CD-System *Go* ist eine  Anforderung spezifisch für das Unternehmen mobilcom-debitel GmbH. *Go* ist ein wenig verbreitetes System und keine Integration solcher Art wurde bisher publik gemacht.
+Da *Go* open-source und die API gut dokumentiert[^gowebdoku] ist , kann eine Integration selbst vorgenommen werden.
 [^gowebdoku]:http://www.go.cd/documentation/user/current/
 
 ### Projektkosten
@@ -227,9 +221,9 @@ Personalkosten für den Entwickler und weitere Mitarbeiter auch noch die
 Aufwendungen für die Ressourcen berücksichtigt werden. Die Kalkulation
 wird anhand von durchschnittlichen Stundensätzen im Freenet Konzern durchgeführt. Der
 Stundensatz eines Auszubildenden im 3. Lehrjahr beträgt demzufolge
-*6,79€/h* , der eines Mitarbeiters *28,45€/h* [^hourlyrate]. Als Gemeinkosten für
-Ressourcennutzung im Unternehmen (Hardware und Software, Büroarbeitsplatz etc.) wurde ein berechneter Stundensatz von 7,90€/FTE von Controling mitgeteilt.
-angenommen.
+*6,79€* , der eines Mitarbeiters *28,45€* [^hourlyrate]. In diesen Preisen sind bereits die für GRAVIS zu leistenden Sozialabgaben, sowie Berufsgenossenschaftsbeiträge enthalten, es sind somit die Kosten, die der mobilcom-debitel GmbH beim Einsatz des entsprechenden Mitarbeiters entstehen. Als Gemeinkosten für
+Ressourcennutzung im Unternehmen (Hardware und Software, Büroarbeitsplatz etc.) wurde ein berechneter Stundensatz von 7,90€ pro Mitarbeiter vom Controling mitgeteilt.
+
 
 [^hourlyrate]: Stundensätze wurden aus dem Unternehmensinternen Controling bereitgestellt
 
@@ -249,7 +243,7 @@ Die Kosten, die für Vorgänge den Projektes anfallen sowie die gesamten Projekt
 
 Vorgang                                                    Zeit Kosten pro Stunde        Kosten
 -------------------------------------------------------- ------ ------------------- -----------
-Entwicklungskosten                                          70h 6,79€ + 7,90€         1028,30€  k676
+Entwicklungskosten                                          70h  6,79€ + 7,90€        1028,30€  
 Fachgespräch mit Projektanforderer                           3h 28,45€ + 7,90€        109,05€
 Abnahmetest                                                  1h 28,45€ + 7,90€        36,35€
 Nutzerschulung  (4 Entwickler)                               2h 113,8€ + 31,60€       290,80€
@@ -268,7 +262,7 @@ Nutzerschulung  (4 Entwickler)                               2h 113,8€ + 31,60
 
 
 Durch die Automatisierung von immer wiederkehrenden Tests lässt sich
-Arbeitszeit des Testingenieuren einsparen. Dadurch würden sich die
+Arbeitszeit des Software-Testers einsparen. Dadurch würden sich 
 Personalkosten reduzieren lassen. 
 <!--
 
@@ -282,7 +276,7 @@ Live-System           45 min
 
 -->
 
-Für Regressionstests werden 45min veranschlagt. Pro Deployment wird einmal vorab auf dem \acs{Staging-System} getestet und nach dem Deployment noch einmal im Echtsysstem. Beim aktuellen Vorgehen wird alle 2 Wochen ausgespielt was eine Ersparnis von 3 Stunden pro Monat bedeutet.
+Aus Erfahrung können für Regessionstests am GRAVIS Onlineshop 45min angenommen werden. Pro Deployment wird einmal vorab auf dem \acs{Staging-System} getestet und nach dem Deployment noch einmal im \acs{Echt-Sysstem}. Beim aktuellen Vorgehen wird alle 2 Wochen ausgespielt was eine Testaufwand alleine für Regressionstests von 3 Stunden pro Monat bedeutet. Diese könnten durch vollautomatisierte Tests eingespart werden.
 
 <!--
 \begin{eqnarray}
@@ -314,7 +308,7 @@ Tatsächlich aber wir der Tester in der gesparten Zeit anderweitig eingesetzt so
 
 ### Nicht-monetäre Vorteile
 
-Auster der Zahlenwerte sind noch einige andere Fraktoren zu nennen die mehr als nur finanzielle Bedeutung haben:
+Außer der Zahlenwerte sind noch einige andere Faktoren zu nennen die mehr als nur finanzielle Bedeutung haben:
 
 *   Tests können beliebig oft laufen
 *   Ermöglicht Veränderung von Deployment- und Integrationsverhalten und damit eine höhere Reaktionsfähigkeit.
@@ -324,12 +318,19 @@ Auster der Zahlenwerte sind noch einige andere Fraktoren zu nennen die mehr als 
 ##Einsatzmöglichkeiten
 
 
-Im Laufe der Analysephase wurde mit dem Anforderer ein Anwendungsfalldiagramm (siehe Anhang \ref{usecasediagram}) erstellt welches eine Übersicht der Anwedungesfälle gibt. Es gibt alle Funktionen an die aus Sicht des Endanwenders benötigt werden wieder. Automatisierte Tests können als aktive und kontinuierliche Qualitätssicherungsmaßname genutzt werden. Der Entwickler kann sich entscheiden bereits auf der Integrationsumgebung den aktuellen Entwicklungsstand zu testen. Zusätzlich können die Regressionstests auch direkt in den Deploymentprozess integriert werden. Eine solche enge Integration verhintert, wenn im Vorfeld bereits Testfälle fehlschlagen, das Deployment von fehlerbehafteter Software. Im Zusammenhang mit dem CI/CD System wird auch eine Historie der Softwarequalität vorgehalten.
+Im Laufe der Analysephase wurde mit dem Anforderer ein Anwendungsfalldiagramm (siehe Anhang \ref{usecasediagram}) erstellt welches eine Übersicht der Anwedungsfälle bietet. Es gibt alle Funktionen wieder, die aus Sicht des Endanwenders benötigt werden. 
+Automatisierte Tests können als aktive und kontinuierliche Qualitätssicherungsmaßname genutzt werden. Zusätzlich können die Regressionstests auch direkt in den Deploymentprozess integriert werden. Eine solche enge Integration verhindert, das Deployment von fehlerbehafteter Software, wenn im Vorfeld bereits Testfälle fehlschlagen.
+
+Der Entwickler kann sich auch entscheiden bereits auf der Integrationsumgebung, einer weiteren Testumgebung auf der immer der aktuellen Entwicklungsstand der Softwareausgespielt ist, zu testen, um frühstmöglich Fehler zu erkennen. 
+
+ Im Zusammenhang mit dem CI/CD System wird auch eine Historie der Testergebnisse vorgehalten. Mit Hilfe dieser Historie kann z.B. nachvollzogen werden wann Fehler schon einmal aufgetreten sind.
+ 
+ <!-- Flow chart erstellt?-->
 
 
 
 ##Lastenheft / Fachkonzept
-Wesentliche Bestandteile zur technischen Anforderung  aus dem Lastenheft sind im Anhang \ref{lasterhaft}zu finden.
+Wesentliche Bestandteile zur technischen Anforderung  aus dem Lastenheft sind im Anhang \ref{lastenhaft} zu finden.
 
 #Entwurfsphase
 
@@ -338,33 +339,38 @@ Wesentliche Bestandteile zur technischen Anforderung  aus dem Lastenheft sind im
 
 
 Die Testumgebung soll auf den vorhandenen Servern, auf denen auch der
-GRAVIS Onlineshop betrieben wird, betrieben werden können. Der Einsatz erfolgt wahlfrei auf den Servern des Hoster SysEleven (Berlin), auf einem konzerninternen Server im  Rechenzentrum in Düsseldorf oder einem Rechner im Büro der Entwickler in Berlin.
-
+GRAVIS Onlineshop betrieben wird, eingesetzt werden können. Der Betrieb in einem anderen Rechenzentrum oder auf einem Rechner der Entwickler, z.B. zur Weiterentwicklung von Tests, sollte ebenfalls möglich sein.
 Die Abläufe werden, von Go vorgegeben, als ANT-Skripte beschrieben. 
-Ausgaben und Artefakte werden in einer Ordnerstruktur auf dem Dateisystem gespeichert.
+Ausgaben und Artefakte werden in einer Ordnerstruktur auf dem Dateisystem gespeichert. Eine Speicherung von Testergebnissen in einer Datenbank ist ebenfalls möglich.ah Die Speicherung auf Datei-Ebene vereinfacht die Handhabung in *Go*  und hat sich bei der Integration anderer Werkzeuge bewährt.
 
 ##Architekturdesign
 
 ###Front-End-Tests
 
 
-Die Anforderungen geboten Funktionale Tests durchzuführen und wie ein Nutzer mit der Website zu interagieren. Damit musste ein echter Webbrowser mit einer Rendering-Engine und einer JavaScript Laufzeitumgebung herangezogen werden und Frameworks wie HTMLUnit fielen aus der Auswahl.
+In den Anforderungen wird gefordert funktionale Tests durchzuführen und wie ein Nutzer mit der Website zu interagieren. Damit musste ein Webbrowser mit einer Rendering-Engine und einer JavaScript Laufzeitumgebung herangezogen werden, der Formularvalidierung und Interaktionen auf Javascript Basis ermöglicht und Sessioncookies vorhalten kann. Frameworks die nur Unit-Tests ausführen,  wie HTMLUnit für HTML oder QUnit für Javascrip, fielen aus der Auswahl da ihr Funktionsumfang nicht ausreichend ist.
 
-Für eine Vereinfachung der Systemanforderung habe ich entschieden einen so genannten \acs{headless} Browser zu nutzen damit die Testumgebung auf einem Server ohne Grafikausgabe eingesetzt werden kann. 
-Als einziger stabiler \acs{headless} Browser und bereits mit einer API zur Fernsteuerung versehen ist *phantomJS* genau für dieses Einsatzgebiet geeignet.
+Für eine Vereinfachung der Systemanforderung wurde entschieden einen so genannten \acs{headless} Browser, einen Browser ohne Grafikausgabe zu nutzen, damit die Anwendung, im Folgenden "Testrunner", auf einem Server eingesetzt werden kann.    
+ Auf dem Entwicklerrechner wurden mehrere Browser evaluiert. Einzig *phantomJS*[^phjs] lief stabil. Bereits mit einer \acs{API} zur Fernsteuerung versehen, ist *phantomJS* genau für dieses Einsatzgebiet geeignet.
+
+[^phjs]:http://phantomjs.org/
+
+Die Recherche ergab dass *casperJS*[^cajs] ein Framework für *phantomJS* ist, welches einen einfachen Einstieg in Front-End-Tests ermöglicht. Als Alternative wurde auch *DalekJS* in Betracht gezogen. Aufgrund mangelten Support und lange bestehenden Bugs von Kollegen und anderen Entwicklern davon abgeraten.
+
+[^cajs]:http://casperjs.org/
+
+Um Tests in *casperJS* zu programmieren gibt es, wie für alle Javascript Libraries <!-- sodoku says so --> 2 Möglichkeiten: Tests in JavaScript  oder in CoffeeScript[^coffeescript] schreiben.
+Auf Grund der Erfahrung im Team mit Javascript wurde der Bespieltest in dieser Sprache geschrieben. Es bleibt weiterhin möglich CoffeScript zu nutzen, auch ein Mischbetrieb kann erreicht werden.     
+Um eine sequenzielle Abarbeitung von Testschritten in der funktionalen, nicht sequenziellen Programmiersprache Javascript zu gewährleisten bietet *casperJS* `.start()`, `.then()` und `.done()` Funktionen zum Kontrollfluss an.
 
 
-Die Recherche ergab dass *casperJS* ein Framework für *phantomJS* ist welches einen einfachen Einstieg in Front-End-Tests ermöglicht. Als alternative wurde auch *DalekJS* in Betracht gezogen wurde aufgrund mangelten Support und lange bestehenden Bugs von Kollegen und anderen Entwicklern abgeraten.
-
-
-Um Tests gegen die "tester"-API von *casperJS* zu programmieren gibt es 2 Möglichkeiten: Tests in JavaScript  oder in CoffeeScript schreiben.
- Das Team *Vertrieb Onlineshop CMS* setzt traditionell auf bewährte Technologie, darum wurde der Bespieltest in JavaScript geschrieben. Es bleibt weiterhin möglich CoffeScript zu nutzen, auch ein Mischbetrieb kann erreicht werden. Um eine sequenzielle Abarbeitung von Testschritten in der funktionalen Programmiersprache Javascript zu gewährleisten bietet *casperJS* `.start()`, `.then()` und `.done()` Funktionen zum Kontrollfluss an.
+[^coffeescript]:Coffeescript ist eine von Javascript abgeleitete Sprache mit vereinfachter Syntax die vor der Ausführung nach Javascript zurückkompiliert wird.
 
 ###Integration in *Go*
-Die Integration der Testumgebung  erfolgt mit \acs{ANT}. Es wird eine \acs{XML} Build-Datei erstellt die \acs{Target}s, vergleichbar mit Funktionen in Programmiersprachen, definiert die durch Go in  \acs{Pipelines} gesteuert von ANT ausgeführt werden. Die Targets müssen die Gesamtheit der Aufgaben, die für einen Testlauf notwendig sind abbilden.
-Die Targets werden mit \acs{Task}s, also Befehlen gefüllt die zusammen eine Aufgabe erledigen. ANT kann von sich aus häufig benötigte Aufgaben, wie das Kopieren, Verschieben, Entpacken von Dateien selber ausführen und Variablen, hier Properties genannt, erstellen und einsetzen. Darüber hinaus können ANT-Skripte weitere Werkzeuge, wie etwa Shell-Skripte, Java Programme oder \acs{PHP}-Scripte auslösen.
+Die Integration der Testumgebung  kann in *Go* nur unter Nutzung von  \acs{ANT} erfolgen. Es wird eine \acs{XML} Build-Datei erstellt die \acs{Target}s, vergleichbar mit Funktionen in Programmiersprachen, definiert. Go steuert in sogenannten \acs{Pipelines} welche Targets von ANT ausgeführt werden. Die Targets müssen die Gesamtheit der Aufgaben, die für einen Testlauf notwendig sind abbilden.
+Die Targets werden mit \acs{Task}s, also Befehlen gefüllt die jeweils eine Aufgabe erledigen. ANT bietet Unterstützung für Datenoperationen und Variablen, hier Properties genannt. Properties können als wiederverwendbare Variablen genutzt werden, z.B. zu Speicherung von Datenbankadressen oder Dateipfaden. Darüber hinaus können ANT-Skripte weitere Werkzeuge, wie etwa Shell-Skripte, Java Programme oder \acs{PHP}-Scripte auslösen.
 
-Die lose Kopplung der einzelnen Tasks erhöht die Wiederverwendbarkeit und  Austauschbarkeit. Es ist z.B. möglich den Test-Runner, also dessen Aufruf auszutauschen ohne die Vorbereitung der Testdaten oder Auswertung der Artefakte und Testergebnisse anpassen zu müssen. Außerdem können die einzelnen Komponenten durch die strikte Trennung einfacher getestet, gewartet und erweitert werden.
+Die lose Kopplung der einzelnen Tasks erhöht die Wiederverwendbarkeit und  Austauschbarkeit. Sollte z.B. der Test-Runner ausgetauscht werden,kann dies erfolgen die Tasks zur Testvorbereitung oder Auswertung der Testergebnisse anpassen zu müssen. Außerdem können die einzelnen Komponenten durch die strikte Trennung einfacher getestet, gewartet und erweitert werden.
 
 Die Folge der Anwendungsfälle wird in einer so genannten \acs{Pipeline} definiert die synchron abzuarbeitende Targets definiert. Eine Pipeline gliedert sich in mehrere \acs{Stages} (Stufen) welche eigene Umgebungsvariablen und benötigte Ressourcen definieren, sowie die produzierten Artefakte auszeichnen.
 
@@ -487,7 +493,12 @@ Bei der Abnahme wurde noch ein Instalationsprotokoll gewünscht damit das Vorgeh
    
 ###Erstellen der Beispieltestsuite
 Das casperJS Modul `tester` stellt die meisten im Lastenheft geforderten Funktionalität bereit. Mit Hilfe der sehr guten online Dokumentation von casperJS und seiner Module[^casperdocstester] und entlang des Szenarios eines Kunden der im GRAVIS Online Shop einkaufen möchte, wurde eine Bespieltestsuite geschrieben.
-Es musste besondere Sorgfalt auf die Struktur der Testskripte für casperJS gelegt werden, denn die Tests werden in Javascript geschrieben und dies wird Asynchron ausgeführt, wenn nicht explizit eine Schrittfolge mit `caserper.then()` definiert wird. Es wurden auch absichtliche Fehlerpunkte eingebaut, die einen Test scheitern lassen, um das Verhalten im Fehlerfall reproduzieren und testen zu können.
+Es musste besondere Sorgfalt auf die Struktur der Testskripte für casperJS gelegt werden, denn die Tests werden in Javascript geschrieben und dies wird Asynchron ausgeführt, wenn nicht explizit eine Schrittfolge definiert wird. Das würde bedeuten dass das Verhalten nicht immer reproduzierbar ist, was jedoch gerade bei Regressionstests unbedingt erforderlich ist.
+
+In einer casperJS Testsuite wird eine deterministische Testsequenz mit`casper.start()` begonnen. Jeder darauf folgende schritt wird in der Funktion `casper.then();` gekennzeichnet.
+Der Testabschluss wird mit  `casper.done()` eingeleitet.     
+
+Neben einer erfolgreich Testsequenz sind auch strategische Fehlerpunkte eingebaut worden, die einen Test scheitern lassen. Der Fehlerfall wird absichtlich herbeigeführt damit er später in der Integration problemlos abgefangen werden kann.
 
 [^casperdocstester]:http://casperjs.readthedocs.org/en/latest/modules/tester.htm
    
