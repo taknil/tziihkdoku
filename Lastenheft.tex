@@ -1,0 +1,92 @@
+\subsection{Anforderungen}\label{anforderungen}
+
+Im folgenden Auszug aus dem Lastenheft werden die Anforderungen
+definiert, die die Testumgebung erfülen muss.
+
+Die Anforderungen orientieren sich an einem minimalen/basis-
+Testscenario, der Bestellung eine Produkt im Webshop, welches vom
+Anforderer gewüscht ist.
+
+Testscenario: Seite des Shop aufrufen, prüfen ob richtige Seite,
+Anmeldeformular finden, einlogen, Produktseite aufrufen, Produkt in den
+Warenkorb legen, zum Warenkorb navigieren, Adresse auswählen, Bezahlen,
+Bestellung abschicken.
+
+Daraus abgeleitete Funktionalitäten:
+
+\subsubsection{Testfähigkeiten}\label{testfuxe4higkeiten}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Seiten aufraufen
+\item
+  Überprüfen ob Element auf Seite vorhanden.
+\item
+  Navigieren der Seite und Identifizierung von Elementen mit Hilfe von
+  XPATH, CSS-Selektoren oder dem Inhalt von Elementen
+\item
+  Website anhand von Links navigieren
+\item
+  Javascript ausführen
+\item
+  Formulare wie z.B. das Anmeldeformular oder das Adressformular im Shop
+  im Browser ausfüllen und absenden. Der Test soll die gleiche
+  Javascript Validierung erfahren wie der Nutzer auch. Der einfache
+  Versand von vorausgefüllten HTTP Post-Request genügt nicht.
+\item
+  HTTPS Verbindungen
+\item
+  Session-Handling für log-in
+\item
+  Logging des Testergebnis mit Ausgabe von Kommentagen im Test
+\end{itemize}
+
+\paragraph{Optional:}\label{optional}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Dateidownload
+\item
+  Dateiupload
+\end{itemize}
+
+\subsubsection{Umgebungsfähigkeiten}\label{umgebungsfuxe4higkeiten}
+
+Zusätzlich zu den Fähigkeiten der Tests gibt es Anforderungen an die
+Testumgebung und ihre Integration. Die Umgebung:
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Muss auf mindestens einer der bestehenden Serverumgebungen lauffähig
+  sein (Syseleven: Gentoo Linux, md Rechenzentrum Düsseldorf: Suse Linux
+  oder Ubuntu, Amazon EC2 virtuelle Instanz mit Ubuntu)
+\item
+  muss aus dem CI/CD System angesprochen / gestartet / ausgelöst werden
+  können.
+\item
+  muss Erfolg oder Fehlschlagen eines Test als Rückgabewert liefern
+  können.
+\item
+  muss im Fehlerfall oder auf explizite Anweisung Screenshots der Seite
+  erstellen, abspeichern und als Artefakt vorhalten können.
+\item
+  muss die Seite renden
+\item
+  kann Daten für den Test bereitstellen in Form von Datenbankabfragen
+  die vorab Testnutzer und Daten anlegen oder wiederherstellen.
+\item
+  kann Parametern aus dem CI/CD-System an das Testsystem zur
+  verfeinerten Steuerung der Testtiefe oder Auswahl von Testobjekten
+  weiterreichen.
+\item
+  muss nicht den Test graphisch während der Laufzeit anzeigen
+\item
+  muss aus sich heraus oder in der Historie des CI/CD System
+  Testergebnisse und Artefakte von alten Testläufen aufbewahren
+\item
+  muss aktuelle Tests, also deren Quellcode, aus der Versionsverwaltung
+  \emph{svn.gravis.de} auschecken können
+\end{itemize}

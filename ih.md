@@ -5,14 +5,13 @@
 
 Die mobilcom-debitel GmbH ist ein in Deutschland agierendes Tochterunternehmen
 der Freenet Group AG. Das Unternehmen vertreibt hauptsächlich Mobilfunkprodukte wie
-Vertäge und Mobilfunk-Endgeräte sowie dazu passendes Zubehör, betreibt
-aber keine eigene Mobilfunkinfrastruktur. Seit 2011 bestand eine
-Kooperation mit der GRAVIS Computervertriebsgesellschaft mbH, meinem
-ursprünglichen Ausbildungsbetrieb. Diese Kooperation mündete Ende 2012
+Vertäge und Mobilfunk-Endgeräte sowie dazu passendes Zubehör. Seit 2011 bestand eine
+Kooperation mit der GRAVIS Computervertriebsgesellschaft mbH, dem
+ursprünglichen Ausbildungsbetrieb des Autors. Diese Kooperation mündete Ende 2012
 in einer vollständigen Übernahme[^grauebernahme] und einer anschließenden
-Integration mehrerer Abteilungen wie  Logistik und IT in den
-mobilcom-debitel Konzern. Infolgedessen ist der Freenet Konzern verantwortlich für
-den Betrieb der GRAVIS Onlinepräsenz. Die mobilcom-debitel verfügt über
+Integration mehrerer Abteilungen, Logistik und IT, in den
+mobilcom-debitel Konzern. Infolgedessen ist der Freenet Konzern, zusätzlich zu den eigenen Onlineshops und Online-Kundenportalen, verantwortlich für
+den Betrieb der GRAVIS Onlinepräsenz. Die Onlineshops werden großteils Die mobilcom-debitel GmbH verfügt über
 mehrere Standorte. Der Standort der ehemaligen GRAVIS-IT in
 Berlin am Ernst-Reuter-Platz konnte erhalten werden. Einige der GRAVIS-IT-Systeme werden weiterhin von diesem Standort aus betreut.
 
