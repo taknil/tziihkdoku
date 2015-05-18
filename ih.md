@@ -202,7 +202,7 @@ Ausrollen von fehlerhaftem Code auf dem Echt-System verhindert.
 
 
 
-### Make or Buy Entscheidung
+### Make_or_Buy-Entscheidung
 
 Front-End-Tests von Web-Applikationen sind ein häufiger Prozesschritt in der Entwicklung von e-Commerce Anwendungen und es gibt viele Anbieter von Werkzeugen dafür auf dem Markt und noch viel mehr experimentelle Ansätze dafür.
 
@@ -330,7 +330,7 @@ Der Entwickler kann sich auch entscheiden bereits auf der Integrationsumgebung, 
 
 
 
-##Lastenheft / Fachkonzept
+##Lastenheft
 Wesentliche Bestandteile zur technischen Anforderung  aus dem Lastenheft sind im Anhang \ref{lastenhaft} zu finden.
 
 #Entwurfsphase
@@ -361,7 +361,7 @@ Die Recherche ergab, dass *casperJS*[^cajs] ein Framework für *phantomJS* ist, 
 [^cajs]:http://casperjs.org/
 
 Um Tests in *casperJS* zu programmieren gibt es, wie für alle JavascriptLibraries , <!-- sodoku says so --> zwei Möglichkeiten: Tests in JavaScript  oder in CoffeeScript[^coffeescript] schreiben.
-Auf Grund der Erfahrung im Team mit Javascript wurde der Beispieltest in dieser Sprache geschrieben. Es bleibt weiterhin möglich, CoﬀeScript zu nutzen.  Auch ein Mischbetrieb kann erreicht werden.   
+Auf Grund der Erfahrung im Team mit Javascript wurde der Beispieltest in dieser Sprache geschrieben. Es bleibt weiterhin möglich, Coffeescript zu nutzen.  Auch ein Mischbetrieb kann erreicht werden.   
 Um eine sequenzielle Abarbeitung von Testschritten in der funktionalen, nicht sequenziellen Programmiersprache Javascript zu gewährleisten, bietet *casperJS* `.start()`, `.then()` und `.done()` Funktionen zum Kontrollfluss an.
 
 
@@ -452,21 +452,20 @@ CasperJS Tests werden gemäß der Anforderung so designt, dass sie im Fehlerfall
 [^xunitwebdoku]:JUNIT XML result schema https://windyroad.com.au/dl/Open%20Source/JUnit.xsd
 
 
-##Maßnamen zur Qualitätssicherung
+##Qualitätssicherung
 
 Es wird früh in der Implementierungsphase ein Beispieltest erstellt, der
-die Funktionalität des Systems beweisen kann. Der Code der Tests und ebenfalls
+die Funktionalität des <!-- Testrunner?--> Systems beweisen kann. Der Code der Tests und ebenfalls
 der Schnittstelle wird in SVN versionsverwaltet sodass es einfach
 möglich ist funktionierende Versionen wiederherzustellen.
-Go führt selbständig Pipelines, an denen Änderungen vorgenommen wurden oder deren Abhängigkeiten sich verändert haben, sofort aus. Hierdurch bleibt kein Code ungetestet und Fehlerfälle sind leicht erkennbar. Im Büro des Entwicklungsteam steht ein Dashboard auf dem fehlgeschlagene Pipelines angezeigt werden. Das Entwicklerteam ist angehalten alle Anzeigewerte auf dem Dashboard "im grünen Bereich" zu halten und greift im Fehlerfall schnell ein. Der Verursacher des Fehlers ist dank Integration der Versionsverwaltung in Go schnell ausfindig gemacht.
+*Go* führt selbständig Pipelines, an denen Änderungen vorgenommen wurden oder deren Abhängigkeiten sich verändert haben, sofort aus. Hierdurch bleibt kein Code ungetestet und Fehlerfälle sind leicht erkennbar. Im Büro des Entwicklungsteam steht ein Rechner mit einem Großbildschirm zu Statusanzeige verschiedener Serversysteme, das so genannte Dashboard, auf dem u.a. fehlgeschlagene Pipelines, farblich gekennzeichnet, angezeigt werden. Das Entwicklerteam ist angehalten alle Anzeigewerte auf dem Dashboard "im grünen Bereich" zu halten und greift im Fehlerfall schnell ein. Der Verursacher des Fehlers ist dank Integration der Versionsverwaltung in *Go* schnell ausfindig gemacht.
 
+*caseperJS* verfügt über einen Selbsttest   
 
-> // CasperJS Sefltest
-
-##Pflichtenheft/Feinkonzept
+##Pflichtenheft
 
 Am Ende der Entwurfsphase wurde ein Pflichtenheft erstellt. Es baut auf dem Lastenheft auf. Dort wird beschrieben wie und mit welchen Werkzeugen der Autor die Anforderungen des Fachbereich umsetzen möchte.
-Das Pflichtenheft dient als Leitpfaden für die Umsetzung des Projekt. Ein Auszug aus dem Pflichtenheft befindet sich im Anhang \ref{app:Pflichtenheft}.
+Das Pflichtenheft dient als Leitpfaden für die <!-- impementierungsphase-->Umsetzung des Projektes. Ein Auszug aus dem Pflichtenheft befindet sich im Anhang \ref{app:Pflichtenheft}.
 
 
 #Implementierungsphase
