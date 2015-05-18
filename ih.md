@@ -92,6 +92,12 @@ Den Beginn der Planungsphase wurde zunächst der Zeitplanung gewidmet, danach fo
 Für die Umsetzung des Projekt stehen nach den Vorgaben der Industrie und Handelskammer maximal 70 Stunden zur Verfügung. Für den Projektverlauf wurden verschiedene Phasen geplant. Eine grobe
 Zeitplanung in Hauptphasen enthält die folgenden Tabelle.
 
+
+\input{Tabellen/tzi/Zeitplanunggrob.tex}
+
+<!-- 
+
+
   Projektphase              Geplante Zeit
   ----------------------- ---------------
   Analysephase                        10h
@@ -102,10 +108,12 @@ Zeitplanung in Hauptphasen enthält die folgenden Tabelle.
   Dokumentation                       10h
   ----------------------- ---------------
   Gesamt                              70h
+  
+  -->
 
 
 Die Hauptphasen wurden bei der Projektplanung beim Bekanntwerden der Anforderungen sukzessive in Unterpunkte detailliert. 
-Eine detaillierte Übersicht befindet sich im Anhang "Detaillierte Zeitplanung" \ref{app:Zeitplanung}.
+Eine detaillierte Übersicht befindet sich im Anhang \ref{app:Zeitplanung} "Detaillierte Zeitplanung" .
 
 <!--
 
@@ -228,7 +236,7 @@ Ressourcennutzung im Unternehmen (Hardware und Software, Büroarbeitsplatz etc.)
 
 [^hourlyrate]: Stundensätze wurden aus dem Unternehmensinternen Controlling bereitgestellt
 
-
+\input{Tabellen/tzi/kostentabelle.tex}
 <!--
 \begin{figure}
 \begin{equation}
@@ -238,9 +246,9 @@ Ressourcennutzung im Unternehmen (Hardware und Software, Büroarbeitsplatz etc.)
 \end{figure}
 -->
 
-Die Kosten, die für Vorgänge den Projektes anfallen sowie die gesamten Projektkosten sind in Tabelle \ref{kostenaufstellung} zu finden.
+Die Kosten, die für Vorgänge den Projektes anfallen sowie die gesamten Projektkosten sind in Tabelle \ref{table:kostenaufstellung} zu finden.
 
-
+<!--
 
 Vorgang                                                    Zeit Kosten pro Stunde        Kosten
 -------------------------------------------------------- ------ ------------------- -----------
@@ -249,6 +257,8 @@ Fachgespräch mit Projektanforderer                           3h 28,45€ + 7,90
 Abnahmetest                                                  1h 28,45€ + 7,90€        36,35€
 Nutzerschulung  (4 Entwickler)                               2h 113,8€ + 31,60€       290,80€
 \vtop{\hbox{\strut Projektkosten}\hbox{\strut Gesamt}}                                1464,50 €
+
+-->
 
 <!--
 \begin{figure}
