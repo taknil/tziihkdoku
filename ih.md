@@ -287,7 +287,7 @@ Live-System           45 min
 
 -->
 
-Aus Erfahrung können für Regessionstests am GRAVIS Onlineshop 45min angenommen werden. Pro Deployment wird einmal vorab auf dem \acs{Staging-System} getestet und nach dem Deployment noch einmal im \acs{Echt-Sysstem}. Beim aktuellen Vorgehen wird alle 2 Wochen ausgespielt was eine Testaufwand alleine für Regressionstests von 3 Stunden pro Monat bedeutet. Diese könnten durch vollautomatisierte Tests eingespart werden.
+Aus Erfahrung können für Regessionstests am GRAVIS Onlineshop 45min angenommen werden. Pro Deployment wird einmal vorab auf dem \acs{Staging-System} getestet und nach dem Deployment noch einmal im \acs{Echt-System}. Beim aktuellen Vorgehen wird alle 2 Wochen ausgespielt was eine Testaufwand alleine für Regressionstests von 3 Stunden pro Monat bedeutet. Diese könnten durch vollautomatisierte Tests eingespart werden.
 
 <!--
 \begin{eqnarray}
@@ -504,8 +504,8 @@ Bei der Abnahme wurde noch ein Installationsprotokoll gewünscht damit das Vorge
 
    
 ###Erstellen der Beispieltestsuite
-Das casperJS Modul `tester` stellt die meisten im Lastenheft geforderten Funktionalität bereit. Mit Hilfe der sehr guten online Dokumentation von casperJS und seiner Module[^casperdocstester] und entlang des Szenarios eines Kunden der im GRAVIS Online Shop einkaufen möchte, wurde eine Bespieltestsuite geschrieben.
-Es musste besondere Sorgfalt auf die Struktur der Testskripte für casperJS gelegt werden, denn die Tests werden in Javascript geschrieben und dies wird Asynchron ausgeführt, wenn nicht explizit eine Schrittfolge definiert wird. Das würde bedeuten, dass das Verhalten nicht immer reproduzierbar ist, was jedoch gerade bei Regressionstests unbedingt erforderlich ist.
+Das casperJS Modul `tester` stellt die meisten im Lastenheft geforderten Funktionalität bereit. Mit Hilfe der sehr guten online Dokumentation von casperJS und seiner Module[^casperdocstester] und entlang des Szenarios eines einkaufenden Kunden der im GRAVIS Online Shop, wurde eine Beispieltestsuite geschrieben.
+Es musste besondere Sorgfalt auf die Struktur der Testskripte für *casperJS* gelegt werden, denn die Tests werden in Javascript geschrieben und dies wird asynchron ausgeführt, wenn nicht explizit eine Schrittfolge definiert wird. Das würde bedeuten, dass das Verhalten nicht immer reproduzierbar ist, was jedoch gerade bei Regressionstests unbedingt erforderlich ist.
 
 In einer casperJS Testsuite wird eine deterministische Testsequenz mit`casper.start()` begonnen. Jeder darauf folgende schritt wird in der Funktion `casper.then();` gekennzeichnet.
 Der Testabschluss wird mit  `casper.done()` eingeleitet.     
@@ -515,11 +515,11 @@ Neben einer erfolgreich Testsequenz sind von mir auch strategische Fehlerpunkte 
 [^casperdocstester]:http://casperjs.readthedocs.org/en/latest/modules/tester.htm
    
 ###Testing der Runtime  
-Nach der Überprüfung der Versionen habe ich ein Selbsttest von casperjs auf dem Server durchgeführt. Der Selbsttest führt alle Funktionen in CasperJS einmal aus und diagnostiziert die vollständige Funktionsfähigkeit.    
-Die auf dem Entwicklerrechner erstellten Javascript Tests wurden per sshFS[^sshfs], auf den Server übertragen. Dort wurden sie manuell mit dem Befehl `casperjs test /home/it/casperjs/ --log-level=debug --verbose=true` ausgeführt und die ausführliche Ausgabe beurteilt. Die übertragenen Tests funktionierten  einwandfrei und die Einsatzbereitschaftder  Test-Runtime war bewiesen. 
+Nach der Überprüfung der Versionen von *PhantomJS* und *casperJS* habe ich den mitgelieferten Selbsttest von *casperJS* auf dem Server durchgeführt. Der Selbsttest führt alle Funktionen in *CasperJS* einmal aus und diagnostiziert die vollständige Funktionsfähigkeit.    
+Die auf dem Entwicklerrechner erstellten Javascript Tests wurden per sshFS[^sshfs], auf den Server übertragen. Dort wurden sie manuell mit dem Befehl `casperjs test /home/it/casperjs/ --log-level=debug --verbose=true` ausgeführt und deren Ausgabe beurteilt. Die übertragenen Tests und der Selbsttest funktionierten  einwandfrei und die Einsatzbereitschaft der Test-Runtime war bewiesen. 
 
 
-[^sshfs]:Abstraktion von sFTP auf dem Entwicklerrechner als FUSE-Dateisystem.
+[^sshfs]:Datenübertragungsprotokoll über sFTP, auf dem Entwicklerrechner als FUSE-Dateisystem eingebunden.
 
 ###Einbinden des Testsystem in das CI/CD System 
 
@@ -532,26 +532,27 @@ Die auf dem Entwicklerrechner erstellten Javascript Tests wurden per sshFS[^sshf
 \label{fig:gopipelines}
 \end{figure}
 
-In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt unterteilen. Stages werden nacheinender ausgeführt. Jobs, die zusammen eine Stage bilden, können aber in beliebiger Reihenfolge oder sogar parallel ausgeführt werden. Jobs werden nicht auf dem *Go* Server selbst, sonder auf so genannten Agenten-Servern ausgeführt. *Go* benutzt für die Ausführung der Pipelines \acs{ANT}. Jeder Job hat mindesten einen Task der ein ANT-Target anspricht oder einer Standard ANT-Funktion entspricht. Der Hierarchische Aufbau von Pipelines ist in Abbildung \ref{fig:gopipelines} verdeutlicht.
- Die Aufgabenverteilung geschieht anhand verfügbarer Ressourcen. Ressourcen sind in diesem Kontext die Fähigkeit von Agenten-Servern Anwendungen auszuführen, weil sie dort installiert sind. Diese müssen explizit im Admin-Interface von *Go* konfiguriert werden.
-Die neu hinzugewonnene Anwendung *casperJS* wurde  dem Server namens "manager" als Ressource hinzugefügt und kann von nun an als Ressource in Pipelines verlangt werden. Jobs die diese Ressource verlangen werden dann automatisch dem "manager" Server zugeordnet und dort ausgeführt.
+In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt unterteilen. Der Aufbau einer Pipeline ist in \ref{fig:gopipelines} illustriert<!-- verdeutlicht -->. Stages werden nacheinender ausgeführt. Jobs, die zusammen eine Stage bilden, können aber in beliebiger Reihenfolge oder sogar parallel ausgeführt werden. Jobs werden nicht auf dem *Go* Server selbst, sonder auf so genannten Agenten-Servern ausgeführt.     
+*Go* benutzt für die Ausführung der Pipelines \acs{ANT}. Jeder Job hat mindesten einen Task der ein ANT-Target anspricht oder einer standard ANT-Funktion entspricht.  Die Aufgabenverteilung geschieht anhand verfügbarer Ressourcen. Ressourcen sind in diesem Kontext die Fähigkeit von Agenten-Servern Anwendungen auszuführen, weil sie dort installiert sind. Diese müssen explizit im Admin-Interface von *Go* konfiguriert werden.
+Die neu hinzugewonnene Anwendung *casperJS* wurde von mir dem Server namens "manager" als Ressource hinzugefügt und kann von nun an als Ressource in Pipelines verlangt werden. Jobs die diese Ressource verlangen werden dann automatisch dem "manager" Server zugeordnet und dort ausgeführt.
 
 ###Erstellung von ANT Targets
 
-Alle Anwendungsfälle aus dem Anwendungsfalldiagramm \ref{app:UseCase}, die noch nicht in *Go* oder als standard ANT-Tasks zu Verfügung standen, wurden in einer neuen ANT build Datei als \acs{Tasks} aufgenommen. Zusätzlich zu ein paar Helferfunktionen, die die Fehlerdiagnose vereinfachen sollten, wurden diese Tasks implementiert. In der build Datei wurden Ordner für Artefakte, Screenshots und Tests als Properties definiert. Parameter der ANT Tasks wurden durch Properties und Umgebungsvariablen ausgefüllt, sodass die Tasks mit maximaler Flexibilität eingesetzt werden können. Es wurden auch Tasks für die Nachbereitungs eingeführt die Artefakte bereinigen und einsammeln.
+Alle Anwendungsfälle aus dem Anwendungsfalldiagramm \ref{app:UseCase}, die noch nicht in *Go* oder als standard ANT-Tasks zu Verfügung standen, wurden in einer neuen ANT build-Datei als \acs{Tasks} aufgenommen. Zusätzlich zu ein paar Helferfunktionen, die die Fehlerdiagnose vereinfachen sollten, wurden diese Tasks implementiert. In der build-Datei wurden Ordner für Screenshots, Testskripte und weitere Artefakte als Properties definiert. Parameter der ANT Tasks wurden durch Properties und Umgebungsvariablen ausgefüllt, sodass die Tasks mit maximaler Flexibilität eingesetzt werden können. Es wurden auch Tasks für die Nachbereitung von Test eingeführt die Artefakte wie das Testlog und Screenshots bereinigen und einsammeln.
 	 
 	 	 
 ###Einrichtung der Pipeline zur Testausführung 
 
-Die Komponenten die für einen erfolgreichen Testlauf benötigt werden wurden im vorherigen Schritt erstellt. Jetzt wurden die Tasks in eine Reihenfolge gebracht. Es wurde eine Pipeline geschrieben, die alle notwendigen Schritte zum automatisieren Durchführen von Front-End-Test abarteitet.
+Die Komponenten die für einen erfolgreichen Testlauf benötigt werden wurden im vorherigen Schritt erstellt. Jetzt wurden die Tasks in eine Reihenfolge gebracht. Ich habe eine Pipeline als ANT-Skript geschrieben, die alle notwendigen Schritte zum automatisieren Durchführen von Front-End-Test abarteitet. Diese Pipeline wurde dann in die Gesamtkonfigurationsdatei von *Go* eingefügt, in der ich auch die Rechte und die erforderlichen Ressourcen für die Pipeline konfiguriert habe.
 
-Interaktive loginshell notwendig für casperjs Aufruf . Viel trial and error.
+
 
 ###Einsatz von Umgebungsvariablen  
-Um die gewünschte Modularität zu erreichen wurden statische Werte in der in den ANT-Tasks durch Umgebungsvariblen getauscht. Einige Tasks mussten erweitert werden, z.B. um die Parameterweitergabe an *casperJS* zu ermöglichen. Die Umgebungsvariablen können in der Web-Obefläche von *Go* leicht verändert werden.
+Ab sofort können Front-End-Tests automatisiert ausgelöst werden. Bisher zu diesem Zeitpunkt sind aber alle Pfade und Parameter festgeschrieben. Der gleiche Code soll unter verschiedenen Testszenarien und auf verschiedenen Serverumgebungen zum Einsatz kommen.
+Um die gewünschte Modularität zu erreichen wurden statische Werte in der in den von mir erstellten ANT-Tasks durch Umgebungsvariblen getauscht. Einige Tasks mussten erweitert werden, z.B. um die Parameterweitergabe an *casperJS* zu ermöglichen. <!-- DIfficulty --> Die Umgebungsvariablen können in der Web-Obefläche von *Go* leicht verändert werden.
 
 ###Erweiterung des Bespieltest um Screenshotfunktion 
-In *casperJS* können Bildschrimaufnahmen gespeichert werden. Die Funktionalität der Bildschrimaufnahmen ist leider schlecht dokumentiert. Nach mehreren Versuchen stellte sich heraus der JavaScrip Befehl `casper.capture()`  standardmäßig  die grafische Darstellung des Elementes `<body>` einer HTML Seite speichert.  Um Speicherplatz zu sparen können auch nur einzelne, dem `<body>`untergeordnete HTML Elemente aufgenommen werden. Am häufigsten verursachen aber fehlende HTML Elemente Testabbrüche, sodass dieser Ansatz nicht weiter verfolgt wurde. 
+Im Browser *phantomJS* können Bildschrimaufnahmen gespeichert werden. Die Funktionalität der Bildschrimaufnahmen unter Zuhilfenahme von *casperJS*  ist leider schlecht dokumentiert. Nach mehreren Versuchen stellte sich heraus der JavaScript Befehl `casper.capture()`  standardmäßig  die grafische Darstellung des Elementes `<body>` einer HTML Seite speichert.  Um Speicherplatz zu sparen können auch nur einzelne, dem `<body>`untergeordnete HTML Elemente aufgenommen werden. Am häufigsten verursachen aber fehlende HTML Elemente Testabbrüche, sodass dieser Ansatz nicht weiter verfolgt wurde. 
 
 ###Pipeline um Artefaktensammlung erweitern
 Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung. In diesem Fall sind unter anderem die Test-Suite und das Testprotokoll gemeint.
@@ -560,23 +561,23 @@ Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung. In diesem Fa
 
 ###Pipeline um Screenshotsammlung erweitern   
 
-Es wurde zusätzlich ein ANT-Task erstellt und in die Pipeline integriert, der erzeugte Screenshot in die entsprechenden Ordner der Historie verschiebt.
+Es wurde zusätzlich ein ANT-Task erstellt und in die Pipeline integriert, der erzeugte Screenshots in die entsprechenden Ordner der Historie verschiebt.
 
 <!-- ###Testen der Schnittstelle Testsystem zum CI/CD System   -->
 
 #Testphase
 
-Schon in der Implementierungsphase wurden die Beispieltests immer wieder ausgeführt, erst auf dem Entwicklungsrechner, dann auf dem Server. Zur Inbetriebnahme von *casperJS* wurde auch der Selbsttest des Frameworks `casperjs selftest` angestoßen bei dem alle Funktionen ausgeführt wurden.
-Auf dem Server wurde nach dem Ausführen von Tests per ssh überprüft ob Artefakte an der richtigen Stelle erzeugt wurden. 
+Schon in der Implementierungsphase wurden die Beispieltests immer wieder, erst auf dem Entwicklungsrechner, dann auf dem Server  ausgeführt. Zur Inbetriebnahme von *casperJS* wurde auch der Selbsttest des Frameworks *casperJS* eingesetzt, bei dem alle Funktionen ausgeführt wurden.
+Auf dem Server wurde nach dem Ausführen von Tests per ssh überprüft, ob Artefakte an der richtigen Stelle erzeugt wurden. 
 
 #Abnahmephase
-Nachdem die Anwendung fertig gestellt war, wurde sie dem Fachbereich zur Abnahme vorgelegt. Zusammen mit dem Anforderer wurden alle Anwendungsfälle und Akzeptanzkriterien für das System im Einsatz des Beispieltest  geprüft. Die ursprünglichen Anforderung wurden alle zur Zufriedenheit erfüllt. Ein Codereview wurde nicht durchgeführt.
+Nachdem die Anwendung fertig gestellt war, wurde sie dem Fachbereich zur Abnahme vorgelegt. Zusammen mit dem Anforderer wurden alle Anwendungsfälle und Akzeptanzkriterien für das System im Einsatz des Beispieltests geprüft. Die ursprünglichen Anforderung wurden alle zur Zufriedenheit erfüllt. Ein Codereview wurde nicht durchgeführt.
 Bei der Abnahme entstand noch der Wunsch nach einer Instalationsprotokoll.
 
 
 #Einführungsphase
 
-Im Anschluss an die erfolgreiche Abnahme wurde die Pipeline für Front-End-Tests allen Benutzern in *Go* über die integrierte Rechteverwaltung zugänglich gemacht. Da der Beispieltest bereits einen breites Spektrum an Kernfunktionen des GRAVIS Onlineshop testet, kann die Testumgebung ab diesem Zeitpunkt eingesetzt werden.
+Im Anschluss an die erfolgreiche Abnahme wurde die Pipeline für Front-End-Tests allen Benutzern des Teams *Vertrieb Onlineshop CMS* in *Go* über die integrierte Rechteverwaltung zugänglich gemacht. Da der Beispieltest bereits einen breites Spektrum an Kernfunktionen des GRAVIS Onlineshop testet, kann die Testumgebung ab diesem Zeitpunkt eingesetzt werden.
 
 
 ##Schulung
@@ -590,32 +591,30 @@ Die Applikation wurde dem gesamten Team *Vertrieb Onlienshop CMS* vorgeführt. N
 Das Hauptaugenmerk bei der Dokumentation galt dieser Projektdokumentation, die alle Schritte von der Anforderung bis zur Inbetriebnahme schildert.
 
 
-In casperJS Tests können Anmerkungen zu Funktionalität mit Argumenten beim Funktionsaufruf angegeben werden. Die finden sich dann im Testprotokoll wieder, helfen aber auch als Dokumentation im Code.
-Auf generative Dokumentation wie "AntDoc" oder "JSDoc" habe ich auf Grund des engen Zeitplan verzichtet da hier noch zusätzlich die Generatoren installiert hätten werden müssen.
-
+In casperJS Tests können Anmerkungen zu Funktionalität mit Argumenten beim Funktionsaufruf angegeben werden, welche sich im Testprotokoll wieder finden und als Dokumentation im Code.
+Auf generative Dokumentation wie "AntDoc" oder "JSDoc" habe ich auf Grund des engen Zeitplans verzichtet.
 
 
 #Fazit
 
->>//Fehlt noch
+
 
 ##Soll/Ist Vergleich
 
-Alle Anforderungen aus dem Pflichtenheft wurden erfüllt
-Keine Analyse der alten Testumgebung
+Rückblickend kann festgestellt werden dass alle funktionalen Anforderungen gemäß dem Pflichtenheft erfüllt werden konnten.
+Der zum Beginn des Projektes erstellte Projektplan konnte nicht vollständig eingehalten werden.  Im Projektantrag wurde leider die Phase der Abnahme unterschlagen und fälschlicherweise mehr als 70 Stunden des von der IHK festgelegten Zeitrahmen, 73 insgesamt geplant. Der Zeitplan wurde in der Analysephase leicht angepasst.
 
-###Abweichung vom Projektantrag
+Die Analysephase wurde im Projektantrag mit insgesamt 13 Stunden angegeben. Tatsächlich habe ich nur 10 Stunden gebraucht. Nach der Besprechung mit dem <!-- Anforderer -->Softwarestrategen waren die Anforderungen klar genug definiert, sodass die Phase der Analyse der alten, defekten Testumgebung entfallen konnte. 
 
-
-
-Die Analysephase wurde im Projektantrag mit insgesamt 13 Stunden angegeben. Tatsächlich habe ich nur 10 Stunden gebraucht. Nach der Besprechung mit dem Softwarestrategen waren die Anforderungen klar genug abgesteckt, sodass die Phase der Analyse der alten, defekten Testumgebung entfallen konnte. 
- Im Projektantrag wurde leider die Abnahme unterschlagen und fälschlicherweise mehr als 70 Stunden (73) insgesamt geplant.
- Einzelne Abweichungen innerhalb des Zeitplans entstanden durch Erleichterungen bzw. Blockaden, die erst bei der Realisierung der einzelnen Teilschritte erkenntlich wurden. Die tatsächlich benötigte Gesamtzeit für das Projekt entsprach
-somit der vorher veranschlagten Planzeit. 
+ Einzelne Abweichungen innerhalb des Zeitplans entstanden durch Erleichterungen bzw. Blockaden, die erst bei der Realisierung der einzelnen Teilschritte erkenntlich wurden. Die tatsächlich benötigte Gesamtzeit für das Projekt entsprach  der vorher veranschlagten Planzeit. 
 
 ##Lessons learned
-Puffer bei Sysadmitasks gut angelegt.
+Im Zuge des Projektes konnte der Autor viele  Erfahrungen in Bezug auf Planung und Durchführung eines IT-Projektes sammeln, aber auch Erfahrungen aus dem weniger projektgetriebenen Entwicklungsalltag mit einbeziehen. Insbesondere hat es sich bewährt Zeit für die Umsetzung großzüg zu planen: Vermeintlich schnell erledigte Aufgaben in der Planung setzen bereits viel voraus und sind bei der Planung oft nur implizit Erwähnt. Sind diese Vorbedingungen nicht erfüllt wächst die benötigte Zeit für ein Aufgäbe oft unerwartet stark an, dies betraf in diesem Projekt besonders die Aufgaben der Systemadministration. Der zielstrebige, enge Zeitrahmen nötigte <!--mich--> in der Umsetzung mehrmals <!--mein--> Vorgehen zu ändern um schneller zum Ziel zu gelangen.
 
+Die ideale Projektplanung gibt es nicht, spätestens in der Umsetzung werden wichtige zusätzliche Erkenntnisse gewonnen die in einem linearen Prozess nicht mehr in die Planung einfließen können.
+
+Ein itteratives Vorgehensmodell würde ich in Zukunft  bevorzugen, insbesondere bei der Einführung eines neuen Systems, um angemessen auf neue Erkenntnisse reagieren zu können. In jedem Fall bedeutet es, dass Kommunikation  mit dem Projektanforderer die wichtigste Komponente für eine erfolgreiche Projektumsetzung ist.
+Abschließend kann man sagen dass das Projekt in seiner Realisierung für das Team und in der Durchführung für den Auto eine große Bereicherung war.
 
 ##Ausblick
 In naher Zukunft werden für den Einsatz der Testumgebung mehr Tests implementiert, die mehr Funktionen und Grenzbedingungen in den Online-Shops untersuchen.
@@ -624,9 +623,9 @@ Das Team strebt danach, die Front-End-Tests fest in den Deploymentprozess zu int
 
 Bei der Abnahme wurde entdeckt dass laufende Tests die parallele Ausführung von anderen Pipelines verhindert. Sollte dies die Arbeit des Team erschweren ist ein Umzug der Test-Runntime auf einen anderen Server ohne Anpassungen des Codes möglich.
 
-Der modulare Aufbau der Testumgebung ermöglicht somit eine gute Erweiterbarkeit und noch tiefere Integration von Tests in vorhandene Prozesse.
+Der modulare Aufbau der Integration der Testumgebung ermöglicht somit eine gute Erweiterbarkeit und noch tiefere Integration von Tests in vorhandene Prozesse.
 
-Zur Dokumentation der Tests bleibt anzumerken dass es im Unternehmen Bestrebungen gibt, hier den Prozess der Testerstellung umzukehren. Das bedeuten dass die Testdokumentation in Zukunft in einer menschenlesbaren, domänenspezifischen  Sprache (\acs{DSL}) geschrieben werden könnten, die Testfälle beschreibt und als Dokumentation dient. Mit einem entsprechenden Interpreter ließen sich daraus dann die tatsächlichen Testskipte generieren.
+Zur Dokumentation der Testszenarien bleibt anzumerken dass es im Unternehmen Bestrebungen gibt, hier den Prozess der Testerstellung umzukehren. Das bedeuten dass die Testdokumentation in Zukunft in einer menschenlesbaren, domänenspezifischen  Sprache (\acs{DSL}) geschrieben werden könnten, die Testfälle beschreibt und als Dokumentation dient. Mit einem entsprechenden Interpreter ließen sich daraus dann die tatsächlichen Testskipte generieren.
 
 
 * * * * *
