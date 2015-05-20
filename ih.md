@@ -157,7 +157,7 @@ Eine detaillierte Übersicht befindet sich im Anhang \ref{app:Zeitplanung} "Deta
 	* 1 Entwickler: Umsetzung des Projektes
 
 	* 1 Softwarestratege / Projektleiter "Testing" für Anforderungsaufnahme, technische Rücksprachen und Abnahme
-	* 1 Team _Vertrieb Onlineshop CMS_ für einführende Schulung
+	* 4 Entwickler aus dem Team _Vertrieb Onlineshop CMS_ für einführende Schulung
     
         
 
@@ -340,7 +340,7 @@ Der Entwickler kann sich auch entscheiden bereits auf der Integrationsumgebung, 
 
 
 ##Lastenheft
-Wesentliche Bestandteile zur technischen Anforderung  aus dem Lastenheft sind im Anhang \ref{lastenhaft} zu finden.
+Wesentliche Bestandteile zur technischen Anforderung  aus dem Lastenheft sind im Anhang \ref{app:Lastenheft} zu finden.
 
 #Entwurfsphase
 
