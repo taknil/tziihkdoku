@@ -1,11 +1,41 @@
-#Pflichtenheft (Auszug)
->//ich bin ein Lösungskonzept, quasi, glaube ich
+#Pflichtenheft (Auszug) /Fachkonzept
+
 
 Im folgenden Auszug aus dem Pflichtenheft wird die geplante Umsetzung der im Lastenheft definierten Anforderungen beschrieben
 
+#Zielbestimmung
+##Musskriterien
+###Benutzer
+###Systemverwalter
+###Sonstiges
+##Wunschkriterien
+#Produkteinsatz
+##Anwendungsbereiche
+##Zielgruppen
+##Betriebsbedingungen
+#Produktumgebung
+##Software
+###CLient
+###Server
+##Hardware
+###Client
+###Server
+##Orgware
+#Produktfunktionen
+##Benutzerfunktionen
+##Systemverwalterfunktionen
+##Programmfunktionen
+##Datenbankporzeduren
+#Produktdaten
+#Produktleistungen
+#Benutzeroberfläche
+#Qualitätsbestimmungen
+#Testszenarien und Testfälle
+#Entwicklungsumgebung
+#Ergänzungen
+
 ###Umsetzung der Anforderungen Test-Runtime
 
-> // Todo: habe wohl manchmal ghost und ghostjs geschrieben, ist falsch, das ist was anderes. Alles so Gespensterworte, da kommt man durcheinander.
 
 * Als Browser der Testumgebung wird PhantomJS[^phantomjsweb] gewählt. Die Installation erfolgt über die Paketverwaltung der jeweiligen Distribution, das heißt portage[^portageweb] für Gentoo, APT[^aptweb] auf Ubuntu, brew[^brewweb] auf MacOS. `ich möchte das extra ansprechen, muss aber nicht im Pflichtenheft sein ->` Es werden die Binärdateien aus den jeweiligen Repositories genutzt. Zum Projektzeitpunkt wird PhantomJS 1.9.8 verteil.  PhantomJS sollte nicht selbst kompiliert werden da es enorm viele Abhängigkeiten hat, was viele zusätzliche Fehlerquellen mit sich ziehen kann, und weil der Kompiliervorgang auch einem modernen Applikationsserver mehrere Stunden dauert. Da PhantomJS 2.0.0 auf dem Macintosh noch nicht startet und für linux nicht compiliert und die Tests und Testsuiten auf solchen Rechnern erstellt werden sollen, ist es empfohlen bei der stabilen Version 1.9.8 zu bleiben die sowohl unter Linux als auch Mac und Windows eingesetzt werden kann.
 
@@ -54,7 +84,7 @@ https://github.com/casperjs/responsive-screenshots
  Dazu werden neue Tags `XML-Knoten?` für Pipelines in die `go.xml` eingefügt. Der teaminternen Nomenklatur folgend heißen die Pipelines dann etwas "UI.Test.ghostjs" und "UL.Test.ghostjs"
 >// Todo: Name klären
 
-* Es wird eine neue ghostjs.xml Datei erstellt die sämtliche ANT-Targets enthalten wird die für Regressionstests notwendig sind. Diese beinhalten u.a. : 
+* Es wird eine neue casperjs.xml Datei erstellt die sämtliche ANT-Targets enthalten wird die für Regressionstests notwendig sind. Diese beinhalten u.a. : 
 	* Auschecken aktueller Tests und Konfigurationsdateien aus der Versionsverwaltung "svn.gravis.de/testing/trunk/ghostjs" in das Basisverzeichnis der aktuellen Pipeline
 	* Vor-
 	* und nachbereitende Datenbankabfragen die Nutzerdaten von und für die Testnutzer der Regressionstests wie etwas Adressänderungen oder das löschen von Testkonten.

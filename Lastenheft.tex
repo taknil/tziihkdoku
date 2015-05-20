@@ -1,30 +1,55 @@
-\subsection{Anforderungen}\label{anforderungen}
+\subsection{Lastenheft (Auszug)}
+\label{app:Lastenheft}
 
-Im folgenden Auszug aus dem Lastenheft werden die Anforderungen
-definiert, die die Testumgebung erfülen muss.
+Es folgt ein Auszug aus dem Lastenheft mit Fokus auf die Anforderungen:
 
-Die Anforderungen orientieren sich an einem minimalen/basis-
-Testscenario, der Bestellung eine Produkt im Webshop, welches vom
-Anforderer gewüscht ist.
+Die Anforderungen orientieren sich an einem minimalen Testszenario, der
+Bestellung eines Produkts im Webshop.
 
-Testscenario: Seite des Shop aufrufen, prüfen ob richtige Seite,
-Anmeldeformular finden, einlogen, Produktseite aufrufen, Produkt in den
-Warenkorb legen, zum Warenkorb navigieren, Adresse auswählen, Bezahlen,
-Bestellung abschicken.
-
-Daraus abgeleitete Funktionalitäten:
-
-\subsubsection{Testfähigkeiten}\label{testfuxe4higkeiten}
+\textbf{Testszenario}:
 
 \begin{itemize}
 \itemsep1pt\parskip0pt\parsep0pt
 \item
-  Seiten aufraufen
+  Seite des Shop aufrufen
+\item
+  prüfen ob richtige Seite
+\item
+  Anmeldeformular finden
+\item
+  einloggen
+\item
+  Produktseite aufrufen
+\item
+  Produkt in den Warenkorb legen
+\item
+  zum Warenkorb navigieren
+\item
+  Adresse auswählen
+\item
+  Bezahlen
+\item
+  Bestellung abschicken.
+\end{itemize}
+
+\textbf{Testfähigkeiten}
+
+Daraus abgeleitet muss ein Test folgende Anforderungen erfüllen:
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Seiten aufrufen
+\item
+  HTTP und HTTPS Verbindungen
 \item
   Überprüfen ob Element auf Seite vorhanden.
 \item
   Navigieren der Seite und Identifizierung von Elementen mit Hilfe von
-  XPATH, CSS-Selektoren oder dem Inhalt von Elementen
+  XPATH\footnote{XML Abfragesprache, um Teile eines XML-Dokumentes zu
+    adressieren}, CSS-Selektoren \footnote{Syntax in Cascading
+    Stylesheets, um Teile eines HTML-Dokumentes zu adressieren } oder
+  dem Inhalt von Elementen
 \item
   Website anhand von Links navigieren
 \item
@@ -32,61 +57,50 @@ Daraus abgeleitete Funktionalitäten:
 \item
   Formulare wie z.B. das Anmeldeformular oder das Adressformular im Shop
   im Browser ausfüllen und absenden. Der Test soll die gleiche
-  Javascript Validierung erfahren wie der Nutzer auch. Der einfache
-  Versand von vorausgefüllten HTTP Post-Request genügt nicht.
+  Javascript-basierte Validierung erfahren wie der Nutzer auch. Der
+  einfache Versand von vorausgefüllten HTTP-POST-Request genügt nicht. 
 \item
-  HTTPS Verbindungen
-\item
-  Session-Handling für log-in
-\item
-  Logging des Testergebnis mit Ausgabe von Kommentagen im Test
+  Logging des Testergebnis mit Ausgabe von Kommentaren im Testskript
 \end{itemize}
 
-\paragraph{Optional:}\label{optional}
-
-\begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
-\item
-  Dateidownload
-\item
-  Dateiupload
-\end{itemize}
-
-\subsubsection{Umgebungsfähigkeiten}\label{umgebungsfuxe4higkeiten}
+\textbf{Umgebungsfähigkeiten}
 
 Zusätzlich zu den Fähigkeiten der Tests gibt es Anforderungen an die
-Testumgebung und ihre Integration. Die Umgebung:
+Testumgebung und ihre Integration. :
 
 \begin{itemize}
 \itemsep1pt\parskip0pt\parsep0pt
 \item
-  Muss auf mindestens einer der bestehenden Serverumgebungen lauffähig
-  sein (Syseleven: Gentoo Linux, md Rechenzentrum Düsseldorf: Suse Linux
-  oder Ubuntu, Amazon EC2 virtuelle Instanz mit Ubuntu)
+  Die Testmgebung muss auf mindestens einer der bestehenden
+  Serverumgebungen lauffähig sein (Syseleven: Gentoo Linux, md
+  Rechenzentrum Düsseldorf: Suse Linux oder Ubuntu, Amazon EC2 virtuelle
+  Instanz mit Ubuntu)
 \item
-  muss aus dem CI/CD System angesprochen / gestartet / ausgelöst werden
+  Die Testläufe müssen aus dem CI/CD System \emph{Go} ausgelöst werden
   können.
 \item
-  muss Erfolg oder Fehlschlagen eines Test als Rückgabewert liefern
-  können.
+  Die Testumgebung muss Erfolg oder Misserfolg eines Tests als
+  Rückgabewert liefern können.
 \item
-  muss im Fehlerfall oder auf explizite Anweisung Screenshots der Seite
-  erstellen, abspeichern und als Artefakt vorhalten können.
+  Die Testumgebung muss im Fehlerfall oder auf explizite Anweisung
+  Screenshots der Seite erstellen
 \item
-  muss die Seite renden
+  Es können Testbedingungen für den Test bereitgestellt werden. z.B. in
+  Form von Datenbankabfragen die vorab Testnutzer und Testdaten anlegen
+  oder wiederherstellen.
 \item
-  kann Daten für den Test bereitstellen in Form von Datenbankabfragen
-  die vorab Testnutzer und Daten anlegen oder wiederherstellen.
-\item
-  kann Parametern aus dem CI/CD-System an das Testsystem zur
+  Es können Parameter aus dem CI/CD-System an das Testsystem zur
   verfeinerten Steuerung der Testtiefe oder Auswahl von Testobjekten
-  weiterreichen.
+  weiter gereicht werden.
 \item
-  muss nicht den Test graphisch während der Laufzeit anzeigen
+  Es muss eine Historie von Testergebnissen und Artefakten und Testlogs
+  von alten Testläufen aufbewahrt werden
 \item
-  muss aus sich heraus oder in der Historie des CI/CD System
-  Testergebnisse und Artefakte von alten Testläufen aufbewahren
+  Es müssen aktuelle Testskripte aus der Versionsverwaltung
+  \emph{svn.gravis.de} ausgecheckt werden können
 \item
-  muss aktuelle Tests, also deren Quellcode, aus der Versionsverwaltung
-  \emph{svn.gravis.de} auschecken können
+  Eine Testsuite muss aus dem CI/CD System heraus gewählt werden können.
+\item
+  Es muss eine maschinenlesbare Auswertung von Tests erstellt werden.
+  Hierfür wird das XUNIT Format bevorzugt.
 \end{itemize}

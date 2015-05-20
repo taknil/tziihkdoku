@@ -19,17 +19,18 @@ Die Anforderungen orientieren sich an einem minimalen Testszenario, der Bestellu
 + Bezahlen
 + Bestellung abschicken.
 
-Daraus abgeleitete Funktionalitäten:
-
 **Testfähigkeiten**
 
-* Seiten aufrufen
+Daraus abgeleitet muss ein Test folgende Anforderungen erfüllen:
+
+* Seiten aufrufen 
+* Seitenaufruf mit BasicAuth
+* HTTP und HTTPS Verbindungen
 * Überprüfen ob Element auf Seite vorhanden.
 * Navigieren der Seite und Identifizierung von Elementen mit Hilfe von XPATH[^xpath], CSS-Selektoren [^cssselect] oder dem Inhalt von Elementen 
 * Website anhand von Links navigieren
 * Javascript ausführen
-* Formulare wie z.B. das Anmeldeformular oder das Adressformular im Shop im Browser ausfüllen und absenden. Der Test soll die gleiche Javascript Validierung erfahren wie der Nutzer auch. Der einfache Versand von vorausgefüllten HTTP Post-Request genügt nicht.
-* HTTPS Verbindungen
+* Formulare wie z.B. das Anmeldeformular oder das Adressformular im Shop im Browser ausfüllen und absenden. Der Test soll die gleiche Javascript-basierte Validierung erfahren wie der Nutzer auch. Der einfache Versand von vorausgefüllten HTTP-POST-Request genügt nicht.
 <!-- * Session-Handling für log-in -->
 * Logging des Testergebnis mit Ausgabe von Kommentaren im Testskript
 
@@ -45,22 +46,20 @@ Daraus abgeleitete Funktionalitäten:
 
 **Umgebungsfähigkeiten**
 
-Zusätzlich zu den Fähigkeiten der Tests gibt es Anforderungen an die Testumgebung und ihre Integration. Die Umgebung: 
+Zusätzlich zu den Fähigkeiten der Tests gibt es Anforderungen an die Testumgebung und ihre Integration. : 
 
 
 
-* Muss auf mindestens einer der bestehenden Serverumgebungen lauffähig sein (Syseleven: Gentoo Linux, md Rechenzentrum Düsseldorf: Suse Linux oder Ubuntu, Amazon EC2 virtuelle Instanz mit Ubuntu)
-* muss aus dem CI/CD System ausgelöst werden können.
-* muss Erfolg Misserfolg eines Test als Rückgabewert liefern können.
-* muss im Fehlerfall oder auf explizite Anweisung Screenshots der Seite erstellen, abspeichern und als Artefakt vorhalten können.
-* muss die Seite rendern, das heißt Darstellung muss berechnet werden
-* kann Testbedingungen für den Test bereitstellen in Form von Datenbankabfragen die vorab Testnutzer und Daten anlegen oder wiederherstellen.
-* kann Parameter aus dem CI/CD-System an das Testsystem zur verfeinerten Steuerung der Testtiefe oder Auswahl von Testobjekten weiterreichen.
-
-* muss Historie von Testergebnissen und Artefakten und Testlogs von alten Testläufen aufbewahren
-
-
-* muss aktuelle Testskripte, aus der Versionsverwaltung _svn.gravis.de_ auschecken können
+* Die Testmgebung muss auf mindestens einer der bestehenden Serverumgebungen lauffähig sein (Syseleven: Gentoo Linux, md Rechenzentrum Düsseldorf: Suse Linux oder Ubuntu, Amazon EC2 virtuelle Instanz mit Ubuntu)
+* Die Testläufe müssen aus dem CI/CD System *Go* ausgelöst werden können.
+* Die Testumgebung muss Erfolg oder Misserfolg eines Tests als Rückgabewert liefern können.
+* Die Testumgebung muss im Fehlerfall oder auf explizite Anweisung Screenshots der Seite erstellen
+* Es können Testbedingungen für den Test bereitgestellt werden. z.B. in Form von Datenbankabfragen die vorab Testnutzer und Testdaten anlegen oder wiederherstellen.
+* Es können Parameter aus dem CI/CD-System an das Testsystem zur verfeinerten Steuerung der Testtiefe oder Auswahl von Testobjekten weiter gereicht werden.
+* Es muss eine Historie von Testergebnissen und Artefakten und Testlogs von alten Testläufen aufbewahrt werden
+* Es müssen aktuelle Testskripte aus der Versionsverwaltung _svn.gravis.de_ ausgecheckt werden können
+* Eine Testsuite muss aus dem CI/CD System heraus gewählt werden können.
+* Es muss eine maschinenlesbare Auswertung von Tests erstellt werden. 
 
 
 

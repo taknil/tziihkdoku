@@ -230,6 +230,7 @@ wird anhand von durchschnittlichen Stundensätzen im Freenet Konzern durchgefüh
 Stundensatz eines Auszubildenden im 3. Lehrjahr beträgt demzufolge
 *6,79€* , der eines Mitarbeiters *28,45€* [^hourlyrate]. In diesen Preisen sind bereits die für den Konzern zu leistenden Sozialabgaben, sowie Berufsgenossenschaftsbeiträge enthalten, es sind somit die Kosten, die der mobilcom-debitel GmbH beim Einsatz des entsprechenden Mitarbeiters entstehen. Als Gemeinkosten für
 Ressourcennutzung im Unternehmen (Hardware und Software, Büroarbeitsplatz etc.) wurde ein berechneter Stundensatz von 7,90€ pro Mitarbeiter vom Controling mitgeteilt.
+Es soll nur bestehende Infrastruktur genutzt werden und keine neue Software eingekauft werden, dadurch lassen sich die Kosten allein durch o.g. Stundensätze berechnen.
 
 
 [^hourlyrate]: Stundensätze wurden aus dem Unternehmensinternen Controlling bereitgestellt
@@ -487,8 +488,8 @@ In Übereinstimmung mit der vorhandenen Struktur im Repositry empfiehlt es sich 
 Für den Texteditor wurden Linter für JavaScript und XML installiert um früh Tippfehler erkennen zu können. Linter sind Programme die statistische Code-Analyse durchführen, sie "durchfilzen" (to lint) Code nach problematischen Abschnitten. Dies ist bei der Entwicklung von interpretierten Sprachen, die nicht vorab kompiliert werden, hilfreich.
 
 
-###Installation Test-Runtime 
-Nach der erfolgreichen Begutachtung von PhantomJS und casperJS auf der Entwicklermaschine mit MacOS, wo diese beiden Tools mit dem Paketverwaltungssystem `brew`[^brewweb] rasch installiert waren, ging es daran diese Anwendungen auf einem Server zu installieren. 
+##Installation Test-Runtime 
+Nach der erfolgreichen Begutachtung von PhantomJS und casperJS auf der Entwicklermaschine mit MacOS X, wo diese beiden Tools mit dem Paketverwaltungssystem `brew`[^brewweb] rasch installiert waren, ging es daran diese Anwendungen auf einem Server zu installieren. 
 
 [^brewweb]: brew.sh , sehr weit verbreitetes Paketverwaltungssystem für MacOS X zum nachrüsten. Wird nicht von Apple gepflegt.     
 
@@ -501,11 +502,11 @@ CasperJS wurde über `portage` auch nur in einer sehr veralteten Version verteil
 
 Erfahrungen mit gentoo haben mir gezeigt dass immer mehr Zeit bei der Installation eingeplant werden muss, denn es treten sehr häufig Unstimmigkeiten mit Abhängigkeiten auf.
 
-Bei der Abnahme wurde noch ein Installationsprotokoll gewünscht damit das Vorgehen reproduzierbar und nachvollziehbar ist. Dieser zusätzlichen Anforderung konnte noch in der Dokumentationsphase nachgekommen werden.
+Bei der Abnahme wurde noch ein Installationsprotokoll gewünscht damit das Vorgehen reproduzierbar und nachvollziehbar ist. Dieser zusätzlichen Anforderung konnte noch in der Dokumentationsphase nachgekommen werden. Das Installationsprotokoll ist im Anhang zu finden.
 
 
    
-###Erstellen der Beispieltestsuite
+##Erstellen der Beispieltestsuite
 Das casperJS Modul `tester` stellt die meisten im Lastenheft geforderten Funktionalität bereit. Mit Hilfe der sehr guten online Dokumentation von casperJS und seiner Module[^casperdocstester]  wurde eine Beispieltestsuite geschrieben.
 Es musste besondere Sorgfalt auf die Struktur der Testskripte für *casperJS* gelegt werden, denn die Tests werden in Javascript geschrieben und dies wird asynchron ausgeführt, wenn nicht explizit eine Schrittfolge definiert wird. Das würde bedeuten, dass das Verhalten nicht immer reproduzierbar ist, was jedoch gerade bei Regressionstests unbedingt erforderlich ist.
 
@@ -516,7 +517,7 @@ Neben einer erfolgreich Testsequenz sind von mir auch strategische Fehlerpunkte 
 
 [^casperdocstester]:http://casperjs.readthedocs.org/en/latest/modules/tester.htm
    
-###Testing der Runtime  
+##Testing der Runtime  
 Nach der Überprüfung der Versionen von *PhantomJS* und *casperJS* habe ich den mitgelieferten Selbsttest von *casperJS* auf dem Server durchgeführt. Der Selbsttest führt alle Funktionen in *CasperJS* einmal aus und diagnostiziert die vollständige Funktionsfähigkeit.    
 Die auf dem Entwicklerrechner erstellten Javascript Tests wurden per sshFS[^sshfs], auf den Server übertragen. Dort wurden sie manuell mit dem Befehl `casperjs test /home/it/casperjs/ --log-level=debug --verbose=true` ausgeführt und deren Ausgabe beurteilt. Die übertragenen Tests und der Selbsttest funktionierten  einwandfrei und die Einsatzbereitschaft der Test-Runtime war bewiesen. 
 
@@ -538,30 +539,30 @@ In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große
 *Go* benutzt für die Ausführung der Pipelines \acs{ANT}. Jeder Job hat mindesten einen Task der ein ANT-Target anspricht oder einer standard ANT-Funktion entspricht.  Die Aufgabenverteilung geschieht anhand verfügbarer Ressourcen. Ressourcen sind in diesem Kontext die Fähigkeit von Agenten-Servern Anwendungen auszuführen, weil sie dort installiert sind. Diese müssen explizit im Admin-Interface von *Go* konfiguriert werden.
 Die neu hinzugewonnene Anwendung *casperJS* wurde von mir dem Server namens "manager" als Ressource hinzugefügt und kann von nun an als Ressource in Pipelines verlangt werden. Jobs die diese Ressource verlangen werden dann automatisch dem "manager" Server zugeordnet und dort ausgeführt.
 
-###Erstellung von ANT Targets
+##Erstellung von ANT Targets
 
 Alle Anwendungsfälle aus dem Anwendungsfalldiagramm \ref{app:UseCase}, die noch nicht in *Go* oder als standard ANT-Tasks zu Verfügung standen, wurden in einer neuen ANT build-Datei als \acs{Task}s aufgenommen. Zusätzlich zu ein paar Helferfunktionen, die die Fehlerdiagnose vereinfachen sollten, wurden diese Tasks implementiert. In der build-Datei wurden Ordner für Screenshots, Testskripte und weitere Artefakte als Properties definiert. Parameter der ANT Tasks wurden durch Properties und Umgebungsvariablen ausgefüllt, sodass die Tasks mit maximaler Flexibilität eingesetzt werden können. Es wurden auch Tasks für die Nachbereitung von Test eingeführt die Artefakte wie das Testlog und Screenshots bereinigen und einsammeln.
 	 
 	 	 
-###Einrichtung der Pipeline zur Testausführung 
+##Einrichtung der Pipeline zur Testausführung 
 
 Die Komponenten die für einen erfolgreichen Testlauf benötigt werden wurden im vorherigen Schritt erstellt. Jetzt wurden die Tasks in eine Reihenfolge gebracht. Ich habe eine Pipeline als ANT-Skript geschrieben, die alle notwendigen Schritte zum automatisierten Durchführen von Front-End-Test abarbeitet. Diese Pipeline wurde dann in die Gesamtkonfigurationsdatei von *Go* eingefügt, in der ich auch die Rechte und die erforderlichen Ressourcen für die Pipeline konfiguriert habe.
 
 
 
-###Einsatz von Umgebungsvariablen  
+##Einsatz von Umgebungsvariablen  
 Ab sofort können Front-End-Tests automatisiert ausgelöst werden. Bisher  sind aber alle Pfade und Parameter festgeschrieben. Der gleiche Code soll unter verschiedenen Testszenarien und auf verschiedenen Serverumgebungen zum Einsatz kommen.
 Um die gewünschte Modularität zu erreichen wurden statische Werte in der in den von mir erstellten ANT-Tasks durch Umgebungsvariablen getauscht. Einige Tasks mussten erweitert werden, z.B. um die Parameterweitergabe an *casperJS* zu ermöglichen. <!-- DIfficulty --> Die Umgebungsvariablen können in der Web-Obefläche von *Go* leicht verändert werden.
 
-###Erweiterung des Bespieltest um Screenshotfunktion 
+##Erweiterung des Bespieltest um Screenshotfunktion 
 Im Browser *phantomJS* können Bildschrimaufnahmen gespeichert werden. Die Funktionalität der Bildschrimaufnahmen unter Zuhilfenahme von *casperJS*  ist leider schlecht dokumentiert. Nach mehreren Versuchen stellte sich heraus der JavaScript Befehl `casper.capture()`  standardmäßig  die grafische Darstellung des Elementes `<body>` einer HTML Seite speichert.  Um Speicherplatz zu sparen können auch nur einzelne, dem `<body>`untergeordnete HTML Elemente aufgenommen werden. Am häufigsten verursachen aber fehlende HTML Elemente Testabbrüche, sodass dieser Ansatz nicht weiter verfolgt wurde. 
 
-###Pipeline um Artefaktensammlung erweitern
+##Pipeline um Artefaktensammlung erweitern
 Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung. In diesem Fall sind unter anderem die Test-Suite und das Testprotokoll gemeint.
 
 *Go* bietet von Haus aus einen Mechanismus um Artefakte von Agenten-Server einzusammeln. Diese wurde in die Pipeline eingesetzt und konfiguriert. Damit kann sichergestellt werden dass die maschinenlesbare Testauswertung in der Historie in *Go* immer zur Verfügung steht.
 
-###Pipeline um Screenshotsammlung erweitern   
+##Pipeline um Screenshotsammlung erweitern   
 
 Es wurde zusätzlich ein ANT-Task erstellt und in die Pipeline integriert, der erzeugte Screenshots in die entsprechenden Ordner der Historie verschiebt.
 
@@ -616,18 +617,18 @@ Im Zuge des Projektes konnte der Autor viele  Erfahrungen in Bezug auf Planung u
 Die ideale Projektplanung gibt es nicht, spätestens in der Umsetzung werden wichtige zusätzliche Erkenntnisse gewonnen die in einem linearen Prozess nicht mehr in die Planung einfließen können.
 
 Ein itteratives Vorgehensmodell würde ich in Zukunft  bevorzugen, insbesondere bei der Einführung eines neuen Systems, um angemessen auf neue Erkenntnisse reagieren zu können. In jedem Fall bedeutet es, dass Kommunikation  mit dem Projektanforderer die wichtigste Komponente für eine erfolgreiche Projektumsetzung ist.
-Abschließend kann man sagen dass das Projekt in seiner Realisierung für das Team und in der Durchführung für den Auto eine große Bereicherung war.
+Abschließend kann man sagen dass das Projekt in seiner Realisierung für das Team und in der Durchführung für den Autor eine große Bereicherung war.
 
 ##Ausblick
 In naher Zukunft werden für den Einsatz der Testumgebung mehr Tests implementiert, die mehr Funktionen und Grenzbedingungen in den Online-Shops untersuchen.
 Obwohl alle im Lastenheft definierten Anforderungen realisiert wurden, zeichnen sich bereits neue Featurewünsche und Einsatzszenarien ab.
 Das Team strebt danach, die Front-End-Tests fest in den Deploymentprozess zu integrieren, was auch ohne Probleme möglich ist.
 
-Bei der Abnahme wurde entdeckt dass laufende Tests die parallele Ausführung von anderen Pipelines verhindert. Sollte dies die Arbeit des Team erschweren ist ein Umzug der Test-Runntime auf einen anderen Server ohne Anpassungen des Codes möglich.
+Bei der Abnahme wurde entdeckt dass laufende Tests die parallele Ausführung von anderen Pipelines verhindert. Sollte dies die Arbeit des Teams erschweren ist ein Umzug der Test-Runntime auf einen anderen Server ohne Anpassungen des Codes möglich.
 
 Der modulare Aufbau der Integration der Testumgebung ermöglicht somit eine gute Erweiterbarkeit und noch tiefere Integration von Tests in vorhandene Prozesse.
 
-Zur Dokumentation der Testszenarien bleibt anzumerken dass es im Unternehmen Bestrebungen gibt, hier den Prozess der Testerstellung umzukehren. Das bedeuten dass die Testdokumentation in Zukunft in einer menschenlesbaren, domänenspezifischen  Sprache (\acs{DSL}) geschrieben werden könnten, die Testfälle beschreibt und als Dokumentation dient. Mit einem entsprechenden Interpreter ließen sich daraus dann die tatsächlichen Testskipte generieren.
+Zur Dokumentation der Testszenarien bleibt anzumerken dass es im Unternehmen Bestrebungen gibt, hier den Prozess der Testerstellung umzukehren. Das würde bedeuten, dass die Testdokumentation in Zukunft in einer menschenlesbaren, domänenspezifischen  Sprache (\acs{DSL}) geschrieben werden könnte, die die Testfälle beschreibt und als Dokumentation dient. Mit einem entsprechenden Interpreter ließen sich daraus dann die tatsächlichen Testskipte generieren.
 
 
 * * * * *
