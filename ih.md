@@ -353,14 +353,32 @@ GRAVIS Onlineshop betrieben wird, eingesetzt werden können. Der Betrieb in eine
 Die Abläufe werden, von Go vorgegeben, als ANT-Skripte beschrieben. 
 Ausgaben und Artefakte werden in einer Ordnerstruktur auf dem Dateisystem gespeichert. Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung. Eine Speicherung von Testergebnissen in einer Datenbank währe ebenfalls möglich. Die Speicherung auf Datei-Ebene vereinfacht die Handhabung in *Go*  und hat sich bei der Integration anderer Werkzeuge bewährt.
 
-##Architekturdesign
+##Softwarearchitektur
 
 ###Front-End-Tests
-
-
 In den Anforderungen wird gefordert, funktionale Tests durchzuführen und wie ein Nutzer mit der Website zu interagieren. Damit musste ein Webbrowser mit einer Rendering-Engine und einer JavaScript Laufzeitumgebung herangezogen werden, der Formularvalidierung und Interaktionen auf Javascript Basis ermöglicht und Sessioncookies vorhalten kann. Frameworks, die nur statische Programmanalyse oder nur Unit-Tests ausführen,  wie HTMLUnit für HTML oder QUnit für Javascript, fielen aus der Auswahl, da ihr Funktionsumfang nicht ausreichend ist. <!-- Exekution basded Testung ist angesagt-->
 
 Für eine Vereinfachung der Systemanforderung wurde entschieden, einen so genannten \acs{headless} Browser, einen Browser ohne Grafikausgabe zu nutzen. Damit kann die Anwendung, im Folgenden "Testrunner" genannt, auf einem Server eingesetzt werden.    
+###Continuous-Deployment-System
+
+Die Integration der Testumgebung  kann in *Go* nur unter Nutzung von  \acs{ANT} erfolgen. Es wird eine \acs{XML} build-Datei erstellt die \acs{Target}s, vergleichbar mit Funktionen in Programmiersprachen, definiert. Go steuert in sogenannten \acs{Pipeline}s welche Targets von ANT ausgeführt werden. Die Targets müssen die Gesamtheit der Aufgaben, die für einen Testlauf notwendig sind, abbilden.
+Die Targets werden mit \acs{Task}s, also Befehlen gefüllt, die jeweils eine Aufgabe erledigen. ANT bietet Unterstützung für Datenoperationen und Variablen, hier Properties genannt. Properties können als wiederverwendbare Variablen genutzt werden, z.B. zu Speicherung von Datenbankadressen oder Dateipfaden. Darüber hinaus können ANT-Skripte weitere Werkzeuge, wie etwa Shell-Skripte, Java Programme oder \acs{PHP}-Scripte auslösen.
+
+Die lose Kopplung der einzelnen Tasks erhöht die Wiederverwendbarkeit und  Austauschbarkeit. Sollte z.B. der Test-Runner ausgetauscht werden, kann dies erfolgen ohne die Tasks zur Testvorbereitung oder Auswertung der Testergebnisse anpassen zu müssen. Außerdem können die einzelnen Komponenten durch die strikte Trennung einfacher getestet, gewartet und erweitert werden.
+
+Die Folge der Anwendungsfälle habe ich in einer so genannten \acs{Pipeline} definiert, die synchron abzuarbeitende Targets definiert. Eine Pipeline gliedert sich in mehrere \acs{Stage}s (Stufen), welche eigene Umgebungsvariablen und benötigte Ressourcen definieren, sowie die produzierten Artefakte auszeichnen.
+
+
+
+
+###Versionsverwaltung {#versionsverwaltung}
+ Die Aufspaltung der verschiedenen Codebasen bietet 2 Vorteile: der Zugriff auf den Code der Tests kann separat gewährt werden, ohne dass die Funktionalität des CI/CD System angepasst werden kann. Es können Dritten problemlos Rechte eingeräumt werden, Testsuiten zu erstellen ohne dass die gesamte Administration aus den Händen gegeben werden muss.
+ In *Go* ist es möglich die Version und den Zweig von einzelner Materialien, also Code-Quellen separat einzustellen um sehr agil auf Anpassungen im Code zu reagieren.
+
+
+##"Tools"
+
+###PhantomJS & casperJS
  Auf dem Entwicklerrechner wurden mehrere Browser evaluiert. Einzig *phantomJS*[^phjs] lief stabil und zuverlässig. Bereits mit einer \acs{API} zur Fernsteuerung versehen, ist *phantomJS* genau für dieses Einsatzgebiet geeignet.
 
 [^phjs]:http://phantomjs.org/
@@ -372,22 +390,37 @@ Die Recherche ergab, dass *casperJS*[^cajs] ein Framework für *phantomJS* ist, 
 Um Tests in *casperJS* zu programmieren gibt es, wie für alle JavascriptLibraries , <!-- sodoku says so --> zwei Möglichkeiten: Tests in JavaScript  oder in CoffeeScript[^coffeescript] schreiben.
 Auf Grund der Erfahrung im Team mit Javascript wurde der Beispieltest in dieser Sprache geschrieben. Es bleibt weiterhin möglich, Coffeescript zu nutzen.  Auch ein Mischbetrieb kann erreicht werden.   
 Um eine sequenzielle Abarbeitung von Testschritten in der funktionalen, nicht sequenziellen Programmiersprache Javascript zu gewährleisten, bietet *casperJS* `.start()`, `.then()` und `.done()` Funktionen zum Kontrollfluss an.
-
+<!--
+PhantomJS 1.9.8 ist ein Paket aus QTWebkit, der Rendering-Engine, einer Javascript Laufzeitumgebung und QT4 als Wrapper. PhantomJS hat enorm viele Abhängigkeiten und es ist nicht empfohlen es selbst zu kompilieren da es wahrscheinlich ist dass mindestens eine Abhängigkeit zu Komplikationen führt. Im "brew" Paketsystem wurde also eine vorkompilierte Binärdatei verteilt und mit `brew install phantomjs` anschließend ohne Probleme installiert.   -->
 
 [^coffeescript]:Coffeescript ist eine von Javascript abgeleitete Sprache mit vereinfachter Syntax die vor der Ausführung nach Javascript zurückkompiliert wird.
 
-###Integration in *Go*
-Die Integration der Testumgebung  kann in *Go* nur unter Nutzung von  \acs{ANT} erfolgen. Es wird eine \acs{XML} build-Datei erstellt die \acs{Target}s, vergleichbar mit Funktionen in Programmiersprachen, definiert. Go steuert in sogenannten \acs{Pipeline}s welche Targets von ANT ausgeführt werden. Die Targets müssen die Gesamtheit der Aufgaben, die für einen Testlauf notwendig sind, abbilden.
-Die Targets werden mit \acs{Task}s, also Befehlen gefüllt, die jeweils eine Aufgabe erledigen. ANT bietet Unterstützung für Datenoperationen und Variablen, hier Properties genannt. Properties können als wiederverwendbare Variablen genutzt werden, z.B. zu Speicherung von Datenbankadressen oder Dateipfaden. Darüber hinaus können ANT-Skripte weitere Werkzeuge, wie etwa Shell-Skripte, Java Programme oder \acs{PHP}-Scripte auslösen.
+###Go
 
-Die lose Kopplung der einzelnen Tasks erhöht die Wiederverwendbarkeit und  Austauschbarkeit. Sollte z.B. der Test-Runner ausgetauscht werden, kann dies erfolgen ohne die Tasks zur Testvorbereitung oder Auswertung der Testergebnisse anpassen zu müssen. Außerdem können die einzelnen Komponenten durch die strikte Trennung einfacher getestet, gewartet und erweitert werden.
 
-Die Folge der Anwendungsfälle habe ich in einer so genannten \acs{Pipeline} definiert, die synchron abzuarbeitende Targets definiert. Eine Pipeline gliedert sich in mehrere \acs{Stage}s (Stufen), welche eigene Umgebungsvariablen und benötigte Ressourcen definieren, sowie die produzierten Artefakte auszeichnen.
+
+\begin{figure}[htb]
+\centering
+\includegraphicsKeepAspectRatio{Bilder/pipelinestruct.pdf}{0.25}
+\caption{Struktur einer Pipeline in Go}
+\label{fig:gopipelines}
+\end{figure}
+
+In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt unterteilen. Der Aufbau einer Pipeline ist in \ref{fig:gopipelines} illustriert<!-- verdeutlicht -->. Stages werden nacheinender ausgeführt. Jobs, die zusammen eine Stage bilden, können aber in beliebiger Reihenfolge oder sogar parallel ausgeführt werden. Jobs werden nicht auf dem *Go* Server selbst, sonder auf so genannten Agenten-Servern ausgeführt.     
+*Go* benutzt für die Ausführung der Pipelines \acs{ANT}. Jeder Job hat mindesten einen Task der ein ANT-Target anspricht oder einer standard ANT-Funktion entspricht.  Die Aufgabenverteilung geschieht anhand verfügbarer Ressourcen. Ressourcen sind in diesem Kontext die Fähigkeit von Agenten-Servern Anwendungen auszuführen, weil sie dort installiert sind. Diese müssen explizit im Admin-Interface von *Go* konfiguriert werden.
+Die neu hinzugewonnene Anwendung *casperJS* wurde von mir dem Server namens "manager" als Ressource hinzugefügt und kann von nun an als Ressource in Pipelines verlangt werden. Jobs die diese Ressource verlangen werden dann automatisch dem "manager" Server zugeordnet und dort ausgeführt.
 
 Der Go-Server, welcher ein ANT-Skript auslöst ist in der Regel nicht der ausführende Server. Einzelne Server, die alle notwendigen Ressourcen für die Ausführung einer Stage bereitstellen (im folgenden Agentenserver genannt), melden sich mit ihrem Go-Agent beim Go-Server an und bekommen Aufgaben zugeteilt.
 
+Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung. In diesem Fall sind unter anderem die Test-Suite und das Testprotokoll gemeint.
 
-###Versionsverwaltung {#versionsverwaltung}
+
+###Subversion 
+
+
+
+
+
 Bei diesem Projekt sind mehrere Komponenten involviert, deren Entwicklung getrennt erfolgen kann. ANT-Skripte die Funktionalität für das CI/CD System bereitstellen, werden in einem SVN-Repository "go" versioniert.
 Die Testsuiten und deren Abhängigkeiten habe ich in einem separaten SVN-Repository "testing" verwaltet, in dem bereits Code für Performancetests und Unit-Tests vorgehalten wird.
 Im "testing" Repository bestimmt die Ordnerstruktur die Testsuite sodass später im ANT-Task nur noch der Pfad spezifiziert werden muss, um eine Testsuite auszuwählen. Ich habe zur Demonstration 5 Testsuiten angelegt, 2 tiefgreifende und 2 oberflächliche Testszenarien für jeweils das Echt- und \acs{Staging-System} und eine "demo"-Testsuite die den Anforderungen entsprechend die Funktionalität der Testumgebung unter Beweis stellt.
@@ -401,11 +434,9 @@ Im "testing" Repository bestimmt die Ordnerstruktur die Testsuite sodass später
 \end{figure}
 
 
+In Übereinstimmung mit der vorhandenen Struktur im Repositry empfiehlt es sich eigene Unterordner und Builddateien für dieses Projekt anzulegen. Siehe Sektion\ref{versionsverwaltung} Versionsverwaltung.
 
       
- Die Aufspaltung der verschiedenen Codebasen bietet 2 Vorteile: der Zugriff auf den Code der Tests kann separat gewährt werden, ohne dass die Funktionalität des CI/CD System angepasst werden kann. Es können Dritten problemlos Rechte eingeräumt werden, Testsuiten zu erstellen ohne dass die gesamte Administration aus den Händen gegeben werden muss.
- In *Go* ist es möglich die Version und den Zweig von einzelner Materialien, also Code-Quellen separat einzustellen um sehr agil auf Anpassungen im Code zu reagieren.
-
 
 ##Entwurf der Benutzeroberfläche
 
@@ -476,25 +507,22 @@ möglich ist funktionierende Versionen wiederherzustellen.
 ##Pflichtenheft
 
 Am Ende der Entwurfsphase wurde ein Pflichtenheft erstellt. Es baut auf dem Lastenheft auf. Dort wird beschrieben wie und mit welchen Werkzeugen der Autor die Anforderungen des Fachbereich umsetzen möchte.
-Das Pflichtenheft dient als Leitpfaden für die <!-- impementierungsphase-->Umsetzung des Projektes. Ein Auszug aus dem Pflichtenheft befindet sich im Anhang \ref{app:Pflichtenheft}.
-
+Das Pflichtenheft dient als Leitpfaden für die <!-- impementierungsphase-->Umsetzung des Projektes.
 
 #Implementierungsphase
 
 ##Setup
 Vor Beginn der Umsetzung von Funktionalitäten habe ich die notwendigen SVN-Repositories auf dem Entwicklerrechner ausgecheckt, damit ich bereits vorhandene Funktionalität für das Projekt mitbenutzen konnte.
 
-In Übereinstimmung mit der vorhandenen Struktur im Repositry empfiehlt es sich eigene Unterordner und Builddateien für dieses Projekt anzulegen. Siehe Sektion\ref{versionsverwaltung} Versionsverwaltung.
 Für den Texteditor wurden Linter für JavaScript und XML installiert um früh Tippfehler erkennen zu können. Linter sind Programme die statistische Code-Analyse durchführen, sie "durchfilzen" (to lint) Code nach problematischen Abschnitten. Dies ist bei der Entwicklung von interpretierten Sprachen, die nicht vorab kompiliert werden, hilfreich.
 
 
-##Installation des Trstrunners
+##Installation des Testrunners
 Nach der erfolgreichen Begutachtung von PhantomJS und casperJS auf der Entwicklermaschine mit MacOS X, wo diese beiden Tools mit dem Paketverwaltungssystem `brew`[^brewweb] rasch installiert waren, ging es daran diese Anwendungen auf einem Server zu installieren. 
 
 [^brewweb]: brew.sh , sehr weit verbreitetes Paketverwaltungssystem für MacOS X zum nachrüsten. Wird nicht von Apple gepflegt.     
 
-<!--
-PhantomJS 1.9.8 ist ein Paket aus QTWebkit, der Rendering-Engine, einer Javascript Laufzeitumgebung und QT4 als Wrapper. PhantomJS hat enorm viele Abhängigkeiten und es ist nicht empfohlen es selbst zu kompilieren da es wahrscheinlich ist dass mindestens eine Abhängigkeit zu Komplikationen führt. Im "brew" Paketsystem wurde also eine vorkompilierte Binärdatei verteilt und mit `brew install phantomjs` anschließend ohne Probleme installiert.   -->
+
  Auf dem Zielserver mit gentoo Linux wird das Paketverwaltungssystem `portage` genutzt.
 Der Befehl `emerge phantomjs` zeigte allerdings eine enorme Liste von Abhängigkeiten auf. Ich habe manuell versucht die Konflikte von Abhängigkeiten und Patch-Fehlern zu lösen. Nach 2 Stunden habe ich dieses Vorgehen als nicht zielführend betrachtet und entschied  mich ein vorkompiliertes PhantomJS herunterzuladen und manuell zu installieren. 
 
@@ -528,20 +556,10 @@ Die auf dem Entwicklerrechner erstellten Javascript Tests wurden per sshFS[^sshf
 
 
 
-\begin{figure}[htb]
-\centering
-\includegraphicsKeepAspectRatio{Bilder/pipelinestruct.pdf}{0.25}
-\caption{Struktur einer Pipeline in Go}
-\label{fig:gopipelines}
-\end{figure}
-
-In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt unterteilen. Der Aufbau einer Pipeline ist in \ref{fig:gopipelines} illustriert<!-- verdeutlicht -->. Stages werden nacheinender ausgeführt. Jobs, die zusammen eine Stage bilden, können aber in beliebiger Reihenfolge oder sogar parallel ausgeführt werden. Jobs werden nicht auf dem *Go* Server selbst, sonder auf so genannten Agenten-Servern ausgeführt.     
-*Go* benutzt für die Ausführung der Pipelines \acs{ANT}. Jeder Job hat mindesten einen Task der ein ANT-Target anspricht oder einer standard ANT-Funktion entspricht.  Die Aufgabenverteilung geschieht anhand verfügbarer Ressourcen. Ressourcen sind in diesem Kontext die Fähigkeit von Agenten-Servern Anwendungen auszuführen, weil sie dort installiert sind. Diese müssen explizit im Admin-Interface von *Go* konfiguriert werden.
-Die neu hinzugewonnene Anwendung *casperJS* wurde von mir dem Server namens "manager" als Ressource hinzugefügt und kann von nun an als Ressource in Pipelines verlangt werden. Jobs die diese Ressource verlangen werden dann automatisch dem "manager" Server zugeordnet und dort ausgeführt.
 
 ##Erstellung von ANT Targets
 
-Alle Anwendungsfälle aus dem Anwendungsfalldiagramm \ref{app:UseCase}, die noch nicht in *Go* oder als standard ANT-Tasks zu Verfügung standen, wurden in einer neuen ANT build-Datei als \acs{Task}s aufgenommen. Zusätzlich zu ein paar Helferfunktionen, die die Fehlerdiagnose vereinfachen sollten, wurden diese Tasks implementiert. In der build-Datei wurden Ordner für Screenshots, Testskripte und weitere Artefakte als Properties definiert. Parameter der ANT Tasks wurden durch Properties und Umgebungsvariablen ausgefüllt, sodass die Tasks mit maximaler Flexibilität eingesetzt werden können. Es wurden auch Tasks für die Nachbereitung von Test eingeführt die Artefakte wie das Testlog und Screenshots bereinigen und einsammeln.
+Alle Anwendungsfälle aus dem Anwendungsfalldiagramm \ref{app:UseCase}, die noch nicht in *Go* oder als standard ANT-Tasks zu Verfügung standen, wurden in einer neuen ANT build-Datei als \acs{Task}s aufgenommen. Zusätzlich zu ein paar Helferfunktionen, die die Fehlerdiagnose vereinfachen sollten, wurden diese Tasks implementiert. In der build-Datei wurden Ordner für Screenshots, Testskripte und weitere Artefakte als Properties definiert. Parameter der ANT-Tasks wurden durch Properties und Umgebungsvariablen ausgefüllt, sodass die Tasks mit maximaler Flexibilität eingesetzt werden können. Es wurden auch Tasks für die Nachbereitung von Test eingeführt die Artefakte wie das Testlog und Screenshots bereinigen und einsammeln.
 	 
 	 	 
 ##Einrichtung der Pipeline zur Testausführung 
@@ -555,10 +573,10 @@ Ab sofort können Front-End-Tests automatisiert ausgelöst werden. Bisher  sind 
 Um die gewünschte Modularität zu erreichen wurden statische Werte in der in den von mir erstellten ANT-Tasks durch Umgebungsvariablen getauscht. Einige Tasks mussten erweitert werden, z.B. um die Parameterweitergabe an *casperJS* zu ermöglichen. <!-- DIfficulty --> Die Umgebungsvariablen können in der Web-Obefläche von *Go* leicht verändert werden.
 
 ##Erweiterung des Bespieltest um Screenshotfunktion 
-Im Browser *phantomJS* können Bildschrimaufnahmen gespeichert werden. Die Funktionalität der Bildschrimaufnahmen unter Zuhilfenahme von *casperJS*  ist leider schlecht dokumentiert. Nach mehreren Versuchen stellte sich heraus der JavaScript Befehl `casper.capture()`  standardmäßig  die grafische Darstellung des Elementes `<body>` einer HTML Seite speichert.  Um Speicherplatz zu sparen können auch nur einzelne, dem `<body>`untergeordnete HTML Elemente aufgenommen werden. Am häufigsten verursachen aber fehlende HTML Elemente Testabbrüche, sodass dieser Ansatz nicht weiter verfolgt wurde. 
+Im Browser *phantomJS* können Bildschrimaufnahmen gespeichert werden. Die Funktionalität der Bildschrimaufnahmen unter Zuhilfenahme von *casperJS*  ist leider schlecht dokumentiert. Nach mehreren Versuchen stellte sich heraus der JavaScript Befehl `casper.capture()`  standardmäßig  die grafische Darstellung des Elementes `<body>` einer HTML Seite speichert. Eine Aufnahme von einzelnen DOM-Elementen ist auch möglich, jedoch verursachen meist fehlende HTML Elemente Testabbrüche, sodass dieser Ansatz nicht weiter verfolgt wurde. 
 
 ##Erweitern der Pipeline um Artefaktensammlung
-Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung. In diesem Fall sind unter anderem die Test-Suite und das Testprotokoll gemeint.
+
 
 *Go* bietet von Haus aus einen Mechanismus um Artefakte von Agenten-Server einzusammeln. Diese wurde in die Pipeline eingesetzt und konfiguriert. Damit kann sichergestellt werden dass die maschinenlesbare Testauswertung in der Historie in *Go* immer zur Verfügung steht.
 
@@ -592,6 +610,7 @@ Die Applikation wurde dem gesamten Team *Vertrieb Onlienshop CMS* vorgeführt. N
 
 
 Das Hauptaugenmerk bei der Dokumentation galt dieser Projektdokumentation, die alle Schritte von der Anforderung bis zur Inbetriebnahme schildert.
+Die Dokumentation des Projekts ist ein begleitender Prozess. Die Dokumentation wird während des gesamten Projektzeitraums beiläufig gepflegt und ergänzt.
 
 
 In casperJS Tests können Anmerkungen zu Funktionalität mit Argumenten beim Funktionsaufruf angegeben werden, welche sich im Testprotokoll wieder finden und als Dokumentation im Code.
