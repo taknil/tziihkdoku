@@ -5,11 +5,11 @@
 
 Die mobilcom-debitel GmbH ist ein in Deutschland agierendes Tochterunternehmen
 der Freenet Group AG. Das Unternehmen vertreibt hauptsächlich Mobilfunkprodukte wie
-Vertäge und Mobilfunk-Endgeräte sowie dazu passendes Zubehör. Seit 2011 bestand eine
+Verträge und Mobilfunk-Endgeräte sowie passendes Zubehör. Seit 2011 bestand eine
 Kooperation mit der GRAVIS Computervertriebsgesellschaft mbH, dem
 ursprünglichen Ausbildungsbetrieb des Autors. Diese Kooperation mündete Ende 2012
 in einer vollständigen Übernahme[^grauebernahme] und einer anschließenden
-Integration mehrerer Abteilungen, Logistik und IT, in den
+Integration zweier Abteilungen: Logistik und IT, in den
 mobilcom-debitel Konzern. Infolgedessen ist der Freenet Konzern, zusätzlich zu den eigenen Onlineshops und Online-Kundenportalen, verantwortlich für
 den Betrieb der GRAVIS Onlinepräsenz. Die Onlineshops und zugehörigen Warenwirtschaftssysteme werden überwiegend firmenintern weiterentwickelt und betreut. Die mobilcom-debitel GmbH verfügt über
 mehrere Standorte. Der Standort der ehemaligen GRAVIS-IT in
@@ -23,7 +23,7 @@ Berlin am Ernst-Reuter-Platz konnte erhalten werden. Einige der GRAVIS-IT-System
 ## Projekt
 
 
-Das Projekt beinhaltet die Analyse, Konzeption und Einrichtung einer Laufzeitumgebung für funktionale Front-End-Tests der betreuten Onlineshops: dem GRAVIS Onlineshop[^graweb] und dem MDS Onlineshop[^mdsweb]. Diese Umgebung soll in das bestehende Continuous-Delivery System _Go_, ein einfach zu bedienendes System basierend auf den Java build-System \acs{ANT} , eingebunden werden, um vollautomatisches Testen zu ermöglichen. Hauptbedarfsträger ist das Entwicklungsteam _Vertrieb Onlineshop CMS_, welches eine geringere Arbeitslast und gesteigerte Codequalität beim Einsatz dieses Systems zum Testen erwartet.
+Das Projekt beinhaltet die Analyse, Konzeption und Einrichtung einer Laufzeitumgebung für funktionale Front-End-Tests der betreuten Onlineshops: dem GRAVIS Onlineshop[^graweb] und dem MDS Onlineshop[^mdsweb]. Diese Umgebung soll in das bestehende Continuous-Delivery-System _Go_, eingebunden werden, um vollautomatisches Testen zu ermöglichen. Hauptbedarfsträger ist das Entwicklungsteam _Vertrieb Onlineshop CMS_, welches eine geringere Arbeitslast und gesteigerte Codequalität beim Einsatz dieses Systems erwartet.
 
 [^graweb]: GRAVIS Onlineshop www.gravis.de
 [^mdsweb]: MDS Onlineshop mds.mobilcom-debitel.de
@@ -32,18 +32,16 @@ Das Projekt beinhaltet die Analyse, Konzeption und Einrichtung einer Laufzeitumg
 
 
 Das Projekt wurde im Rahmen der Ausbildung zum Fachinformatiker mit der
-Fachrichtung Anwendungsentwicklung durchgeführt. <!-- Bedarfsträger für das
-Projekt ist das Unternehmen mobilcom-debitel GmbH selbst, da es als
-Maßname für die Qualitässicherung dienen soll. Auftraggeber des
-Projektes ist die Abteilung *Vertrieb Onlineshop CMS*. --> Die auftraggebende Abteilung
+Fachrichtung Anwendungsentwicklung durchgeführt. Die auftraggebende Abteilung
 beschäftigt einen Software-Tester, der neben der Abnahme von neuen
 Features auch immer wieder sehr zeitaufwändig Regressionstests
 durchführt. Um dem hohen Qualitätsstandard gerecht zu werden, sind
 diese Tests notwendig, halten aber die Abnahme von neuen Features
 zeitlich auf. Durch die hohe Wiederholungsrate der Regressionstests ist
-es möglich, dass bei manueller Testdurchführung Fehler übersehen oder erst nach dem \acs{Deployment}, d.h. nach dem aktualisieren der Software auf den Servern auf den neusten Stand, entdeckt werden. Zudem werden zur Zeit Testläufe und Fehlerfälle in der
-Regel nicht oder nicht ausführlich dokumentiert und es ist nicht möglich
-eine Statistik, über die Fehlerhäufigkeit zu führen. Darüber hinaus gibt
+es möglich, dass bei manueller Testdurchführung Fehler übersehen oder erst nach dem \acs{Deployment},
+ d. h. nach dem Aktualisieren der Software auf den Servern, entdeckt werden. Zudem werden zur Zeit Testläufe und Fehlerfälle in der
+Regel nicht oder nicht ausführlich dokumentiert und es ist nicht möglich,
+eine Statistik über die Fehlerhäufigkeit zu führen. Darüber hinaus gibt
 es keine technische Möglichkeit, die das Deployen von fehlerhaftem Code
 auf das \acs{Echt-System}, also den Servern zu denen sich Kunden verbinden, verhindert.
 
@@ -64,7 +62,7 @@ Test-Umgebung muss betriebsbereit dem Team *Vertreib Onlineshop CMS*
 Da das Projekt innerhalb des Entwicklerteams *Vertreib Onlineshop CMS* stattfindet, knüpft es an interne
 Prozesse, also Abnahme und \acs{Deployment} der Software und technische
 Systeme an. Eine Auswertung durch das *Quality Assurance Team* im
-Unternehmen erfolgt nicht. Das Entwicklerteam möchte auch nach der Konzernintegration Felxibilität bewahren und betreibst selbst die Qualitätskontrolle. Die Testumgebung wird verknüpft mit *Go* und
+Unternehmen erfolgt nicht. Das Entwicklerteam möchte auch nach der Konzernintegration Flexibilität bewahren und betreibst selbst die Qualitätskontrolle. Die Testumgebung wird verknüpft mit *Go* und
 testet dabei über eine \acs{HTTP}-Verbindung den jeweiligen Onlineshop. Die Testumgebung muss auf das
 hausinterne Versionsverwaltungssystem (\acs{SVN}) zugreifen können, um dort
 aktuelle Testskripte abzuholen.
@@ -89,8 +87,8 @@ Den Beginn der Planungsphase wurde zunächst der Zeitplanung gewidmet, danach fo
 ##Projektphasen
 
 
-Für die Umsetzung des Projekt stehen nach den Vorgaben der Industrie und Handelskammer maximal 70 Stunden zur Verfügung. Für den Projektverlauf wurden verschiedene Phasen geplant. Eine grobe
-Zeitplanung in Hauptphasen enthält die folgenden Tabelle.
+Für die Umsetzung des Projektes stehen nach den Vorgaben der Industrie und Handelskammer maximal 70 Stunden zur Verfügung. Für den Projektverlauf wurden verschiedene Phasen geplant. Eine grobe
+Zeitplanung in Hauptphasen enthält die folgende Tabelle.
 
 
 \input{Tabellen/tzi/Zeitplanunggrob.tex}
@@ -130,9 +128,9 @@ Eine detaillierte Übersicht befindet sich im Anhang \ref{app:Zeitplanung} "Deta
   Lösungskonzept erstellen                                                     4h 
   Wahl eines Testrunner                                                        3h 
   Implementierungsphase                                                                    40h
-  Installation Test-Runtime                                                    3h 
+  Installation Test-Testrunner                                                    3h 
   Erstellen Beispieltestsuite                                                  2h 
-  Testing der Runtime                                                          2h 
+  Testing der Testrunner                                                          2h 
   Implementieren der Schnittstelle vom Testsystem zum CI/CD System            30h 
   Erstellung von ANT Targets	                                               12h 
   Einrichtung der Pipeline zur Testausführung                                 12h 
@@ -318,12 +316,12 @@ Tatsächlich aber wir der Tester in der gesparten Zeit anderweitig eingesetzt so
 
 ### Nicht-monetäre Vorteile
 
-Neben dem finanziellen Nutzen möchte ich hier noch folgende weitere Vorteile aufzählen.:
+Neben dem finanziellen Nutzen möchte ich hier noch folgende weitere Vorteile aufzählen:
 
 *   Tests können beliebig oft laufen
 *   Auf Grund der Automatisierung und der daraus abgeleiteten Zeitersparnis ermöglicht das Projekt eine Veränderung von Deployment- und Integrationsverhalten und damit eine höhere Reaktionsfähigkeit.
 *   Größeres Vertrauen in den Code, da Kernfunktionalität ständig getestet wird
-*   Die Arbeit eines Testingenieuren oder Entwickler muss nicht für Front-End-Tests unterbrochen werden.
+*   Die Arbeit eines Testingenieurs oder Entwickler muss nicht für Front-End-Tests unterbrochen werden.
 
 ##Einsatzmöglichkeiten
 
@@ -331,7 +329,7 @@ Neben dem finanziellen Nutzen möchte ich hier noch folgende weitere Vorteile au
 Im Laufe der Analysephase wurde mit dem Anforderer ein Anwendungsfalldiagramm (siehe Anhang \ref{usecasediagram}) erstellt, welches eine Übersicht der Anwendungsfälle bietet. Es gibt alle Funktionen wieder, die aus Sicht des Endanwenders benötigt werden. 
 Automatisierte Tests können als aktive und kontinuierliche Qualitätssicherungsmaßname bei der Entwicklung der Webshops genutzt werden. Zusätzlich können die Regressionstests auch direkt in den Deploymentprozess integriert werden. Eine solche enge Integration verhindert, das Deployment von fehlerbehafteter Software, wenn im Vorfeld bereits Testfälle fehlschlagen.
 
-Der Entwickler kann sich auch entscheiden bereits auf der Integrationsumgebung, einer weiteren Testumgebung auf der immer der aktuellen Entwicklungsstand der Softwareausgespielt ist, zu testen, um frühstmöglich Fehler zu erkennen. 
+Der Entwickler kann sich auch entscheiden bereits auf der Integrationsumgebung, einer weiteren Testumgebung auf der immer der aktuellen Entwicklungsstand der Softwareausgespielt ist, zu testen, um frühestmöglich  Fehler zu erkennen. 
 
  Im Zusammenhang mit dem CI/CD System wird auch eine Historie der Testergebnisse vorgehalten. Mit Hilfe dieser Historie kann z.B. nachvollzogen werden, wann Fehler schon einmal aufgetreten sind.
  
@@ -488,7 +486,7 @@ In Übereinstimmung mit der vorhandenen Struktur im Repositry empfiehlt es sich 
 Für den Texteditor wurden Linter für JavaScript und XML installiert um früh Tippfehler erkennen zu können. Linter sind Programme die statistische Code-Analyse durchführen, sie "durchfilzen" (to lint) Code nach problematischen Abschnitten. Dies ist bei der Entwicklung von interpretierten Sprachen, die nicht vorab kompiliert werden, hilfreich.
 
 
-##Installation Test-Runtime 
+##Installation des Trstrunners
 Nach der erfolgreichen Begutachtung von PhantomJS und casperJS auf der Entwicklermaschine mit MacOS X, wo diese beiden Tools mit dem Paketverwaltungssystem `brew`[^brewweb] rasch installiert waren, ging es daran diese Anwendungen auf einem Server zu installieren. 
 
 [^brewweb]: brew.sh , sehr weit verbreitetes Paketverwaltungssystem für MacOS X zum nachrüsten. Wird nicht von Apple gepflegt.     
@@ -517,9 +515,9 @@ Neben einer erfolgreich Testsequenz sind von mir auch strategische Fehlerpunkte 
 
 [^casperdocstester]:http://casperjs.readthedocs.org/en/latest/modules/tester.htm
    
-##Testing der Runtime  
+##Testing des Testrunners  
 Nach der Überprüfung der Versionen von *PhantomJS* und *casperJS* habe ich den mitgelieferten Selbsttest von *casperJS* auf dem Server durchgeführt. Der Selbsttest führt alle Funktionen in *CasperJS* einmal aus und diagnostiziert die vollständige Funktionsfähigkeit.    
-Die auf dem Entwicklerrechner erstellten Javascript Tests wurden per sshFS[^sshfs], auf den Server übertragen. Dort wurden sie manuell mit dem Befehl `casperjs test /home/it/casperjs/ --log-level=debug --verbose=true` ausgeführt und deren Ausgabe beurteilt. Die übertragenen Tests und der Selbsttest funktionierten  einwandfrei und die Einsatzbereitschaft der Test-Runtime war bewiesen. 
+Die auf dem Entwicklerrechner erstellten Javascript Tests wurden per sshFS[^sshfs], auf den Server übertragen. Dort wurden sie manuell mit dem Befehl `casperjs test /home/it/casperjs/ --log-level=debug --verbose=true` ausgeführt und deren Ausgabe beurteilt. Die übertragenen Tests und der Selbsttest funktionierten  einwandfrei und die Einsatzbereitschaft des Testrunners war bewiesen. 
 
 
 [^sshfs]:Datenübertragungsprotokoll über sFTP, auf dem Entwicklerrechner als FUSE-Dateisystem eingebunden.
@@ -624,7 +622,7 @@ In naher Zukunft werden für den Einsatz der Testumgebung mehr Tests implementie
 Obwohl alle im Lastenheft definierten Anforderungen realisiert wurden, zeichnen sich bereits neue Featurewünsche und Einsatzszenarien ab.
 Das Team strebt danach, die Front-End-Tests fest in den Deploymentprozess zu integrieren, was auch ohne Probleme möglich ist.
 
-Bei der Abnahme wurde entdeckt dass laufende Tests die parallele Ausführung von anderen Pipelines verhindert. Sollte dies die Arbeit des Teams erschweren ist ein Umzug der Test-Runntime auf einen anderen Server ohne Anpassungen des Codes möglich.
+Bei der Abnahme wurde entdeckt dass laufende Tests die parallele Ausführung von anderen Pipelines verhindert. Sollte dies die Arbeit des Teams erschweren ist ein Umzug des Testrunners auf einen anderen Server ohne Anpassungen des Codes möglich.
 
 Der modulare Aufbau der Integration der Testumgebung ermöglicht somit eine gute Erweiterbarkeit und noch tiefere Integration von Tests in vorhandene Prozesse.
 

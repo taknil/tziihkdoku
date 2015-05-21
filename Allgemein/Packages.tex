@@ -105,14 +105,15 @@
 % zum Einbinden von Programmcode -----------------------------------------------
 \usepackage{listings}
 \usepackage{xcolor} 
-\definecolor{hellgelb}{rgb}{1,1,0.9}
-\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{hellgelb}{rgb}{0.992,0.973,0.922}
+%\definecolor{hellgelb}{rgb}{0.992,0.965,0.89}
+\definecolor{colKeys}{rgb}{0.15,0.54,0.82}
 \definecolor{colIdentifier}{rgb}{0,0,0}
-\definecolor{colComments}{rgb}{0,0.5,0}
-\definecolor{colString}{rgb}{1,0,0}
+\definecolor{colComments}{rgb}{0.35,0.431,0.46}
+\definecolor{colString}{rgb}{0.17,0.63,0.6}
 \lstset{
     float=hbp,
-	basicstyle=\footnotesize,
+	basicstyle=\small\sffamily,
     identifierstyle=\color{colIdentifier},
     keywordstyle=\color{colKeys},
     stringstyle=\color{colString},
@@ -173,4 +174,19 @@
 		private,protected,public,static,switch,throw,try,use,var,while,xor
 		die,echo,empty,exit,eval,include,include_once,isset,list,require,
 		require_once,return,print,unset},
+}
+\lstdefinelanguage{xml}{
+    sensitive=false,
+    morecomment=[l]{/*},
+    morestring=[b]",
+    morestring=[b]',
+    alsodigit={-,*},
+    morekeywords={
+        abstract,and,array,as,break,case,catch,cfunction,class,clone,const,
+        continue,declare,default,do,else,elseif,enddeclare,endfor,endforeach,
+        endif,endswitch,endwhile,extends,final,for,foreach,function,global,
+        goto,if,implements,interface,instanceof,namespace,new,old_function,or,
+        private,protected,public,static,switch,throw,try,use,var,while,xor
+        die,echo,empty,exit,eval,include,include_once,isset,list,require,
+        require_once,return,print,unset,target,echo,arg,fileset,include,exec,property},
 }
