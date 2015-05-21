@@ -1,0 +1,100 @@
+ <!--extracts from goconfig.xml relevant for the project -->
+ <environments>   
+
+  [...]
+    <environment name="G.Stage">
+      <environmentvariables>
+        <variable name="nfs.dir">/mnt/gravis-nfs</variable>
+        <variable name="base.path">stage.gravis.de</variable>
+        <variable name="base.path.mobile">m-stage.gravis.de</variable>
+        <variable name="db.host">10.0.64.35</variable>
+        <variable name="db.port">3306</variable>
+        <variable name="db.user">XXX</variable>
+        <variable name="db.pass">XXX</variable>
+        <variable name="db.oxid.database">oxid_stage</variable>
+        <variable name="db.oxid.url">jdbc:mysql://10.0.64.35/oxid_stage</variable>
+        [...]
+        <variable name="env">stage</variable>
+        <variable name="casper.set">demo</variable>
+      </environmentvariables>
+      <agents>
+        [...]
+        <physical uuid="8105430d-ef33-4da6-80ab-3bced458e0ff" />
+      </agents>
+      <pipelines>
+        [...]
+        <pipeline name="UL.casperJStests" />
+      </pipelines>
+    </environment> 
+	[...]
+  <pipeline name="UL.casperJStests">
+      <environmentvariables>
+        <variable name="testproducts">129990,471100,134000,118836</variable>
+        <variable name="greet">TZI</variable>
+      </environmentvariables>
+      <materials>
+        <svn url="https://svn.gravis.de/testing/trunk" username="tzimmerl" encryptedPassword="stWAR6Tqgc8q2IU7e7ryIw==" dest="testing" materialName="testing" />
+        <svn url="https://svn.gravis.de/go/trunk/" username="tzimmerl" encryptedPassword="stWAR6Tqgc8q2IU7e7ryIw==" dest="go" materialName="go" />
+      </materials>
+      <stage name="prepare">
+        <jobs>
+          <job name="cleanup">
+            <tasks>
+              <ant buildfile="go/casperjs.xml" target="test.prepare">
+                <runif status="passed" />
+              </ant>
+            </tasks>
+            <resources>
+              <resource>casperjs</resource>
+            </resources>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="teststage" fetchMaterials="false">
+        <jobs>
+          <job name="test">
+            <tasks>
+              <ant buildfile="go/casperjs.xml" target="test.caspertestsuite">
+                <runif status="passed" />
+              </ant>
+
+            </tasks>
+            <resources>
+              <resource>casperjs</resource>
+            </resources>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="postprocessing">
+        <jobs>
+          <job name="gather_artefacts">
+            <tasks>
+              <exec command="echo">
+                <arg>"will get screenshots"</arg>
+                <runif status="passed" />
+              </exec>
+              <ant buildfile="go/casperjs.xml" target="test.report">
+                <runif status="passed" />
+              </ant>
+              <ant buildfile="go/casperjs.xml" target="test.recoverartifacts">
+                <runif status="passed" />
+              </ant>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    [...]
+  <agents>
+    [...]
+    <agent hostname="manager.gravis.de" ipaddress="10.0.64.21" uuid="8105430d-ef33-4da6-80ab-3bced458e0ff">
+      <resources>
+        <resource>local</resource>
+        <resource>ec2</resource>
+        <resource>phpunit</resource>
+        <resource>oxid</resource>
+        <resource>typo</resource>
+        <resource>casperjs</resource>
+      </resources>
+    </agent>
+  </agents>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CasperJS Tests" default="all" basedir=".">
+	<description>
+        Run tests headless with casperJS with the help of phantomJS
+    </description>
+
+	<!-- Import common definitions and macrodefs -->
+	<import file="./common.xml"/>
+
+	<!-- go properties -->
+	<property name="gra.tmp.dir" 				value="/tmp/go/${env.GO_PIPELINE_NAME}/${env.GO_PIPELINE_COUNTER}" />
+	<property name="gra.artifacts.dir" 			value="${basedir}/../artifacts" />
+	<property name="gra.screenshots.dir" 		value="${basedir}/../screenshots" />
+	<property name="gra.testing.dir" 			value="${basedir}/../testing" />
+
+	<!-- gobal target all, run by default -->
+	<target name="all" depends="test.prepare,test.caspertestsuite,test.report" />
+
+	<target name="test.prepare">
+		<echo message="start prepare casperjs" />
+        <cleardir title="Temp casperjs" dir="${gra.tmp.dir}" option="**/*" />
+        <cleardir title="Artifacts casperjs" dir="${gra.artifacts.dir}" option="**/*" />
+        <!-- here would go pregreplace if we need to adjust configs from env vars-->
+		<echo message="finish prepare casperjs" />
+	</target>
+
+	<target name="test.caspertestsuite">
+		<echo message="start with  casperjs tests"/>
+		<echo message="executing all test within ${gra.testing.dir}/casperjs/tests/${env.casper.set}/"/>
+		<echo message="screenshots, if applicable, should appear in ${gra.screenshots.dir}/screenshot.png"/>
+		<echo message="xunit output to ${gra.tmp.dir}/casperjsxunit.xml"/>
+		<exec executable="/bin/bash" dir="${gra.testing.dir}/casperjs/tests" failonerror="false">
+			<arg value="-l"/><!-- use -l on bash for login style configuration including full $PATH from all RC files so binary location of testrunner must not be set within the ant script-->
+        	<arg value="-c"/>
+        	<arg value="casperjs test ${gra.testing.dir}/casperjs/tests/${env.casper.set}/ --no-colors --xunit=${gra.tmp.dir}/casperjsxunit.xml --products=${env.testproducts} --screenshot=${gra.screenshots.dir}/screenshot.png --verbose=true --log-level=info"/>
+ 			<!-- set cli parameters for test from environment variables. All parameters for casperjs must be set within one arg element as subsequent argument tags will be passed to the executable, here bash, not to what is called within bash.-->
+        </exec>
+	</target>
+
+	<target name="test.recoverartifacts">
+		<!--some modification such as junit report and such may be applied to the artifacts before recovery -->
+		<!--this fallback tasks only moves the artifacts -->
+		<echo message="recover artifacts from tempdir to artifactsdir"/>
+		<copy todir="${gra.artifacts.dir}">
+			<fileset dir="${gra.tmp.dir}/report">
+				<include name="TEST-*.xml" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="test.report">
+		<echo message="start prepare reports casperjs" />
+		<!--explode xuinit in separe files per Test-->
+		<mkdir dir="${gra.tmp.dir}/report" />
+		<exec executable="/usr/bin/php" dir="${gra.tmp.dir}" failonerror="true">
+			<arg line="${basedir}/lib/php/translate.php ${gra.tmp.dir}/casperjsxunit.xml ${gra.tmp.dir}/report" />
+		</exec>
+		<!-- for debugging print out structure of temp dir, carefull, app-text/tree may not be installed on all the nodes-->
+		<exec executable="/bin/bash" dir="${gra.tmp.dir}" failonerror="false">
+        	<arg value="-c"/>
+        	<!-- node needs app-text/tree package for this-->
+        	<arg value="tree -L 2"/>
+        </exec>
+        <!-- manufacture JUNIT report-->
+     
+        <!--when JUNIT not available,call test.recoverartifacts target insted
+		<antcall target="test.buildjunitreport" antfile="${ant.file}"/>
+		-->
+		<echo message="finish prepare reports casperjs" />
+	</target>
+
+	<target name="test.buildjunitreport">
+		<!-- requires JUNIT to be installed on the executing agent -->
+		<junitreport todir="${gra.artifacts.dir}">
+			<fileset dir="${gra.tmp.dir}/report">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${gra.artifacts.dir}/html" />
+		</junitreport>
+	</target>
+
+	<target name="db.init">
+	    <!-- now apply the changescript to the database -->
+		<echo message="start prepare db-preconditions" />
+        <sql driver="com.mysql.jdbc.Driver" url="${env.db.oxid.url}" userid="${env.db.user}" password="${env.db.pass}" classpathref="mysql.classpath">
+            <fileset file="${gra.testing.dir}/casperjs/setup/init-casper-deep.sql" />
+        </sql>
+		<echo message="finish prepare db-preconditions" />
+    </target>
+
+</project>
