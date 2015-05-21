@@ -26,7 +26,7 @@ Daraus abgeleitet muss ein Test folgende Anforderungen erfüllen:
 * Seitenaufruf mit BasicAuth
 * HTTP und HTTPS Verbindungen
 * Überprüfen, ob DOM-Element auf Seite vorhanden.
-* Navigieren der Seite und Identifizierung von Elementen mit Hilfe von XPATH[^xpath], CSS-Selektoren [^cssselect] oder dem Inhalt von Elementen 
+* Navigieren der Seite und Identifizierung von Elementen mit Hilfe von CSS-Selektoren[^cssselect], XPATH[^xpath], oder dem Inhalt von Elementen 
 * Website anhand von Links navigieren
 * Javascript ausführen
 * Formulare wie z.B. das Anmeldeformular oder das Adressformular im Shop im Browser ausfüllen und absenden. Der Test soll die gleiche Javascript-basierte Validierung erfahren wie der Nutzer auch. Das bedeutete dass Formularinhalte client-seitig überprüft werden. Der einfache Versand von vorausgefüllten HTTP-POST-Request, ohne das Ausfüllen von Formularfeldern, genügt nicht.
@@ -45,7 +45,7 @@ Daraus abgeleitet muss ein Test folgende Anforderungen erfüllen:
 
 **Fähigkeiten des Testrunner**
 
-Zusätzlich zu den Fähigkeiten der Tests gibt es Anforderungen an den Testrunner und seine Integration. : 
+Zusätzlich zu den Fähigkeiten der Tests gibt es Anforderungen an den Testrunner und seine Integration: 
 
 
 

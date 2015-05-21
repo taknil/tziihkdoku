@@ -1,10 +1,12 @@
 \subsection{Lastenheft (Auszug)}
 \label{app:Lastenheft}
 
-Es folgt ein Auszug aus dem Lastenheft mit Fokus auf die Anforderungen:
+Im folgenden Auszug aus dem Lastenheft werden die Anforderungen
+definiert, die die Testumgebung erfüllen muss.
 
-Die Anforderungen orientieren sich an einem minimalen Testszenario, der
-Bestellung eines Produkts im Webshop.
+Die Anforderungen orientieren sich an einem minimalen Testszenario,
+welches von Anforderer gewünscht ist: der Bestellung eines Produkts im
+Onlineshop.
 
 \textbf{Testszenario}:
 
@@ -32,7 +34,7 @@ Bestellung eines Produkts im Webshop.
   Bestellung abschicken.
 \end{itemize}
 
-\textbf{Testfähigkeiten}
+\textbf{Fähigkeiten der Tests}
 
 Daraus abgeleitet muss ein Test folgende Anforderungen erfüllen:
 
@@ -45,12 +47,12 @@ Daraus abgeleitet muss ein Test folgende Anforderungen erfüllen:
 \item
   HTTP und HTTPS Verbindungen
 \item
-  Überprüfen ob Element auf Seite vorhanden.
+  Überprüfen, ob DOM-Element auf Seite vorhanden.
 \item
   Navigieren der Seite und Identifizierung von Elementen mit Hilfe von
-  XPATH\footnote{XML Abfragesprache, um Teile eines XML-Dokumentes zu
-    adressieren}, CSS-Selektoren \footnote{Syntax in Cascading
-    Stylesheets, um Teile eines HTML-Dokumentes zu adressieren } oder
+  CSS-Selektoren\footnote{Syntax in Cascading Stylesheets, um Teile
+    eines HTML-Dokumentes zu adressieren }, XPATH\footnote{XML
+    Abfragesprache, um Teile eines XML-Dokumentes zu adressieren}, oder
   dem Inhalt von Elementen
 \item
   Website anhand von Links navigieren
@@ -59,26 +61,29 @@ Daraus abgeleitet muss ein Test folgende Anforderungen erfüllen:
 \item
   Formulare wie z.B. das Anmeldeformular oder das Adressformular im Shop
   im Browser ausfüllen und absenden. Der Test soll die gleiche
-  Javascript-basierte Validierung erfahren wie der Nutzer auch. Der
-  einfache Versand von vorausgefüllten HTTP-POST-Request genügt nicht. 
+  Javascript-basierte Validierung erfahren wie der Nutzer auch. Das
+  bedeutete dass Formularinhalte client-seitig überprüft werden. Der
+  einfache Versand von vorausgefüllten HTTP-POST-Request, ohne das
+  Ausfüllen von Formularfeldern, genügt nicht.
+\item
+  Session-Handling
 \item
   Logging des Testergebnis mit Ausgabe von Kommentaren im Testskript
 \end{itemize}
 
-\textbf{Umgebungsfähigkeiten}
+\textbf{Fähigkeiten des Testrunner}
 
-Zusätzlich zu den Fähigkeiten der Tests gibt es Anforderungen an die
-Testumgebung und ihre Integration. :
+Zusätzlich zu den Fähigkeiten der Tests gibt es Anforderungen an den
+Testrunner und seine Integration:
 
 \begin{itemize}
 \itemsep1pt\parskip0pt\parsep0pt
 \item
-  Die Testmgebung muss auf mindestens einer der bestehenden
-  Serverumgebungen lauffähig sein (Syseleven: Gentoo Linux, md
-  Rechenzentrum Düsseldorf: Suse Linux oder Ubuntu, Amazon EC2 virtuelle
-  Instanz mit Ubuntu)
+  Der Testrunner muss auf mindestens einer der bestehenden Servern
+  lauffähig sein (Syseleven: Gentoo Linux, md Rechenzentrum Düsseldorf:
+  Suse Linux oder Ubuntu, Amazon EC2 virtuelle Instanz mit Ubuntu)
 \item
-  Die Testläufe müssen aus dem CI/CD System \emph{Go} ausgelöst werden
+  Die Testläufe müssen aus dem CD-System \emph{Go} ausgelöst werden
   können.
 \item
   Die Testumgebung muss Erfolg oder Misserfolg eines Tests als
@@ -91,9 +96,11 @@ Testumgebung und ihre Integration. :
   Form von Datenbankabfragen die vorab Testnutzer und Testdaten anlegen
   oder wiederherstellen.
 \item
-  Es können Parameter aus dem CI/CD-System an das Testsystem zur
-  verfeinerten Steuerung der Testtiefe oder Auswahl von Testobjekten
-  weiter gereicht werden.
+  Eine Testsuite muss aus dem CD-System heraus gewählt werden können.
+\item
+  Es können Parameter aus dem CD-System an das Testsystem zur
+  verfeinerten Steuerung der Testtiefe oder Auswahl von Tests weiter
+  gereicht werden.
 \item
   Es muss eine Historie von Testergebnissen und Artefakten und Testlogs
   von alten Testläufen aufbewahrt werden
@@ -101,7 +108,14 @@ Testumgebung und ihre Integration. :
   Es müssen aktuelle Testskripte aus der Versionsverwaltung
   \emph{svn.gravis.de} ausgecheckt werden können
 \item
-  Eine Testsuite muss aus dem CI/CD System heraus gewählt werden können.
+  Es muss eine maschinenlesbare Auswertung von Testläufen erstellt
+  werden.
+\end{itemize}
+
+\textbf{Abgrenzung}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
 \item
-  Es muss eine maschinenlesbare Auswertung von Tests erstellt werden.
+  Tests müssen während der Laufzeit nicht grafisch angezeigt werden
 \end{itemize}

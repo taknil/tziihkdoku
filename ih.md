@@ -43,7 +43,9 @@ es möglich, dass bei manueller Testdurchführung Fehler übersehen oder erst na
 Regel nicht oder nicht ausführlich dokumentiert und es ist nicht möglich,
 eine Statistik über die Fehlerhäufigkeit zu führen. Darüber hinaus gibt
 es keine technische Möglichkeit, die das Deployen von fehlerhaftem Code
-auf das \acs{Echt-System}, also den Servern zu denen sich Kunden verbinden, verhindert.
+auf das \acs{Echt-System}[^UIUSUL], also den Servern zu denen sich Kunden verbinden, verhindert.
+
+[^UIUSUS]: Der GRAVIS Onlineshop wird in drei Instanzen betrieben: Einer Integrationsumgebung die immer den aktuellsten Code enthält, einer Staging-Umgebung für Abnahmen und Tests neuer Features und einem Echt-System welches die Kunden für tatsächliche Bestellungen nutzen.
 
 ##Projektziele
 
@@ -51,7 +53,7 @@ auf das \acs{Echt-System}, also den Servern zu denen sich Kunden verbinden, verh
 Im Rahmen des Projektes soll eine Laufzeitumgebung für Front-End-Tests
 bereitgestellt werden. Diese muss in das Continuous-Delivery System
 \acs{Go} (im folgenden "Go"[^listofsoftware]) eingebunden werden. Die
-Test-Umgebung muss betriebsbereit dem Team *Vertreib Onlineshop CMS*
+Test-Umgebung muss betriebsbereit dem Team *Vertrieb Onlineshop CMS*
 übergeben werden.
 
 [^listofsoftware]:Liste der Eingesetzten Software im Anhang \ref{liste-der-eingesetzen-software}
@@ -59,22 +61,22 @@ Test-Umgebung muss betriebsbereit dem Team *Vertreib Onlineshop CMS*
 ##Projektschnittstellen
 
 
-Da das Projekt innerhalb des Entwicklerteams *Vertreib Onlineshop CMS* stattfindet, knüpft es an interne
-Prozesse, also Abnahme und \acs{Deployment} der Software und technische
+Da das Projekt innerhalb des Entwicklerteams *Vertrieb Onlineshop CMS* stattfindet, knüpft es an interne
+Prozesse, also Abnahme und \acs{Deployment} der Software, und technische
 Systeme an. Eine Auswertung durch das *Quality Assurance Team* im
-Unternehmen erfolgt nicht. Das Entwicklerteam möchte auch nach der Konzernintegration Flexibilität bewahren und betreibst selbst die Qualitätskontrolle. Die Testumgebung wird verknüpft mit *Go* und
+Unternehmen erfolgt nicht. Das Entwicklerteam möchte auch nach der Konzernintegration die Flexibilität bewahren und betreib selbst die Qualitätskontrolle. Die Testumgebung wird verknüpft mit *Go* und
 testet dabei über eine \acs{HTTP}-Verbindung den jeweiligen Onlineshop. Die Testumgebung muss auf das
 hausinterne Versionsverwaltungssystem (\acs{SVN}) zugreifen können, um dort
-aktuelle Testskripte abzuholen.
+aktuelle Testskripte versioniert zu speichern. Auf Grund der sich ständig verändernden Codebasis müssen auch die Tests angepasst werden; die Zuordnung der Tests zur entsprechenden Programmversion erfolgt über die Versionsverwaltung.
 
 ##Projektabgrenzung
 
 
-Die Erstellung von Tests oder Testszenarien für einen produktiven Einsatz
+Die Erstellung von Tests oder Testszenarien für den produktiven Einsatz
 ist nicht Teil des Projektes. Andere Testarten wie etwa
 Performancetests, muss das System nicht leisten, denn zu diesem Zweck wurden bereits andere Werkzeuge erfolgreich eingebunden.\
 Eine zusätzliche Benutzeroberfläche muss nicht erstellt werden, da die
-Steuerung ausschließlich aus dem \acs{CI/CD} System heraus erfolgt,
+Steuerung ausschließlich aus *Go* heraus erfolgt,
 welches ein eigenes Webinterface zur Verfügung stellt.
 <!-- eine (graphische) Aufbereitung der Testartefakte erfolgt nicht-->
 
@@ -555,12 +557,12 @@ Um die gewünschte Modularität zu erreichen wurden statische Werte in der in de
 ##Erweiterung des Bespieltest um Screenshotfunktion 
 Im Browser *phantomJS* können Bildschrimaufnahmen gespeichert werden. Die Funktionalität der Bildschrimaufnahmen unter Zuhilfenahme von *casperJS*  ist leider schlecht dokumentiert. Nach mehreren Versuchen stellte sich heraus der JavaScript Befehl `casper.capture()`  standardmäßig  die grafische Darstellung des Elementes `<body>` einer HTML Seite speichert.  Um Speicherplatz zu sparen können auch nur einzelne, dem `<body>`untergeordnete HTML Elemente aufgenommen werden. Am häufigsten verursachen aber fehlende HTML Elemente Testabbrüche, sodass dieser Ansatz nicht weiter verfolgt wurde. 
 
-##Pipeline um Artefaktensammlung erweitern
+##Erweitern der Pipeline um Artefaktensammlung
 Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung. In diesem Fall sind unter anderem die Test-Suite und das Testprotokoll gemeint.
 
 *Go* bietet von Haus aus einen Mechanismus um Artefakte von Agenten-Server einzusammeln. Diese wurde in die Pipeline eingesetzt und konfiguriert. Damit kann sichergestellt werden dass die maschinenlesbare Testauswertung in der Historie in *Go* immer zur Verfügung steht.
 
-##Pipeline um Screenshotsammlung erweitern   
+##Erweitern der Pipeline um Screenshotsammlung   
 
 Es wurde zusätzlich ein ANT-Task erstellt und in die Pipeline integriert, der erzeugte Screenshots in die entsprechenden Ordner der Historie verschiebt.
 
@@ -600,7 +602,7 @@ Auf generative Dokumentation wie "AntDoc" oder "JSDoc" habe ich auf Grund des en
 
 
 
-##Soll/Ist Vergleich
+##Soll- /Ist-Vergleich
 
 Rückblickend kann festgestellt werden dass alle funktionalen Anforderungen gemäß dem Pflichtenheft erfüllt werden konnten.
 Der zum Beginn des Projektes erstellte Projektplan konnte nicht vollständig eingehalten werden.  Im Projektantrag wurde leider die Phase der Abnahme unterschlagen und fälschlicherweise mehr als 70 Stunden des von der IHK festgelegten Zeitrahmen, 73 insgesamt geplant. Der Zeitplan wurde in der Analysephase leicht angepasst.
