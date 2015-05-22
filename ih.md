@@ -38,7 +38,7 @@ Features auch immer wieder sehr zeitaufwändig Regressionstests
 durchführt. Um dem hohen Qualitätsstandard gerecht zu werden, sind
 diese Tests notwendig, halten aber die Abnahme von neuen Features
 zeitlich auf. Durch die hohe Wiederholungsrate der Regressionstests ist
-es möglich, dass bei manueller Testdurchführung Fehler übersehen oder erst nach dem \acs{Deployment},
+es möglich, dass bei manueller Testdurchführung Fehler übersehen oder erst nach dem Deployment[^Deployment],
  d. h. nach dem Aktualisieren der Software auf den Servern, entdeckt werden. Zudem werden zur Zeit Testläufe und Fehlerfälle in der
 Regel nicht oder nicht ausführlich dokumentiert und es ist nicht möglich,
 eine Statistik über die Fehlerhäufigkeit zu führen. Darüber hinaus gibt
@@ -46,6 +46,7 @@ es keine technische Möglichkeit, die das Deployen von fehlerhaftem Code
 auf das \acs{Echt-System}[^UIUSUL], also den Servern zu denen sich Kunden verbinden, verhindert.
 
 [^UIUSUS]: Der GRAVIS Onlineshop wird in drei Instanzen betrieben: Einer Integrationsumgebung die immer den aktuellsten Code enthält, einer Staging-Umgebung für Abnahmen und Tests neuer Features und einem Echt-System welches die Kunden für tatsächliche Bestellungen nutzen.
+[^Deployment]: Erklärung was ein Deployment ist \\ToDo
 
 ##Projektziele
 
@@ -162,6 +163,8 @@ Eine Übersicht befindet sich im Anhang \ref{app:Zeitplanung} "Detaillierte Zeit
 
 + Hardware   
 Es soll keine zusätzliche Hardware für das Projekt angeschafft werden und  vorhandenen Serversysteme genutzt werden. Dem Entwickler steht ein Arbeitsplatzrecher (Apple MacBook Pro) zur Verfügung, auf dem die Entwicklung und Evaluation von Software stattfinden soll.
+
+
 + Software   
 Es soll für die Testumgebung ausschließlich kostenfreie bzw. open-source Software mit einer Lizenz, die kommerzielle Nutzung erlaubt, eingesetzt werden. Die Software *Go* ist von GRAVIS lizenziert und verursacht im Rahmen des Projektes keine zusätzlichen Kosten. *Go* ist mittlerweile auch open-source.    
  
@@ -190,7 +193,7 @@ agilen Regelprozess, der den Alltag im Entwicklerteam prägt, erschien nicht sin
 
 
 Bis zum Zeitpunkt des Projektbeginns wurden Regressionstests in Form von Front-End-Tests ausschließlich
-manuell von Testingenieuren oder Entwicklern aus dem Team vorgenommen. Bei bevorstehendem \acs{Deployment} musste der Software-Tester seine aktuelle Aufgabe unterbrechen und den gewünschten Softwarestand auf dem \acs{Staging-System}, einer produktionsnahen Serverumgebung für Tests und Abnahmen, testen. Eine mündliche Abstimmung mit dem Team signalisiert dann die Bereitschaft zum Deployment. Anschließend müssen die Tests im \acs{Echt-System} wiederholt werden um sicher zu gehen dass das Deployment erfolgreich war. Das erneute durchführen von Regressionstests ist erforderlich, da andere Datensätze und Serverkonfigurationen bisher unentdecktes Fehlverhalten verursachen können. Tritt hier ein Fehler auf, muss geklärt werden ob der Fehler vorher übersehen wurde (menschlicher Faktor) oder die Umgebungsparameter, z.B. die Nutzung von mehr Applikations- und Datenbankservern oder weitaus größere Datenmengen, ursächlich sind. 
+manuell von Testingenieuren oder Entwicklern aus dem Team vorgenommen. Bei bevorstehendem Deployment musste der Software-Tester seine aktuelle Aufgabe unterbrechen und den gewünschten Softwarestand auf dem Staging-System, einer produktionsnahen Serverumgebung für Tests und Abnahmen, testen. Eine mündliche Abstimmung mit dem Team signalisiert dann die Bereitschaft zum Deployment. Anschließend müssen die Tests im Echt-System wiederholt werden um sicher zu gehen dass das Deployment erfolgreich war. Das erneute durchführen von Regressionstests ist erforderlich, da andere Datensätze und Serverkonfigurationen bisher unentdecktes Fehlverhalten verursachen können. Tritt hier ein Fehler auf, muss geklärt werden ob der Fehler vorher übersehen wurde (menschlicher Faktor) oder die Umgebungsparameter, z.B. die Nutzung von mehr Applikations- und Datenbankservern oder weitaus größere Datenmengen, ursächlich sind. 
 <!--
  Zudem werden Testläufe
 und Fehlerfälle in der Regel nicht oder nicht ausführlich dokumentiert
@@ -329,11 +332,9 @@ Neben dem finanziellen Nutzen sind weitere Vorteile aufzuzählen:
 
 
 Im Laufe der Analysephase habe ich mit dem Feedback des Anforderers ein Anwendungsfalldiagramm (siehe Anhang \ref{usecasediagram}) erstellt, welches eine Übersicht der Anwendungsfälle bietet. Es gibt alle Funktionen wieder, die aus Sicht des Endanwenders benötigt werden.     
-Automatisierte Tests können als aktive und kontinuierliche Qualitätssicherungsmaßname bei der Entwicklung der Webshops genutzt werden. Zusätzlich sollen die Regressionstests auch direkt in den Deploymentprozess integriert werden. Eine solche enge Integration verhindert das Deployment von fehlerbehafteter Software.
+Automatisierte Tests können als aktive und kontinuierliche Qualitätssicherungsmaßname bei der Entwicklung der Webshops genutzt werden. Zusätzlich sollen die Regressionstests auch direkt in den Deploymentprozess integriert werden. Eine solche enge Integration verhindert das Deployment von fehlerbehafteter Software. Wenn die Tests bereits in den Deploymentprozess der Integrationsumgebung eingebunden werden, können frühestmöglich Fehler erkannt werden.
 
-Wenn die Tests bereits in den Deploymentprozess der Integrationsumgebung eingebunden werden, können frühestmöglich Fehler erkannt werden.
-
- Im Zusammenhang mit dem CI/CD System wird auch eine Historie der Testergebnisse vorgehalten. Mit Hilfe dieser Historie kann z.B. nachvollzogen werden, wann und aus welchem Grund Fehler schon einmal aufgetreten sind.
+ Im Zusammenhang mit dem CD System wird auch eine Historie der Testergebnisse vorgehalten. Mit Hilfe dieser Historie kann z.B. nachvollzogen werden, wann und aus welchem Grund Fehler schon einmal aufgetreten sind.
 
 ##Lastenheft
 Wesentliche Bestandteile zur technischen Anforderung  aus dem Lastenheft sind im Anhang \ref{app:Lastenheft} zu finden.
@@ -358,18 +359,18 @@ Für eine Vereinfachung der Systemanforderung wurde entschieden, einen so genann
 
 ###Continuous-Deployment-System
 
-Die Integration der Testumgebung  kann in *Go* nur unter Nutzung von  \acs{ANT} erfolgen. Es wird eine \acs{XML} build-Datei erstellt die \acs{Target}s, vergleichbar mit Funktionen in Programmiersprachen, definiert. Go steuert in sogenannten \acs{Pipeline}s welche Targets von ANT ausgeführt werden. Die Targets müssen die Gesamtheit der Aufgaben, die für einen Testlauf notwendig sind, abbilden.
-Die Targets werden mit \acs{Task}s, also Befehlen gefüllt, die jeweils eine Aufgabe erledigen. ANT bietet Unterstützung für Datenoperationen und Variablen, hier Properties genannt. Properties können als wiederverwendbare Variablen genutzt werden, z.B. zu Speicherung von Datenbankadressen oder Dateipfaden. Darüber hinaus können ANT-Skripte weitere Werkzeuge, wie etwa Shell-Skripte, Java Programme oder \acs{PHP}-Scripte auslösen.
+Die Integration der Testumgebung  kann in das CD-System kann z.B. unter Nutzung von  \acs{ANT} erfolgen. Es wird eine \acs{XML} build-Datei erstellt die \acs{Target}s, vergleichbar mit Funktionen in Programmiersprachen, definiert. Das CD-System steuert in sogenannten \acs{Pipeline}s welche Targets von ANT ausgeführt werden. Die Targets müssen die Gesamtheit der Aufgaben, die für einen Testlauf notwendig sind, abbilden.
+Die Targets werden mit Tasks, also Befehlen gefüllt, die jeweils eine Aufgabe erledigen. ANT bietet Unterstützung für Datenoperationen und Variablen, hier Properties genannt. Properties können als wiederverwendbare Variablen genutzt werden, z.B. zu Speicherung von Datenbankadressen oder Dateipfaden. Darüber hinaus können ANT-Skripte weitere Werkzeuge, wie etwa Shell-Skripte, Java Programme oder \acs{PHP}-Scripte auslösen.
 
 Die lose Kopplung der einzelnen Tasks erhöht die Wiederverwendbarkeit und  Austauschbarkeit. Sollte z.B. der Test-Runner ausgetauscht werden, kann dies erfolgen ohne die Tasks zur Testvorbereitung oder Auswertung der Testergebnisse anpassen zu müssen. Außerdem können die einzelnen Komponenten durch die strikte Trennung einfacher getestet, gewartet und erweitert werden.
 
-Die Folge der Anwendungsfälle habe ich in einer so genannten \acs{Pipeline} definiert, die synchron abzuarbeitende Targets definiert. Eine Pipeline gliedert sich in mehrere \acs{Stage}s (Stufen), welche eigene Umgebungsvariablen und benötigte Ressourcen definieren, sowie die produzierten Artefakte auszeichnen.
+
 
 
 
 
 ###Versionsverwaltung {#versionsverwaltung}
- Die Aufspaltung der verschiedenen Codebasen bietet 2 Vorteile: der Zugriff auf den Code der Tests kann separat gewährt werden, ohne dass die Funktionalität des CI/CD System angepasst werden kann. Es können Dritten problemlos Rechte eingeräumt werden, Testsuiten zu erstellen ohne dass die gesamte Administration aus den Händen gegeben werden muss.
+ Die Aufspaltung der verschiedenen Codebasen bietet 2 Vorteile: der Zugriff auf den Code der Tests kann separat gewährt werden, ohne dass die Funktionalität des CD-System angepasst werden kann. Es können Dritten problemlos Rechte eingeräumt werden, Testsuiten zu erstellen ohne dass die gesamte Administration aus den Händen gegeben werden muss.
  In *Go* ist es möglich die Version und den Zweig von einzelner Materialien, also Code-Quellen separat einzustellen um sehr agil auf Anpassungen im Code zu reagieren.
 
 
@@ -406,29 +407,26 @@ PhantomJS 1.9.8 ist ein Paket aus QTWebkit, der Rendering-Engine, einer Javascri
 \end{figure}
 
 In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt unterteilen. Der Aufbau einer Pipeline ist in \ref{fig:gopipelines} illustriert<!-- verdeutlicht -->. Stages werden nacheinender ausgeführt. Jobs, die zusammen eine Stage bilden, können aber in beliebiger Reihenfolge oder sogar parallel ausgeführt werden. Jobs werden nicht auf dem *Go* Server selbst, sonder auf so genannten Agenten-Servern ausgeführt.     
-*Go* benutzt für die Ausführung der Pipelines \acs{ANT}. Jeder Job hat mindesten einen Task der ein ANT-Target anspricht oder einer standard ANT-Funktion entspricht.  Die Aufgabenverteilung geschieht anhand verfügbarer Ressourcen. Ressourcen sind in diesem Kontext die Fähigkeit von Agenten-Servern Anwendungen auszuführen, weil sie dort installiert sind. Diese müssen explizit im Admin-Interface von *Go* konfiguriert werden.
-Die neu hinzugewonnene Anwendung *casperJS* wurde von mir dem Server namens "manager" als Ressource hinzugefügt und kann von nun an als Ressource in Pipelines verlangt werden. Jobs die diese Ressource verlangen werden dann automatisch dem "manager" Server zugeordnet und dort ausgeführt.
+*Go* benutzt für die Ausführung der Pipelines \acs{ANT}. Jeder Job hat mindesten einen Task der ein ANT-Target anspricht oder einer standard ANT-Funktion entspricht.  Die Folge der Anwendungsfälle habe ich in einer so genannten \acs{Pipeline} definiert, die synchron abzuarbeitende Targets definiert. Eine Pipeline gliedert sich in mehrere \acs{Stage}s (Stufen), welche eigene Umgebungsvariablen und benötigte Ressourcen definieren, sowie die produzierten Artefakte auszeichnen.  Die Aufgabenverteilung geschieht anhand verfügbarer Ressourcen. Ressourcen sind in diesem Kontext die Fähigkeit von Agenten-Servern Anwendungen auszuführen, weil sie dort installiert sind. Diese müssen explizit im Admin-Interface von *Go* konfiguriert werden.
+
 
 Der Go-Server, welcher ein ANT-Skript auslöst ist in der Regel nicht der ausführende Server. Einzelne Server, die alle notwendigen Ressourcen für die Ausführung einer Stage bereitstellen (im folgenden Agentenserver genannt), melden sich mit ihrem Go-Agent beim Go-Server an und bekommen Aufgaben zugeteilt.
 
-Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung. In diesem Fall sind unter anderem die Test-Suite und das Testprotokoll gemeint.
-
+Die neu hinzugewonnene Anwendung *casperJS* wurde von mir dem Server namens "manager" als Ressource hinzugefügt und kann von nun an als Ressource in Pipelines verlangt werden. Jobs die diese Ressource verlangen werden dann automatisch dem "manager" Server zugeordnet und dort ausgeführt.
 
 ###Subversion 
 
-
-
-
-
-Bei diesem Projekt sind mehrere Komponenten involviert, deren Entwicklung getrennt erfolgen kann. ANT-Skripte die Funktionalität für das CI/CD System bereitstellen, werden in einem SVN-Repository "go" versioniert.
+Bei diesem Projekt sind mehrere Komponenten involviert, deren Entwicklung getrennt erfolgen kann. ANT-Skripte die Funktionalität für das CD-System bereitstellen, werden in einem SVN-Repository "go" versioniert.
 Die Testsuiten und deren Abhängigkeiten habe ich in einem separaten SVN-Repository "testing" verwaltet, in dem bereits Code für Performancetests und Unit-Tests vorgehalten wird.
-Im "testing" Repository bestimmt die Ordnerstruktur die Testsuite sodass später im ANT-Task nur noch der Pfad spezifiziert werden muss, um eine Testsuite auszuwählen. Ich habe zur Demonstration 5 Testsuiten angelegt, 2 tiefgreifende und 2 oberflächliche Testszenarien für jeweils das Echt- und \acs{Staging-System} und eine "demo"-Testsuite die den Anforderungen entsprechend die Funktionalität der Testumgebung unter Beweis stellt.
+Das Repository habe ich so organisiert dass alleine die Pfadangabe in *Go* reicht um die Testsuite auszuwälhen.
 
+\begin{figure}[htb]
+\centering
+\includegraphicsKeepAspectRatio{Bilder/caspertestlist.pdf}{0.3}
+\caption{Ordnerstruktur der Testsuiten im SVN}
+\label{fig:testingfolderstructure}
+\end{figure}
 
-
-
-
-In Übereinstimmung mit der vorhandenen Struktur im Repositry empfiehlt es sich eigene Unterordner und Builddateien für dieses Projekt anzulegen. Siehe Sektion \ref{versionsverwaltung} Versionsverwaltung.
 
       
 
@@ -439,9 +437,6 @@ Die Auswahl der Testsuite und die Konfiguration weiterer Optionen erfolgt in den
 Die Ausgaben von Testläufen werden in der standardmäßigen Ansicht einer Pipeline in Go sichtbar (siehe auch Abbildung \ref{fig:goguisummary} im Anhang \ref{screenshots}). Go sieht es vor, eine zusätzliche Registerkarte in der Auswertung anzuzeigen, in der Artefakte präsentiert werden. Die Registerkarte kann Inhalte von XML-Dateien anzeigen.
 
 
-
-
-
 ##Datenmodell
 
 Um die Nachvollziehbarkeit von Testläufen zu gewährleisten, werden in jedem Schritt der Testpipeline Ausgaben erzeugt.
@@ -449,7 +444,6 @@ Gemäß der Praxis in Go werden Daten die aus dem Test entstehen, in Dateien auf
 Eine Speicherung auf dem Go-Server und nicht dem Agentenserver garantiert eine nachhaltige Speicherung von Artefakten, da bei mehrfacher Verfügbarkeit der benötigten Ressource der Agentenserver beliebig austauschbar ist.
 
 Go leitet Ausgabe der ANT-Skripte in eine Datei namens `console.log`, die  pro Stage einer Pipeline, in einen eigenen Ordner angelegt wird (siehe Abbildung \ref{fig:artifactsfolderstructure}).
-
 In diesem Log finden sich alle Ausgaben der ANT Tasks und der Prozesse und Skripte die ANT Startet.
 Zum Debugging beschriebt CasperJS auf Wunsch in die Standardausgabe.  Es habe mich entschlossen dies Ausgabe auch in das log zu leiten. Bei der Entwicklung kann mit den Argumenten `--verbose=true --log-level=debug` jeder einzelne Schritt der im Browser gegangen wird, von HTTP-Request, Javascript-Operationen und Veränderungen des \acs{DOM}, aufgezählt werden.
 Im produktiven Einsatz genügt das Log-Level`--log-level=error`, bei dem nur Fehler ausgegeben werden. Dies macht das Log lesbarer und hilft bei der Fehlerdiagnose im Alltag.
@@ -460,12 +454,7 @@ Im produktiven Einsatz genügt das Log-Level`--log-level=error`, bei dem nur Feh
 
 
 
-\begin{figure}[htb]
-\centering
-\includegraphicsKeepAspectRatio{Bilder/caspertestlist.pdf}{0.3}
-\caption{Ordnerstruktur der Testsuiten im SVN}
-\label{fig:testingfolderstructure}
-\end{figure}
+
 
 
 \begin{figure}[htb]
@@ -481,11 +470,15 @@ Im produktiven Einsatz genügt das Log-Level`--log-level=error`, bei dem nur Feh
 
 
 Eine Datei im "JUNIT XML result Format", in der die Ergebnisse der Testläufe in Testsuiten gebündelt für jeden Testfall aufgelistet werden, ist gefordert.  Das Schema dieses XML-Austauschformats ist als de-facto Standard festgeschrieben[^xunitwebdoku] und wird von vielen \*UNIT Testframeworks erstellt und von weiteren Systemen verarbeitet. Dieses Austauschformat ermöglicht in Zukunft tiefergehende Auswertung von Testergebnissen, da es vollständig maschinenlesbar ist.    
-*casperJS* soll im produktiven Einsatz mit dem Argument `--XUNIT=junit.xml` eine solche Datei liefern.
+*casperJS* soll im produktiven Einsatz mit der Option `--XUNIT=junit.xml` eine solche Datei liefern.
 
 
 
 CasperJS Tests werden gemäß der Anforderung so gestaltet, dass sie im Fehlerfall einen Screenshot der aktuellen Seite im PNG-Format speichern. Auch damit lässt sich ein Problem leichter lokalisieren und visualisieren. Screenshots werden in der Ordner "artifacts" der jeweiligen Stage gespeichert und sind dadurch auch leicht im Webinterface von Go zu erreichen.
+
+Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung. In diesem Fall sind unter anderem die Test-Suite, Testprotokoll und Screenshots gemeint.
+
+
 
 
 [^xunitwebdoku]:JUNIT XML result schema https://windyroad.com.au/dl/Open%20Source/JUnit.xsd
@@ -529,7 +522,6 @@ Ein Installationsprotokoll wurde erstellt damit das Vorgehen reproduzierbar und 
 ##Erstellen der Beispieltestsuite
 Das casperJS Modul `tester` stellt, mit Ausnahme der Screenshots, die meisten, im Lastenheft geforderten Funktionalitäten, bereit. Mit Hilfe der sehr guten online Dokumentation von casperJS und seiner Module[^casperdocstester]  wurde eine Beispieltestsuite geschrieben.
 Es musste besondere Sorgfalt auf die Struktur der Testskripte für *casperJS* gelegt werden, denn die Tests werden in Javascript geschrieben und dies wird asynchron ausgeführt, wenn nicht explizit eine Schrittfolge definiert wird. Das würde bedeuten, dass das Verhalten nicht immer reproduzierbar ist, was jedoch gerade bei Regressionstests unbedingt erforderlich ist.
-
 In einer casperJS Testsuite wird eine deterministische Testsequenz mit `casper.start()` begonnen. Jeder darauf folgende Schritt wird in der Funktion `casper.then();` gekennzeichnet.
 Der Testabschluss wird mit  `casper.done()` eingeleitet.     
 
@@ -543,10 +535,6 @@ Die auf dem Entwicklerrechner erstellten Javascript Tests wurden per sshFS[^sshf
 
 
 [^sshfs]:Datenübertragungsprotokoll über sFTP, auf dem Entwicklerrechner als FUSE-Dateisystem eingebunden.
-
-###Einbinden des Testsystem in das CI/CD System 
-
-
 
 
 ##Erstellung von ANT Targets
@@ -575,8 +563,6 @@ Im Browser *phantomJS* können Bildschirmaufnahmen gespeichert werden. Die Funkt
 ##Erweitern der Pipeline um Screenshotsammlung   
 
 Es wurde zusätzlich ein ANT-Task erstellt und in die Pipeline integriert, der erzeugte Screenshots in die entsprechenden Ordner der Historie verschiebt.
-
-<!-- ###Testen der Schnittstelle Testsystem zum CI/CD System   -->
 
 #Testphase
 
@@ -623,9 +609,9 @@ Die Analysephase wurde im Projektantrag mit insgesamt 13 Stunden angegeben. Tats
  Einzelne Abweichungen innerhalb des Zeitplans entstanden durch Erleichterungen bzw. Blockaden, die erst bei der Realisierung der einzelnen Teilschritte erkenntlich wurden. Die tatsächlich benötigte Gesamtzeit für das Projekt entsprach  der vorher veranschlagten Planzeit. 
 
 ##lessons learned
-Im Zuge des Projektes konnte der Autor viele  Erfahrungen in Bezug auf Planung und Durchführung eines IT-Projektes sammeln, aber auch Erfahrungen aus dem weniger projektgetriebenen Entwicklungsalltag mit einbeziehen. Insbesondere hat es sich bewährt, Zeit für die Umsetzung großzügig zu planen: Vermeintlich schnell erledigte Aufgaben in der Planung setzen bereits viel voraus und sind bei der Planung oft nur implizit Erwähnt. Sind diese Vorbedingungen nicht erfüllt wächst die benötigte Zeit für ein Aufgäbe oft unerwartet stark an, dies betraf in diesem Projekt besonders die Aufgaben der Systemadministration. Der zielstrebige, enge Zeitrahmen nötigte <!--mich--> in der Umsetzung mehrmals <!--mein--> Vorgehen zu ändern um schneller zum Ziel zu gelangen.
+Im Zuge des Projektes konnte der Autor viele  Erfahrungen in Bezug auf Planung und Durchführung eines IT-Projektes sammeln, aber auch Erfahrungen aus dem weniger projektgetriebenen Entwicklungsalltag mit einbeziehen. Insbesondere hat es sich bewährt, Zeit für die Umsetzung großzügig zu planen: Vermeintlich schnell erledigte Aufgaben in der Planung setzen bereits viel voraus und sind bei der Planung oft nur implizit Erwähnt. Sind diese Vorbedingungen nicht erfüllt wächst die benötigte Zeit für ein Aufgäbe oft unerwartet stark an, dies betraf in diesem Projekt besonders die Aufgaben der Systemadministration. Der zielstrebige, enge Zeitrahmen nötigte mich in der Umsetzung mehrmals mein Vorgehen zu ändern um schneller zum Ziel zu gelangen.
 
-Die ideale Projektplanung gibt es nicht, spätestens in der Umsetzung werden wichtige zusätzliche Erkenntnisse gewonnen die in einem linearen Prozess nicht mehr in die Planung einfließen können.
+<!-- Die ideale Projektplanung gibt es nicht, spätestens in der Umsetzung werden wichtige zusätzliche Erkenntnisse gewonnen die in einem linearen Prozess nicht mehr in die Planung einfließen können. -->
 
 Ein iteratives Vorgehensmodell würde ich in Zukunft  bevorzugen, insbesondere bei der Einführung eines neuen Systems, um angemessen auf neue Erkenntnisse reagieren zu können. In jedem Fall bedeutet es, dass Kommunikation  mit dem Projektanforderer die wichtigste Komponente für eine erfolgreiche Projektumsetzung ist.
 Abschließend kann man sagen dass das Projekt in seiner Realisierung für das Team und in der Durchführung für den Autor eine große Bereicherung war.
@@ -635,9 +621,9 @@ In naher Zukunft werden für den Einsatz der Testumgebung mehr Tests implementie
 Obwohl alle im Lastenheft definierten Anforderungen realisiert wurden, zeichnen sich bereits neue Featurewünsche und Einsatzszenarien ab.
 Das Team strebt danach, die Front-End-Tests fest in den Deploymentprozess zu integrieren, was auch ohne Probleme möglich ist.
 
-Bei der Abnahme wurde entdeckt dass laufende Tests die parallele Ausführung von anderen Pipelines verhindert. Sollte dies die Arbeit des Teams erschweren ist ein Umzug des Testrunners auf einen anderen Server ohne Anpassungen des Codes möglich.
+<!--Bei der Abnahme wurde entdeckt dass laufende Tests die parallele Ausführung von anderen Pipelines verhindert. Sollte dies die Arbeit des Teams erschweren ist ein Umzug des Testrunners auf einen anderen Server ohne Anpassungen des Codes möglich.
 
-Der modulare Aufbau der Integration der Testumgebung ermöglicht somit eine gute Erweiterbarkeit und noch tiefere Integration von Tests in vorhandene Prozesse.
+Der modulare Aufbau der Integration der Testumgebung ermöglicht somit eine gute Erweiterbarkeit und noch tiefere Integration von Tests in vorhandene Prozesse. -->
 
 Zur Dokumentation der Testszenarien bleibt anzumerken dass es im Unternehmen Bestrebungen gibt, hier den Prozess der Testerstellung umzukehren. Das würde bedeuten, dass die Testdokumentation in Zukunft in einer menschenlesbaren, domänenspezifischen  Sprache (\acs{DSL}) geschrieben werden könnte, die die Testfälle beschreibt und als Dokumentation dient. Mit einem entsprechenden Interpreter ließen sich daraus dann die tatsächlichen Testskipte generieren.
 
