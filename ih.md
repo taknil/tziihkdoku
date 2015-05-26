@@ -465,7 +465,7 @@ Gemäß der Praxis in Go werden Daten die aus dem Test entstehen, in Dateien auf
 Eine Speicherung auf dem Go-Server und nicht dem Agenten-server garantiert eine nachhaltige Speicherung von Artefakten, da bei mehrfacher Verfügbarkeit der benötigten Ressource der Agenten-Server beliebig austauschbar ist.
 
 Go leitet Ausgabe der ANT-Skripte in eine Datei namens `console.log`, die  pro Stage einer Pipeline, in einen eigenen Ordner angelegt wird (siehe Abbildung \ref{fig:artifactsfolderstructure}).
-In diesem Log finden sich alle Ausgaben der ANT-Tasks und der Prozesse und Skripte die ANT startet.
+In diesem Log finden sich alle Ausgaben der ANT-Tasks, der Prozesse und Skripte die ANT startet.
 Zum Debugging beschriebt CasperJS auf Wunsch in die Standardausgabe.  Es habe mich entschlossen dies Ausgabe auch in das log zu leiten. Bei der Entwicklung kann mit den Argumenten `--verbose=true --log-level=debug` jeder einzelne Schritt der im Browser gegangen wird, von HTTP-Request, Javascript-Operationen und Veränderungen des \acs{DOM}, aufgezählt werden.
 Im produktiven Einsatz genügt das Log-Level`--log-level=error`, bei dem nur Fehler ausgegeben werden. Dies macht das Log lesbarer und hilft bei der Fehlerdiagnose im Alltag.
 
@@ -482,7 +482,7 @@ Im produktiven Einsatz genügt das Log-Level`--log-level=error`, bei dem nur Feh
 <!-- Anschluss fehlt-->
 
 
-Eine Datei im "JUNIT XML result Format", in der die Ergebnisse der Testläufe in Testsuiten gebündelt für jeden Testfall aufgelistet werden, ist gefordert.  Das Schema dieses XML-Austauschformats ist als de-facto Standard festgeschrieben[^xunitwebdoku] und wird von vielen \*UNIT Testframeworks erstellt und von weiteren Systemen verarbeitet. Dieses Austauschformat ermöglicht in Zukunft tiefergehende Auswertung von Testergebnissen, da es vollständig maschinenlesbar ist.    
+Eine Datei im "JUNIT XML result Format", in der die Ergebnisse der Testläufe in Testsuiten gebündelt für jeden Testfall aufgelistet werden, ist gefordert. <!-- Wrong!!!-->   Das Schema dieses XML-Austauschformats ist als de-facto Standard festgeschrieben[^xunitwebdoku] und wird von vielen \*UNIT Testframeworks erstellt und von weiteren Systemen verarbeitet. Dieses Austauschformat ermöglicht in Zukunft tiefergehende Auswertung von Testergebnissen, da es vollständig maschinenlesbar ist.    
 *casperJS* soll im produktiven Einsatz mit der Option `--XUNIT=junit.xml` eine solche Datei liefern.
 
 
@@ -499,10 +499,10 @@ CasperJS Tests werden gemäß der Anforderung so gestaltet, dass sie im Fehlerfa
 ##Qualitätssicherung
 
 Es wurde früh in der Implementierungsphase ein Beispieltest erstellt, der
-die Funktionalität des <!-- Testrunner?--> Systems beweisen kann. *CasperJS* verfügt ausserdem über einen Selbsttest der nach der Installation ausgeführt wurde.    
+die Funktionalität des <!-- Testrunner?--> Systems beweisen kann. *CasperJS* verfügt außerdem über einen Selbsttest der nach der Installation ausgeführt wurde.    
 Der Code der Tests und ebenfalls der ANT-Targets wird in SVN versionsverwaltet, sodass es einfach
 möglich ist funktionierende Versionen wiederherzustellen.
-Bei entsprechender Konfiguration führt *Go* selbständig Pipelines, an denen Änderungen vorgenommen wurden oder deren Abhängigkeiten sich verändert haben, sofort aus. Hierdurch bleibt kein Code ungetestet und Fehlerfälle sind leicht erkennbar. Im Büro des Entwickerteams steht ein Großbildschirm zu Statusanzeige verschiedener Serversysteme, das so genannte Dashboard, auf dem u. a. fehlgeschlagene Pipelines angezeigt werden. Das Entwicklerteam ist angehalten alle Anzeigewerte auf dem Dashboard "im grünen Bereich" zu halten und greift im Fehlerfall schnell ein. Der Verursacher des Fehlers ist dank Integration der Versionsverwaltung in *Go* schnell ausfindig gemacht.
+Bei entsprechender Konfiguration führt *Go* selbständig Pipelines, an denen Änderungen vorgenommen wurden oder deren Abhängigkeiten sich verändert haben, sofort aus. Hierdurch bleibt kein Code unausgeführt und Fehlerfälle sind leicht erkennbar. Im Büro des Entwickerteams steht ein Großbildschirm zu Statusanzeige verschiedener Serversysteme, das so genannte Dashboard, auf dem u. a. fehlgeschlagene Pipelines angezeigt werden. Das Entwicklerteam ist angehalten alle Anzeigewerte auf dem Dashboard "im grünen Bereich" zu halten und greift im Fehlerfall schnell ein. Der Verursacher des Fehlers ist dank Integration der Versionsverwaltung in *Go* schnell ausfindig gemacht.
 
 
 
@@ -527,14 +527,14 @@ Der Befehl `emerge phantomjs` zeigte allerdings eine enorme Liste von Abhängigk
 
 Erfahrungen mit gentoo haben mir gezeigt dass immer mehr Zeit bei der Installation eingeplant werden muss, denn es treten sehr häufig Unstimmigkeiten mit Abhängigkeiten auf.
 
-Ein Installationsprotokoll wurde erstellt damit das Vorgehen reproduzierbar und nachvollziehbar ist.  Das Installationsprotokoll ist im Anhang zu finden.
+Ein Installationsprotokoll wurde erstellt damit das Vorgehen reproduzierbar und nachvollziehbar ist.  Das Installationsprotokoll ist im Anhang \ref{installprotocoll} zu finden.
 
 [^cjsgh]: github.com/n1k0/casperjs
    
 ##Erstellen der Beispieltestsuite
 
 Das casperJS Modul `tester` stellt, mit Ausnahme der Screenshots, die meisten, im Lastenheft geforderten Funktionalitäten, bereit. Mit Hilfe der sehr guten online Dokumentation von casperJS und seiner Module[^casperdocstester]  wurde eine Beispieltestsuite geschrieben.
-Auf Grund der Erfahrung im Team mit Javascript wurde der Beispieltest in dieser Sprache geschrieben. Es bleibt weiterhin möglich, in Zukunft auch Coffeescript zu nutzen. Es musste besondere Sorgfalt auf die Struktur der Testskripte für *casperJS* gelegt werden, denn die Tests werden in Javascript geschrieben und dies wird asynchron ausgeführt, wenn nicht explizit eine Schrittfolge definiert wird. Das würde bedeuten, dass das Verhalten nicht immer reproduzierbar ist, was jedoch gerade bei Regressionstests unbedingt erforderlich ist.
+Auf Grund der Erfahrung im Team mit Javascript wurde der Beispieltest in dieser Sprache geschrieben. Es musste besondere Sorgfalt auf die Struktur der Testskripte für *casperJS* gelegt werden, denn die Tests werden in Javascript geschrieben und dies wird asynchron ausgeführt, wenn nicht explizit eine Schrittfolge definiert wird. Das würde bedeuten, dass das Verhalten nicht immer reproduzierbar ist, was jedoch gerade bei Regressionstests unbedingt erforderlich ist.
 In einer casperJS Testsuite wird eine deterministische Testsequenz mit `casper.start()` begonnen. Jeder darauf folgende Schritt wird in der Funktion `casper.then();` gekennzeichnet.
 Der Testabschluss wird mit  `casper.done()` eingeleitet.     
 
@@ -552,7 +552,7 @@ Die auf dem Entwicklerrechner erstellten Javascript-Dateien wurden , auf den Ser
 
 ##Erstellung von ANT-Targets
 
-Alle Anwendungsfälle aus dem Anwendungsfalldiagramm \ref{app:UseCase}, die noch nicht in *Go* oder als standard ANT-Tasks zu Verfügung standen, wurden in einer neuen ANT build-Datei, der Datei casperjs.xml, als Tasks aufgenommen. Zusätzlich zu einigen Helferfunktionen, die die Fehlerdiagnose vereinfachen sollten, wurden diese Tasks implementiert. In der build-Datei wurden Ordner für Screenshots, Testskripte und weitere Artefakte als Properties definiert. Zusätzlich habe ich auch Tasks für die Nachbereitung von Test eingeführt die Artefakte wie das Testlog und Screenshots bereinigen und auf dem *Go* Server ablegen.
+Alle Anwendungsfälle aus dem Anwendungsfalldiagramm in Abbildung\ref{app:UseCase}, die noch nicht in *Go* oder als standard ANT-Tasks zu Verfügung standen, wurden in einer neuen ANT build-Datei, der Datei casperjs.xml, als Tasks aufgenommen. Zusätzlich zu einigen Helferfunktionen, die die Fehlerdiagnose vereinfachen sollten, wurden diese Tasks implementiert. In der build-Datei wurden Ordner für Screenshots, Testskripte und weitere Artefakte als Properties definiert. Zusätzlich habe ich auch Tasks für die Nachbereitung von Test eingeführt die Artefakte wie das Testlog und Screenshots bereinigen und auf dem *Go* Server ablegen.
 	 
 	 	 
 ##Einrichtung der Pipeline zur Testausführung 
@@ -560,7 +560,7 @@ Ich habe eine neue Pipeline "UL.casperJStests" erstellt die alle notwendigen Sch
 
 Die neu  Anwendung *casperJS* wurde von mir dem Go-Agent auf dem Server namens "manager" als Ressource hinzugefügt. Allen jobs, die innerhalb der Testpipeline definiert sind habe ich auch die Ressoure "casperjs" zugewiesen. Diese werden somit auf dem Server "manager" ausgeführt. Eine Außnahme bilden die Wrapup-Tasks, da diese die Artefakte explizit nicht auf dem Agenten-Server, sondern dem Go-Server abgelegt werden sollen und daher auch dort ausgeführt werden müssen.
  
-Diese Pipeline wurde dann in die Gesamtkonfigurationsdatei von *Go* eingefügt, in der ich auch die Rechte zum ausführen die Pipeline konfiguriert habe.
+Die Pipeline "UL.casperJStests" wurde dann in die Gesamtkonfigurationsdatei von *Go* eingefügt, in der ich auch die Rechte zum ausführen die Pipeline konfiguriert habe.
 
 
 
@@ -576,7 +576,7 @@ Im Browser *phantomJS* können Screenshots gespeichert werden. Die Funktionalit�
 
 *Go* bietet von Haus aus einen Mechanismus, um Artefakte von Agenten-Server zentral zu speichern[^goartifacts]. Dieser wurde in die Pipeline eingesetzt und konfiguriert. Damit kann sichergestellt werden dass die maschinenlesbare Testauswertung in der Historie in *Go* immer zur Verfügung steht.
 
-[^goartifacts]:Dokumentation zur Handhabung von Artefakten in *Go* http://www.go.cd/documentation/user/current/configuration/managing_artifacts_and_reports.html
+[^goartifacts]:"Dokumentation zur Handhabung von Artefakten in *Go* \\ http://www.go.cd/documentation/user/current/configuration/managing_artifacts_and_reports.html"
 
 ##Erweitern der Pipeline um Screenshot-Sammlung   
 
@@ -584,11 +584,11 @@ Es wurde zusätzlich ein ANT-Task erstellt und in die Pipeline integriert, der e
 
 #Testphase
 
-Schon in der Implementierungsphase wurden die Beispieltests immer wieder, erst auf dem Entwicklungsrechner, dann auf dem Server  ausgeführt. Am Ende der Implementationssphase wurde der Testrunner und seine Integration gegen die Anforderungen aus dem Lastenheft geprüft. 
+Schon in der Implementierungsphase wurden die Beispieltests immer wieder, erst auf dem Entwicklungsrechner, dann auf dem Server  ausgeführt. Am Ende der Implementierungsphase wurde der Testrunner und seine Integration gegen die Anforderungen aus dem Lastenheft geprüft. 
 
 #Abnahmephase
 
-Nachdem die Anwendung von mir erfolgreich getestet wurde, habe ich sie dem Fachbereich zur Abnahme vorgelegt. Zusammen mit dem Anforderer wurden alle Anwendungsfälle und Akzeptanzkriterien für das System im Einsatz des Beispieltests geprüft. Die Anforderung wurden alle zur Zufriedenheit erfüllt. 
+Nachdem die Anwendung von mir erfolgreich getestet wurde, habe ich sie dem Anforderer zur Abnahme vorgelegt. Zusammen mit dem Autor wurden alle Anwendungsfälle und Akzeptanzkriterien für das System geprüft. Die Anforderung wurden alle zur Zufriedenheit erfüllt. 
 
 #Einführungsphase
 
@@ -634,7 +634,7 @@ Ein iteratives Vorgehensmodell würde ich in Zukunft  bevorzugen, insbesondere b
 Abschließend kann man sagen, dass das Projekt in seiner Realisierung für das Team und in der Durchführung für den Autor eine große Bereicherung war.
 
 ##Ausblick
-In naher Zukunft werden für den Einsatz der Testumgebung mehr Tests implementiert, die mehr Funktionen den Onlineshops untersuchen.
+In naher Zukunft werden für den Einsatz der Testumgebung mehr Tests implementiert, die mehr Funktionen des Onlineshops untersuchen.
 Obwohl alle im Lastenheft definierten Anforderungen realisiert wurden, zeichnen sich bereits neue Featurewünsche und Einsatzszenarien ab.
 Das Team strebt danach, die Front-End-Tests fest in den Deployment-Prozess zu integrieren, was auch ohne Probleme möglich ist.
 
