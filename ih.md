@@ -5,7 +5,7 @@
 
 Die mobilcom-debitel GmbH ist ein in Deutschland agierendes Tochterunternehmen
 der Freenet Group AG. Das Unternehmen vertreibt hauptsächlich Mobilfunkprodukte wie
-Verträge und Mobilfunk-Endgeräte sowie passendes Zubehör. Seit 2011 bestand eine
+Verträge und Mobilfunk\-End\-geräte sowie passendes Zubehör. Seit 2011 bestand eine
 Kooperation mit der GRAVIS Computervertriebsgesellschaft mbH, dem
 ursprünglichen Ausbildungsbetrieb des Autors. Diese Kooperation mündete Ende 2012
 in einer vollständigen Übernahme[^grauebernahme] und einer anschließenden
@@ -43,7 +43,7 @@ es möglich, dass bei manueller Testdurchführung Fehler übersehen oder erst na
 Regel nicht oder nicht ausführlich dokumentiert und es ist nicht möglich,
 eine Statistik über die Fehlerhäufigkeit zu führen. Darüber hinaus gibt
 es keine technische Möglichkeit, die das Deployen von fehlerhaftem Code
-auf das \acs{Echt-System}[^UIUSUL], also den Servern zu denen sich Kunden verbinden, verhindert.
+auf das Echt-System[^UIUSUL], also den Servern zu denen sich Kunden verbinden, verhindert.
 
 [^UIUSUL]: Der GRAVIS Onlineshop wird in drei Instanzen betrieben: Einer Integration-System die immer den aktuellsten Code enthält, einer Staging-System für Abnahmen und Tests neuer Features und einem Echt-System welches die Kunden für tatsächliche Bestellungen nutzen.
 [^Deployment]: Softwareverteilung, -Auslieferung.
@@ -365,15 +365,8 @@ Für eine Vereinfachung der Systemanforderung wurde entschieden, einen so genann
 
 ###Continuous-Delivery-System
 
-Das Continuous-Delivery-System unterstützt die Entwickler bei der fortlaufenden Auslieferung der Software. <!-- soll Regelprozesse automatisieren-->
-Die Integration der Testumgebung  in das CD-System kann z. B. unter Nutzung von  \acs{ANT}[^antweb] erfolgen. Es wird eine \acs{XML} build-Datei erstellt die Targets, vergleichbar mit Funktionen in Programmiersprachen, definiert. Das CD-System steuert in sogenannten Pipelines welche Targets von ANT ausgeführt werden. Die Targets müssen die Gesamtheit der Tasks, die für einen Testlauf notwendig sind, abbilden.
-Die Targets werden mit Tasks, also Befehlen gefüllt, die jeweils eine Aufgabe erledigen. ANT bietet Unterstützung für Datenoperationen und Variablen, hier Properties genannt. Properties können als wiederverwendbare Variablen genutzt werden, z. B. zu Speicherung von Datenbankadressen oder Dateipfaden. Darüber hinaus können ANT-Skripte weitere Werkzeuge, wie etwa Shell-Skripte, Java Programme oder \acs{PHP}-Scripte auslösen.
-
-Die lose Kopplung der einzelnen Tasks erhöht die Wiederverwendbarkeit und  Austauschbarkeit. Sollte z. B. der Test-Runner ausgetauscht werden, kann dies erfolgen ohne die Tasks zur Testvorbereitung oder Auswertung der Testergebnisse anpassen zu müssen. Außerdem können die einzelnen Komponenten durch die strikte Trennung einfacher getestet, gewartet und erweitert werden.
-
-[^antweb]: Apache ANT Projekt, `ant.apache.org` . Programm zum Erzeugen und Deployen von Computerprogrammen aus Quelltexten. 
-
-
+Das Continuous-Delivery-System unterstützt die Entwickler bei der fortlaufenden Auslieferung der Software. <!-- soll Regelprozesse automatisieren--> wiederkehrende Tasks,
+in Kombination mit svn Ausspiel und Rollback. Tempo rauf, Fehleranfälligkeit runter.
 
 
 ###Versionsverwaltung {#versionsverwaltung}
@@ -412,7 +405,14 @@ PhantomJS 1.9.8 ist ein Paket aus QTWebkit, der Rendering-Engine, einer Javascri
 
 
 
-In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt unterteilen. Der Aufbau einer Pipeline ist in Abbildung \ref{fig:gopipelines} illustriert<!-- verdeutlicht -->. Stages werden nacheinender ausgeführt und enthalten Jobs.  Jeder Job hat mindesten einen Task der ein ANT-Target[^anttarget] anspricht oder einem Standard ANT-Befehl entspricht.  Jobs werden in beliebiger Reihenfolge oder sogar parallel ausgeführt, je nach Verfügbarkeit von zugewiesenen Agent-Servern. 
+In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt unterteilen. Der Aufbau einer Pipeline ist in Abbildung \ref{fig:gopipelines} illustriert<!-- verdeutlicht -->. Stages werden nacheinender ausgeführt und enthalten Jobs.  Jeder Job hat mindesten einen Task der ein ANT-Target[^anttarget] anspricht oder einem Standard ANT-Befehl entspricht.  Jobs werden in beliebiger Reihenfolge oder sogar parallel ausgeführt, je nach Verfügbarkeit von zugewiesenen Agent-Servern.      
+
+ANT bietet Unterstützung für Datenoperationen und Variablen, hier Properties genannt. Properties können als wiederverwendbare Variablen genutzt werden, z. B. zu Speicherung von Datenbankadressen oder Dateipfaden. 
+Darüber hinaus können ANT-Skripte weitere Werkzeuge, wie etwa Shell-Skripte, Java Programme oder \acs{PHP}-Scripte auslösen. 
+
+Die lose Kopplung der einzelnen Tasks erhöht die Wiederverwendbarkeit und  Austauschbarkeit. Sollte z. B. der Test-Runner ausgetauscht werden, kann dies erfolgen ohne die Tasks zur Testvorbereitung oder Auswertung der Testergebnisse anpassen zu müssen. Außerdem können die einzelnen Komponenten durch die strikte Trennung einfacher getestet, gewartet und erweitert werden.
+
+[^antweb]: Apache ANT Projekt, `ant.apache.org` . Programm zum Erzeugen und Deployen von Computerprogrammen aus Quelltexten. 
 
  Jobs werden nicht auf dem *Go* Server selbst, sondern auf den so genannten Agenten-Servern ausgeführt, welche alle notwendigen Ressourcen für die Ausführung einer Stage bereitstellen. Einzelne Server  melden sich mit ihrem Go-Agent beim Go-Server an und bekommen Aufgaben zugeteilt.
    
@@ -432,6 +432,9 @@ Ausgaben der (ANT-)Skripte und von aufgerufenen Programmen und Artefakte[^whatar
 
 [^anttarget]:Sprungziel in einer \acs{ANT} build.xml, ähnlich einem Funktionsnamen.
 [^whatareartifacts]:Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung.
+
+
+
 
 
 

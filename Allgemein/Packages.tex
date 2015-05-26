@@ -148,18 +148,7 @@
 		do,is,sizeof,while,double,lock,stackalloc,
 		else,long,static,enum,namespace,string},
 }
-\lstdefinelanguage{natural}{
-	sensitive=false,
-	morecomment=[l]{/*},
-	morestring=[b]",
-	morestring=[b]',
-	alsodigit={-,*},
-	morekeywords={
-		DEFINE,DATA,LOCAL,END-DEFINE,WRITE,CALLNAT,PARAMETER,USING,
-		IF,NOT,END-IF,ON,*ERROR-NR,ERROR,END-ERROR,ESCAPE,ROUTINE,
-		PERFORM,SUBROUTINE,END-SUBROUTINE,CONST,END-FOR,END,FOR,RESIZE,
-		ARRAY,TO,BY,VALUE,RESET,COMPRESS,INTO,EQ},
-}
+
 \lstdefinelanguage{php}{
 	sensitive=false,
 	morecomment=[l]{/*},
@@ -189,4 +178,22 @@
         private,protected,public,static,switch,throw,try,use,var,while,xor
         die,echo,empty,exit,eval,include,include_once,isset,list,require,
         require_once,return,print,unset,target,echo,arg,fileset,include,exec,property},
+}
+\lstdefinelanguage{js}{
+    sensitive=false,
+    morecomment=[l]{/*},
+    morestring=[b]",
+    morestring=[b]',
+    alsodigit={-,*},
+    morekeywords={
+        abstract,event,new,struct,as,explicit,null,switch,begin,open,success,fail,
+        base,extern,object,this,bool,false,operator,throw,done,
+        break,finally,out,true,byte,fixed,override,try,
+        case,float,params,typeof,catch,for,private,uint,
+        char,foreach,protected,ulong,checked,goto,public,unchecked,
+        class,if,readonly,unsafe,const,implicit,ref,ushort,
+        continue,in,return,using,decimal,int,sbyte,virtual,
+        default,interface,sealed,volatile,delegate,internal,short,void,
+        do,is,sizeof,while,double,lock,stackalloc,
+        else,long,static,enum,namespace,string},
 }
