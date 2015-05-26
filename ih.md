@@ -297,7 +297,7 @@ Live-System           45 min
 
 -->
 
-Aus Erfahrung können für Regressionstests am GRAVIS Onlineshop 45min angenommen werden. Pro Deployment wird einmal vorab auf dem Staging-System getestet und nach dem Deployment noch einmal im \acs{Echt-System}. Beim aktuellen Vorgehen gibt es alle 2 Wochen ein Deployment, was eine Testaufwand allein für Regressionstests von 3 Stunden pro Monat bedeutet. Diese könnten durch vollautomatisierte Tests eingespart werden.
+Aus Erfahrung können für Regressionstests am GRAVIS Onlineshop 45min angenommen werden. Pro Deployment wird einmal vorab auf dem Staging-System getestet und nach dem Deployment noch einmal im Echt-System. Beim aktuellen Vorgehen gibt es alle 2 Wochen ein Deployment, was eine Testaufwand allein für Regressionstests von 3 Stunden pro Monat bedeutet. Diese könnten durch vollautomatisierte Tests eingespart werden.
 
 <!--
 \begin{eqnarray}
@@ -361,7 +361,7 @@ GRAVIS Onlineshop betrieben wird, eingesetzt werden können. Der Betrieb in eine
 ###Front-End-Test
 Es wird gefordert, funktionale Tests durchzuführen und wie ein Nutzer mit der Website zu interagieren. Damit musste ein Webbrowser mit einer Rendering-Engine und einer JavaScript Laufzeitumgebung herangezogen werden, der Formularvalidierung und Interaktionen auf Javascript Basis ermöglicht und Sessioncookies vorhalten kann. Der Browser soll dann von einem komfortabel bedienbaren Testing-Framework gesteuert werden. Frameworks, die nur statische Programmanalyse oder nur Unit-Tests ausführen,  wie HTMLUnit für HTML oder QUnit für Javascript, fielen aus der Auswahl, da ihr Funktionsumfang nicht ausreichend ist. <!-- Exekution basded Testung ist angesagt-->
 
-Für eine Vereinfachung der Systemanforderung wurde entschieden, einen so genannten \acs{headless} Browser, einen Browser ohne Grafikausgabe zu nutzen. Damit kann die Anwendung, im Folgenden "Testrunner" genannt, auf einem Server eingesetzt werden. Der Testrunner führt dann auf dem Server Gruppen von Tests, sogenannte Testsuiten, aus.
+Für eine Vereinfachung der Systemanforderung wurde entschieden, einen so genannten headless Browser, einen Browser ohne Grafikausgabe zu nutzen. Damit kann die Anwendung, im Folgenden "Testrunner" genannt, auf einem Server eingesetzt werden. Der Testrunner führt dann auf dem Server Gruppen von Tests, sogenannte Testsuiten, aus.
 
 ###Continuous-Delivery-System
 
@@ -401,7 +401,7 @@ PhantomJS 1.9.8 ist ein Paket aus QTWebkit, der Rendering-Engine, einer Javascri
 
 ###Go
 
-In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt unterteilen. Der Aufbau einer Pipeline ist in Abbildung \ref{fig:gopipelines} illustriert<!-- verdeutlicht -->. Stages werden nacheinender ausgeführt und enthalten Jobs.  Jeder Job hat mindesten einen Task der ein ANT-Target[^anttarget] anspricht oder einem Standard ANT-Befehl entspricht.  Jobs werden in beliebiger Reihenfolge oder sogar parallel ausgeführt, je nach Verfügbarkeit von zugewiesenen Agent-Servern.      
+In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt unterteilen. Der Aufbau einer Pipeline ist in Abbildung \ref{fig:gopipelines} illustriert<!-- verdeutlicht -->. Stages werden nacheinender ausgeführt und enthalten Jobs.  Jeder Job hat mindestens einen Task der ein ANT-Target[^anttarget] anspricht oder einem Standard ANT-Befehl entspricht.  Jobs werden in beliebiger Reihenfolge oder sogar parallel ausgeführt, je nach Verfügbarkeit von zugewiesenen Agent-Servern.      
 
 ANT bietet Unterstützung für Datenoperationen und Variablen, hier Properties genannt. Properties können als wiederverwendbare Variablen genutzt werden, z. B. zu Speicherung von Datenbankadressen oder Dateipfaden. 
 Darüber hinaus können ANT-Skripte weitere Werkzeuge, wie etwa Shell-Skripte, Java Programme oder \acs{PHP}-Scripte auslösen. 
@@ -484,6 +484,7 @@ Im produktiven Einsatz genügt das Log-Level`--log-level=error`, bei dem nur Feh
 Eine Datei, in der die Ergebnisse der Testläufe in Testsuiten gebündelt für jeden Testfall aufgelistet werden, ist gefordert. 
 Als de-facto Standard, weil es von vielen \*UNIT Testframeworks erstellt und von weiteren Systemen verarbeitet wird, habe ich mir für das ""JUNIT XML result Format"[^xunitwebdoku] entschieden. Dieses Austauschformat ermöglicht in Zukunft tiefergehende Auswertung von Testergebnissen, da es vollständig maschinenlesbar ist.    
 *casperJS* soll im produktiven Einsatz mit der Option `--XUNIT=junit.xml` eine solche Datei liefern.CasperJS Tests werden gemäß der Anforderung so gestaltet, dass sie im Fehlerfall einen Screenshot der aktuellen Seite im PNG-Format speichern. Auch damit lässt sich ein Problem leichter lokalisieren und visualisieren. Screenshots werden in der Ordner "artifacts" der jeweiligen Stage gespeichert und sind dadurch auch leicht im Webinterface von Go zu erreichen.
+
 [^xunitwebdoku]:JUNIT XML result schema https://windyroad.com.au/dl/Open%20Source/JUnit.xsd
 
 
