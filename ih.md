@@ -366,7 +366,7 @@ Für eine Vereinfachung der Systemanforderung wurde entschieden, einen so genann
 ###Continuous-Delivery-System
 
 Das Continuous-Delivery-System unterstützt die Entwickler bei der fortlaufenden Auslieferung der Software. <!-- soll Regelprozesse automatisieren--> Es hilft immer wiederkehrende Aufgaben  zu automatisieren.
-Durch den Einsatz eine CD-Systems ist ein Entwicklerteam schneller und die Fehleranfälligkeit in Regelprozessen wird erheblich reduziert. Es kann zum Beispiel das gesamte Deployment so weit automatisiert werden dass im Fehlerfall das Deployment in einem Rollback zurück genommen wird. 
+Durch den Einsatz eine CD-Systems ist ein Entwicklerteam schneller und die Fehleranfälligkeit in Regelprozessen wird erheblich reduziert. Es kann zum Beispiel das gesamte Deployment so weit automatisiert werden, dass im Fehlerfall das Deployment in einem Rollback zurück genommen wird. 
 
 
 ###Versionsverwaltung {#versionsverwaltung}
@@ -401,12 +401,12 @@ PhantomJS 1.9.8 ist ein Paket aus QTWebkit, der Rendering-Engine, einer Javascri
 
 ###Go
 
-In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt unterteilen. Der Aufbau einer Pipeline ist in Abbildung \ref{fig:gopipelines} illustriert<!-- verdeutlicht -->. Stages werden nacheinender ausgeführt und enthalten Jobs.  Jeder Job hat mindestens einen Task der ein ANT-Target[^anttarget] anspricht oder einem Standard ANT-Befehl entspricht.  Jobs werden in beliebiger Reihenfolge oder sogar parallel ausgeführt, je nach Verfügbarkeit von zugewiesenen Agent-Servern.      
+In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt, unterteilen. Der Aufbau einer Pipeline ist in Abbildung \ref{fig:gopipelines} illustriert<!-- verdeutlicht -->. Stages werden nacheinender ausgeführt und enthalten Jobs.  Jeder Job hat mindestens einen Task, der ein ANT-Target[^anttarget] anspricht oder einem Standard ANT-Befehl entspricht.  Jobs werden in beliebiger Reihenfolge oder sogar parallel ausgeführt, je nach Verfügbarkeit von zugewiesenen Agent-Servern.      
 
 ANT bietet Unterstützung für Datenoperationen und Variablen, hier Properties genannt. Properties können als wiederverwendbare Variablen genutzt werden, z. B. zu Speicherung von Datenbankadressen oder Dateipfaden. 
-Darüber hinaus können ANT-Skripte weitere Werkzeuge, wie etwa Shell-Skripte, Java Programme oder \acs{PHP}-Scripte auslösen. 
+Darüber hinaus können ANT-Skripte weitere Werkzeuge, wie etwa Shell-Skripte, Java Programme oder \acs{PHP}-Scripte, auslösen. 
 
-Die lose Kopplung der einzelnen Tasks erhöht die Wiederverwendbarkeit und  Austauschbarkeit. Sollte z. B. der Test-Runner ausgetauscht werden, kann dies erfolgen ohne die Tasks zur Testvorbereitung oder Auswertung der Testergebnisse anpassen zu müssen. Außerdem können die einzelnen Komponenten durch die strikte Trennung einfacher getestet, gewartet und erweitert werden.
+Die lose Kopplung der einzelnen Tasks erhöht die Wiederverwendbarkeit und Austauschbarkeit. Sollte z. B. der Testrunner ausgetauscht werden, kann dies erfolgen ohne die Tasks zur Testvorbereitung oder Auswertung der Testergebnisse anpassen zu müssen. Außerdem können die einzelnen Komponenten durch die strikte Trennung einfacher getestet, gewartet und erweitert werden.
 
 [^antweb]: Apache ANT Projekt, `ant.apache.org` . Programm zum Erzeugen und Deployen von Computerprogrammen aus Quelltexten. 
 
@@ -421,10 +421,10 @@ Die lose Kopplung der einzelnen Tasks erhöht die Wiederverwendbarkeit und  Aust
 
 \end{figure}
    
-Allen Agenten-Servern werden Ressourcen zugeordnet  , *Go* entscheidet dann zur Laufzeit auf welchen Agenten-Server ein Job ausgeführt werden muss.  
+Allen Agenten-Servern werden Ressourcen zugeordnet, *Go* entscheidet dann zur Laufzeit auf welchen Agenten-Server ein Job ausgeführt werden muss.  
   <!-- Die Verteilung von Jobs geschieht zur Laufzeit anhand verfügbarer Ressourcen. Ressourcen sind in diesem Kontext die Fähigkeit von Agenten-Servern Anwendungen auszuführen, weil sie dort installiert sind. Diese müssen explizit im Admin-Interface von *Go* konfiguriert werden. -->
 
-Ausgaben der (ANT-)Skripte und von aufgerufenen Programmen und Artefakte[^whatareartifacts] werden in einer Ordnerstruktur auf dem Dateisystem gespeichert.  Die Speicherung auf Datei-Ebene vereinfacht die Handhabung in *Go*  und hat sich bei der Integration anderer Werkzeuge bewährt.
+Ausgaben der (ANT-) Skripte und von aufgerufenen Programmen und Artefakte[^whatareartifacts] werden in einer Ordnerstruktur auf dem Dateisystem gespeichert.  Die Speicherung auf Datei-Ebene vereinfacht die Handhabung in *Go*  und hat sich bei der Integration anderer Werkzeuge bewährt.
 
 [^anttarget]:Sprungziel in einer \acs{ANT} build.xml, ähnlich einem Funktionsnamen.
 [^whatareartifacts]:Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung.
