@@ -353,7 +353,9 @@ Wesentliche Bestandteile zur technischen Anforderung  aus dem Lastenheft sind im
 Die Testumgebung soll auf den vorhandenen Servern, auf denen auch der
 GRAVIS Onlineshop betrieben wird, eingesetzt werden können. Der Betrieb in einem anderen Rechenzentrum oder auf einem Rechner der Entwickler, z.B. zur Weiterentwicklung von Tests, sollte ebenfalls möglich sein.
 Die Abläufe werden, von Go vorgegeben, als ANT-Skripte beschrieben. 
-Ausgaben und Artefakte werden in einer Ordnerstruktur auf dem Dateisystem gespeichert. Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung.  Die Speicherung auf Datei-Ebene vereinfacht die Handhabung in *Go*  und hat sich bei der Integration anderer Werkzeuge bewährt.
+Ausgaben und Artefakte[^whatareartifacts] werden in einer Ordnerstruktur auf dem Dateisystem gespeichert.  Die Speicherung auf Datei-Ebene vereinfacht die Handhabung in *Go*  und hat sich bei der Integration anderer Werkzeuge bewährt.
+
+[^whatareartifacts]:Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung.
 
 ##Softwarearchitektur
 
@@ -412,13 +414,14 @@ PhantomJS 1.9.8 ist ein Paket aus QTWebkit, der Rendering-Engine, einer Javascri
 
 \end{figure}
 
-In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt unterteilen. Der Aufbau einer Pipeline ist in \ref{fig:gopipelines} illustriert<!-- verdeutlicht -->. Stages werden nacheinender ausgeführt. Jobs, die zusammen eine Stage bilden, können aber in beliebiger Reihenfolge oder sogar parallel ausgeführt werden. Jobs werden nicht auf dem *Go* Server selbst, sonder auf so genannten Agenten-Servern ausgeführt.     
-*Go* benutzt für die Ausführung der Pipelines \acs{ANT}. Jeder Job hat mindesten einen Task der ein ANT-Target anspricht oder einer standard ANT-Funktion entspricht.  Die Folge der Anwendungsfälle habe ich in einer so genannten \acs{Pipeline} definiert, die synchron abzuarbeitende Targets definiert. Eine Pipeline gliedert sich in mehrere \acs{Stage}s (Stufen), welche eigene Umgebungsvariablen und benötigte Ressourcen definieren, sowie die produzierten Artefakte auszeichnen.  Die Aufgabenverteilung geschieht anhand verfügbarer Ressourcen. Ressourcen sind in diesem Kontext die Fähigkeit von Agenten-Servern Anwendungen auszuführen, weil sie dort installiert sind. Diese müssen explizit im Admin-Interface von *Go* konfiguriert werden.
+In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt unterteilen. Der Aufbau einer Pipeline ist in \ref{fig:gopipelines} illustriert<!-- verdeutlicht -->. Stages werden nacheinender ausgeführt. Jobs, die zusammen eine Stage bilden, werden in beliebiger Reihenfolge oder sogar parallel ausgeführt, je nach Verfügbarkeit von zugewiesenen Agent-Servern.  Jobs werden nicht auf dem *Go* Server selbst, sonder auf den Agenten-Servern ausgeführt.     
+ Jeder Job hat mindesten einen Task der ein ANT-Target anspricht oder einer standard ANT-Funktion entspricht.      
+Allen Agenten-Servern werden Ressourcen zugeordnet   , *Go* entscheidet dann zur Laufzeit auf welchen Agenten-Server ein Job ausgeführt wird.  
+   Die Verteilung von Jobs geschieht zur Laufzeit anhand verfügbarer Ressourcen. Ressourcen sind in diesem Kontext die Fähigkeit von Agenten-Servern Anwendungen auszuführen, weil sie dort installiert sind. Diese müssen explizit im Admin-Interface von *Go* konfiguriert werden.
 
 
 Der Go-Server, welcher ein ANT-Skript auslöst ist in der Regel nicht der ausführende Server. Einzelne Server, die alle notwendigen Ressourcen für die Ausführung einer Stage bereitstellen (im folgenden Agentenserver genannt), melden sich mit ihrem Go-Agent beim Go-Server an und bekommen Aufgaben zugeteilt.
 
-Die neu hinzugewonnene Anwendung *casperJS* wurde von mir dem Server namens "manager" als Ressource hinzugefügt und kann von nun an als Ressource in Pipelines verlangt werden. Jobs die diese Ressource verlangen werden dann automatisch dem "manager" Server zugeordnet und dort ausgeführt.
 
 ###Subversion 
 
@@ -439,7 +442,7 @@ Das Repository habe ich so organisiert dass alleine die Pfadangabe in *Go* reich
 ##Entwurf der Benutzeroberfläche
 
 Die Benutzer der Testumgebung sollen sich schnell zurecht finden und sind bereits gewohnt, *Go* zu benutzen. Es kann darauf verzichtet werden, zusätzliche Bedienelemente und -oberflächen einzuführen. Testläufe werden wie jede Pipeline in Go ausgelöst, entweder durch einen einfachen Klick in der Web-Oberfläche, siehe Abbildung \ref{fig:goguitrigger}, oder automatisch bei Aktualisierung der SVN-Repositories.
-Die Auswahl der Testsuite und die Konfiguration weiterer Optionen erfolgt in den Umgebungsvariablen der Pipeline, diese sind ebenfalls standardmäßig in der Weboberfläche zu erreichen.
+Die Auswahl der Testsuite und die Konfiguration weiterer Optionen erfolgt in den Umgebungsvariablen der Pipeline, diese sind ebenfalls standardmäßig in der Weboberfläche zu erreichen, siehe Abbildung \ref{fig:goguienvvars}
 Die Ausgaben von Testläufen werden in der standardmäßigen Ansicht einer Pipeline in Go sichtbar (siehe auch Abbildung \ref{fig:goguisummary} im Anhang \ref{screenshots}). Go sieht es vor, eine zusätzliche Registerkarte in der Auswertung anzuzeigen, in der Artefakte präsentiert werden. Die Registerkarte kann Inhalte von XML-Dateien anzeigen.
 
 
@@ -453,14 +456,6 @@ Go leitet Ausgabe der ANT-Skripte in eine Datei namens `console.log`, die  pro S
 In diesem Log finden sich alle Ausgaben der ANT Tasks und der Prozesse und Skripte die ANT Startet.
 Zum Debugging beschriebt CasperJS auf Wunsch in die Standardausgabe.  Es habe mich entschlossen dies Ausgabe auch in das log zu leiten. Bei der Entwicklung kann mit den Argumenten `--verbose=true --log-level=debug` jeder einzelne Schritt der im Browser gegangen wird, von HTTP-Request, Javascript-Operationen und Veränderungen des \acs{DOM}, aufgezählt werden.
 Im produktiven Einsatz genügt das Log-Level`--log-level=error`, bei dem nur Fehler ausgegeben werden. Dies macht das Log lesbarer und hilft bei der Fehlerdiagnose im Alltag.
-
-
-
-
-
-
-
-
 
 
 \begin{figure}[htb]
@@ -482,7 +477,6 @@ Eine Datei im "JUNIT XML result Format", in der die Ergebnisse der Testläufe in
 
 CasperJS Tests werden gemäß der Anforderung so gestaltet, dass sie im Fehlerfall einen Screenshot der aktuellen Seite im PNG-Format speichern. Auch damit lässt sich ein Problem leichter lokalisieren und visualisieren. Screenshots werden in der Ordner "artifacts" der jeweiligen Stage gespeichert und sind dadurch auch leicht im Webinterface von Go zu erreichen.
 
-Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung. In diesem Fall sind unter anderem die Test-Suite, Testprotokoll und Screenshots gemeint.
 
 
 
@@ -496,7 +490,7 @@ Es wurde früh in der Implementierungsphase ein Beispieltest erstellt, der
 die Funktionalität des <!-- Testrunner?--> Systems beweisen kann. *CasperJS* verfügt ausserdem über einen Selbsttest der nach der Installation ausgeführt wurde.    
 Der Code der Tests und ebenfalls der ANT-Targets wird in SVN versionsverwaltet, sodass es einfach
 möglich ist funktionierende Versionen wiederherzustellen.
-Bei entsprechender Konfiguration führt *Go* selbständig Pipelines, an denen Änderungen vorgenommen wurden oder deren Abhängigkeiten sich verändert haben, sofort aus. Hierdurch bleibt kein Code ungetestet und Fehlerfälle sind leicht erkennbar. Im Büro des Entwickerteams ein Großbildschirm zu Statusanzeige verschiedener Serversysteme, das so genannte Dashboard, auf dem u. a. fehlgeschlagene Pipelines angezeigt werden. Das Entwicklerteam ist angehalten alle Anzeigewerte auf dem Dashboard "im grünen Bereich" zu halten und greift im Fehlerfall schnell ein. Der Verursacher des Fehlers ist dank Integration der Versionsverwaltung in *Go* schnell ausfindig gemacht.
+Bei entsprechender Konfiguration führt *Go* selbständig Pipelines, an denen Änderungen vorgenommen wurden oder deren Abhängigkeiten sich verändert haben, sofort aus. Hierdurch bleibt kein Code ungetestet und Fehlerfälle sind leicht erkennbar. Im Büro des Entwickerteams steht ein Großbildschirm zu Statusanzeige verschiedener Serversysteme, das so genannte Dashboard, auf dem u. a. fehlgeschlagene Pipelines angezeigt werden. Das Entwicklerteam ist angehalten alle Anzeigewerte auf dem Dashboard "im grünen Bereich" zu halten und greift im Fehlerfall schnell ein. Der Verursacher des Fehlers ist dank Integration der Versionsverwaltung in *Go* schnell ausfindig gemacht.
 
 
 
@@ -526,6 +520,7 @@ Ein Installationsprotokoll wurde erstellt damit das Vorgehen reproduzierbar und 
 [^cjsgh]: github.com/n1k0/casperjs
    
 ##Erstellen der Beispieltestsuite
+
 Das casperJS Modul `tester` stellt, mit Ausnahme der Screenshots, die meisten, im Lastenheft geforderten Funktionalitäten, bereit. Mit Hilfe der sehr guten online Dokumentation von casperJS und seiner Module[^casperdocstester]  wurde eine Beispieltestsuite geschrieben.
 Auf Grund der Erfahrung im Team mit Javascript wurde der Beispieltest in dieser Sprache geschrieben. Es bleibt weiterhin möglich, in Zukunft auch Coffeescript zu nutzen. Es musste besondere Sorgfalt auf die Struktur der Testskripte für *casperJS* gelegt werden, denn die Tests werden in Javascript geschrieben und dies wird asynchron ausgeführt, wenn nicht explizit eine Schrittfolge definiert wird. Das würde bedeuten, dass das Verhalten nicht immer reproduzierbar ist, was jedoch gerade bei Regressionstests unbedingt erforderlich ist.
 In einer casperJS Testsuite wird eine deterministische Testsequenz mit `casper.start()` begonnen. Jeder darauf folgende Schritt wird in der Funktion `casper.then();` gekennzeichnet.
@@ -537,34 +532,37 @@ Neben einer erfolgreich Testsequenz sind von mir auch strategische Fehlerpunkte 
    
 ##Testing des Testrunners  
 Nach der Überprüfung der Versionen von *PhantomJS* und *casperJS* habe ich den mitgelieferten Selbsttest von *casperJS* auf dem Server durchgeführt. Der Selbsttest führt alle Funktionen in *CasperJS* einmal aus und diagnostiziert die vollständige Funktionsfähigkeit.    
-Die auf dem Entwicklerrechner erstellten Javascript Tests wurden per sshFS[^sshfs], auf den Server übertragen. Dort wurden sie manuell mit dem Befehl `casperjs test /home/it/casperjs/ --log-level=debug --verbose=true` ausgeführt und deren Ausgabe beurteilt. Die übertragenen Tests und der Selbsttest funktionierten  einwandfrei und die Einsatzbereitschaft des Testrunners war bewiesen. 
+Die auf dem Entwicklerrechner erstellten Javascript-Dateien wurden , auf den Server übertragen. Dort wurden sie manuell mit dem Befehl `casperjs test /home/it/casperjs/ --log-level=debug --verbose=true` ausgeführt und deren Ausgabe beurteilt. Die übertragenen Tests und der Selbsttest funktionierten  einwandfrei und die Einsatzbereitschaft des Testrunners war bewiesen. 
 
 
-[^sshfs]:Datenübertragungsprotokoll über sFTP, auf dem Entwicklerrechner als FUSE-Dateisystem eingebunden.
+
 
 
 ##Erstellung von ANT Targets
 
-Alle Anwendungsfälle aus dem Anwendungsfalldiagramm \ref{app:UseCase}, die noch nicht in *Go* oder als standard ANT-Tasks zu Verfügung standen, wurden in einer neuen ANT build-Datei als \acs{Task}s aufgenommen. Zusätzlich zu ein paar Helferfunktionen, die die Fehlerdiagnose vereinfachen sollten, wurden diese Tasks implementiert. In der build-Datei wurden Ordner für Screenshots, Testskripte und weitere Artefakte als Properties definiert. Parameter der ANT-Tasks wurden durch Properties und Umgebungsvariablen ausgefüllt, sodass die Tasks mit maximaler Flexibilität eingesetzt werden können. Es wurden auch Tasks für die Nachbereitung von Test eingeführt die Artefakte wie das Testlog und Screenshots bereinigen und einsammeln.
+Alle Anwendungsfälle aus dem Anwendungsfalldiagramm \ref{app:UseCase}, die noch nicht in *Go* oder als standard ANT-Tasks zu Verfügung standen, wurden in einer neuen ANT build-Datei, der Datei casperjs.xml, als Tasks aufgenommen. Zusätzlich zu einigen Helferfunktionen, die die Fehlerdiagnose vereinfachen sollten, wurden diese Tasks implementiert. In der build-Datei wurden Ordner für Screenshots, Testskripte und weitere Artefakte als Properties definiert. Zusätzlich habe ich auch Tasks für die Nachbereitung von Test eingeführt die Artefakte wie das Testlog und Screenshots bereinigen und auf dem *Go* Server ablegen.
 	 
 	 	 
 ##Einrichtung der Pipeline zur Testausführung 
+Ich habe eine neue Pipeline "UL.casperJStests" erstellt die alle notwendigen Schritte zum automatisierten Durchführen von Front-End-Test abarbeitet. Dafür wurden alle notwendigen Tasks in mehrere Stages aufgeteilt. Jedem Task habe ich die entsprechenden, vorher angelegten, ANT-Targets zugewiesen. Pro Stage habe ich angegeben welche Ressourcen benötigt werden damit sie auf dem entsprechenden Agentenserver ausgeführt werden. Die Pipeline wurde so konfiguriert dass sie automatisch bei Änderungen an Testskipten ausgeführt wird.
 
-Die Komponenten die für einen erfolgreichen Testlauf benötigt werden wurden im vorherigen Schritt erstellt. Jetzt wurden die Tasks in eine Reihenfolge gebracht. Ich habe eine Pipeline als ANT-Skript geschrieben, die alle notwendigen Schritte zum automatisierten Durchführen von Front-End-Test abarbeitet. Diese Pipeline wurde dann in die Gesamtkonfigurationsdatei von *Go* eingefügt, in der ich auch die Rechte und die erforderlichen Ressourcen für die Pipeline konfiguriert habe.
+Die neu  Anwendung *casperJS* wurde von mir dem Go-Agent auf dem Server namens "manager" als Ressource hinzugefügt. Allen jobs, die innerhalb der Testpipeline definiert sind habe ich auch die Ressoure "casperjs" zugewiesen. Diese werden somit auf dem Server "manager" ausgeführt. Eine Außnahme bilden die Wrapup-Tasks, da diese die Artefakte explizit nicht auf dem Agenten-Server, sondern dem Go-Server abgelegt werden sollen und daher auch dort ausgeführt werden müssen.
+ 
+Diese Pipeline wurde dann in die Gesamtkonfigurationsdatei von *Go* eingefügt, in der ich auch die Rechte zum ausführen die Pipeline konfiguriert habe.
 
 
 
 ##Einsatz von Umgebungsvariablen  
-Ab sofort können Front-End-Tests automatisiert ausgelöst werden. Bisher  sind aber alle Pfade und Parameter festgeschrieben. Der gleiche Code soll unter verschiedenen Testszenarien und auf verschiedenen Serverumgebungen zum Einsatz kommen.
-Um die gewünschte Modularität zu erreichen wurden statische Werte in der in den von mir erstellten ANT-Tasks durch Umgebungsvariablen getauscht. Einige Tasks mussten erweitert werden, z.B. um die Parameterweitergabe an *casperJS* zu ermöglichen. <!-- DIfficulty --> Die Umgebungsvariablen können in der Web-Obefläche von *Go* leicht verändert werden.
+Ab sofort können Front-End-Tests automatisiert ausgelöst werden. Bisher  sind aber alle Pfade und Parameter in den ANT-Skripten statisch verwendet. Der gleiche Code soll unter verschiedenen Testszenarien und auf verschiedenen Serverumgebungen zum Einsatz kommen.
+Um die gewünschte Modularität zu erreichen, habe ich statische Werte durch Umgebungsvariablen getauscht. Einige Tasks mussten erweitert werden, z.B. um die Parameterweitergabe an *casperJS* zu ermöglichen. <!-- DIfficulty --> Die Umgebungsvariablen können in der Web-Oberfläche von *Go* leicht verändert werden.
 
 ##Erweiterung des Bespieltest um Screenshotfunktion 
-Im Browser *phantomJS* können Bildschirmaufnahmen gespeichert werden. Die Funktionalität der Bildschrimaufnahmen unter Zuhilfenahme von *casperJS*  ist leider schlecht dokumentiert. Nach mehreren Versuchen stellte sich heraus der JavaScript Befehl `casper.capture()`  standardmäßig  die grafische Darstellung des Elementes `<body>` einer HTML Seite speichert. Eine Aufnahme von einzelnen DOM-Elementen ist auch möglich, jedoch verursachen meist fehlende HTML Elemente Testabbrüche, sodass dieser Ansatz nicht weiter verfolgt wurde. 
+Im Browser *phantomJS* können Bildschirmaufnahmen gespeichert werden. Die Funktionalität der Bildschrimaufnahmen unter Zuhilfenahme von *casperJS*  ist leider schlecht dokumentiert. Nach mehreren Versuchen stellte sich heraus der JavaScript Befehl `casper.capture()`    die grafische Darstellung des Elementes `<body>` einer HTML Seite speichert. Eine Aufnahme von einzelnen DOM-Elementen ist auch möglich, jedoch verursachen meist fehlende HTML Elemente Testabbrüche, sodass dieser Ansatz nicht weiter verfolgt wurde. 
 
 ##Erweitern der Pipeline um Artefaktensammlung
 
 
-*Go* bietet von Haus aus einen Mechanismus um Artefakte von Agenten-Server einzusammeln[^goartifacts]. Diese wurde in die Pipeline eingesetzt und konfiguriert. Damit kann sichergestellt werden dass die maschinenlesbare Testauswertung in der Historie in *Go* immer zur Verfügung steht.
+*Go* bietet von Haus aus einen Mechanismus, um Artefakte von Agenten-Server zentral zu speichern[^goartifacts]. Dieser wurde in die Pipeline eingesetzt und konfiguriert. Damit kann sichergestellt werden dass die maschinenlesbare Testauswertung in der Historie in *Go* immer zur Verfügung steht.
 
 [^goartifacts]:http://www.go.cd/documentation/user/current/configuration/managing_artifacts_and_reports.html
 
@@ -578,7 +576,7 @@ Schon in der Implementierungsphase wurden die Beispieltests immer wieder, erst a
 
 #Abnahmephase
 
-Nachdem die Anwendung von mir erfolgreich getestet wurde, habe ich sie dem Fachbereich zur Abnahme vorgelegt. Zusammen mit dem Anforderer wurden alle Anwendungsfälle und Akzeptanzkriterien für das System im Einsatz des Beispieltests geprüft. Die ursprünglichen Anforderung wurden alle zur Zufriedenheit erfüllt. 
+Nachdem die Anwendung von mir erfolgreich getestet wurde, habe ich sie dem Fachbereich zur Abnahme vorgelegt. Zusammen mit dem Anforderer wurden alle Anwendungsfälle und Akzeptanzkriterien für das System im Einsatz des Beispieltests geprüft. Die Anforderung wurden alle zur Zufriedenheit erfüllt. 
 
 #Einführungsphase
 
@@ -590,6 +588,7 @@ Die Applikation wurde dem gesamten Team *Vertrieb Onlineshop CMS* vorgeführt. N
 
 [^ressurectioweb]:https://chrome.google.com/webstore/detail/resurrectio/kicncbplfjgjlliddogifpohdhkbjogm
 
+<!-- 
 #Dokumentation
 
 
@@ -600,6 +599,7 @@ Die Dokumentation des Projekts ist ein begleitender Prozess. Die Dokumentation w
 In casperJS Tests können Anmerkungen zu Funktionalität mit Argumenten beim Funktionsaufruf angegeben werden, welche sich im Testprotokoll wieder finden und als Dokumentation im Code.
 Auf generative Dokumentation wie "AntDoc" oder "JSDoc" habe ich auf Grund des engen Zeitplans verzichtet.
 
+-->
 
 #Fazit
 
