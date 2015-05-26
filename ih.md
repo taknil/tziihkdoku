@@ -212,7 +212,7 @@ Ausrollen von fehlerhaftem Code auf dem Echt-System verhindert.
 
 
 
-### Make_or_Buy-Entscheidung
+### Make-or-Buy-Entscheidung
 
 Front-End-Tests von Web-Applikationen sind ein häufiger Prozesschritt in der Entwicklung von e-Commerce Anwendungen und es gibt viele Anbieter von Werkzeugen dafür auf dem Markt und noch viel mehr experimentelle Ansätze dafür.
 
@@ -352,10 +352,6 @@ Wesentliche Bestandteile zur technischen Anforderung  aus dem Lastenheft sind im
 
 Die Testumgebung soll auf den vorhandenen Servern, auf denen auch der
 GRAVIS Onlineshop betrieben wird, eingesetzt werden können. Der Betrieb in einem anderen Rechenzentrum oder auf einem Rechner der Entwickler, z.B. zur Weiterentwicklung von Tests, sollte ebenfalls möglich sein.
-Die Abläufe werden, von Go vorgegeben, als ANT-Skripte beschrieben. 
-Ausgaben und Artefakte[^whatareartifacts] werden in einer Ordnerstruktur auf dem Dateisystem gespeichert.  Die Speicherung auf Datei-Ebene vereinfacht die Handhabung in *Go*  und hat sich bei der Integration anderer Werkzeuge bewährt.
-
-[^whatareartifacts]:Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung.
 
 ##Softwarearchitektur
 
@@ -364,14 +360,15 @@ Es wird gefordert, funktionale Tests durchzuführen und wie ein Nutzer mit der W
 
 Für eine Vereinfachung der Systemanforderung wurde entschieden, einen so genannten \acs{headless} Browser, einen Browser ohne Grafikausgabe zu nutzen. Damit kann die Anwendung, im Folgenden "Testrunner" genannt, auf einem Server eingesetzt werden. Der Testrunner führ dann auf dem Server Testsuiten genannte Gruppen von Tests aus.
 
-###Continuous-Deployment-System
+###Continuous-Delivery-System
 
-Die Integration der Testumgebung  kann in das CD-System kann z.B. unter Nutzung von  \acs{ANT} erfolgen. Es wird eine \acs{XML} build-Datei erstellt die \acs{Target}s, vergleichbar mit Funktionen in Programmiersprachen, definiert. Das CD-System steuert in sogenannten \acs{Pipeline}s welche Targets von ANT ausgeführt werden. Die Targets müssen die Gesamtheit der Tasks, die für einen Testlauf notwendig sind, abbilden.
+Das Continuous-Delivery-System unterstützt die Entwickler bei der fortlaufenden Auslieferung der Software.
+Die Integration der Testumgebung  in das CD-System kann z.B. unter Nutzung von  \acs{ANT}[^antweb] erfolgen. Es wird eine \acs{XML} build-Datei erstellt die Targets, vergleichbar mit Funktionen in Programmiersprachen, definiert. Das CD-System steuert in sogenannten \acs{Pipeline}s welche Targets von ANT ausgeführt werden. Die Targets müssen die Gesamtheit der Tasks, die für einen Testlauf notwendig sind, abbilden.
 Die Targets werden mit Tasks, also Befehlen gefüllt, die jeweils eine Aufgabe erledigen. ANT bietet Unterstützung für Datenoperationen und Variablen, hier Properties genannt. Properties können als wiederverwendbare Variablen genutzt werden, z.B. zu Speicherung von Datenbankadressen oder Dateipfaden. Darüber hinaus können ANT-Skripte weitere Werkzeuge, wie etwa Shell-Skripte, Java Programme oder \acs{PHP}-Scripte auslösen.
 
 Die lose Kopplung der einzelnen Tasks erhöht die Wiederverwendbarkeit und  Austauschbarkeit. Sollte z.B. der Test-Runner ausgetauscht werden, kann dies erfolgen ohne die Tasks zur Testvorbereitung oder Auswertung der Testergebnisse anpassen zu müssen. Außerdem können die einzelnen Komponenten durch die strikte Trennung einfacher getestet, gewartet und erweitert werden.
 
-
+[^antweb]: Apache ANT Projekt, `ant.apache.org` . Programm zum Erzeugen und Deployen von Computerprogrammen aus Quelltexten. 
 
 
 
@@ -386,16 +383,16 @@ Die lose Kopplung der einzelnen Tasks erhöht die Wiederverwendbarkeit und  Aust
 ###PhantomJS & casperJS
  Auf dem Entwicklerrechner wurden mehrere Browser evaluiert. Einzig *phantomJS*[^phjs] lief stabil und zuverlässig. Bereits mit einer \acs{API} zur Fernsteuerung versehen, ist *phantomJS* genau für dieses Einsatzgebiet geeignet.
 
-[^phjs]:http://phantomjs.org/
+[^phjs]:phantomjs.org
 
-Die Recherche ergab, dass *casperJS*[^cajs] ein Framework für *phantomJS* ist, welches einen einfachen Einstieg in Front-End-Tests ermöglicht. Als Alternative wurde auch *DalekJS* in Betracht gezogen. Aufgrund mangelhaften Supports und lange bestehenden Bugs[^dalekbugs] habe ich von letzerem abgeraten.
+Die Recherche ergab, dass *casperJS*[^cajs] ein Framework für *phantomJS* ist, welches einen einfachen Einstieg in Front-End-Tests ermöglicht. Als Alternative wurde auch *DalekJS* in Betracht gezogen. Aufgrund mangelhaften Supports und lange bestehenden Bugs[^dalekbugs] habe ich mich gegen letztere entschieden..
 
 [^dalekbugs]:github.com/dalekjs/dalek/issues
-[^cajs]:casperjs.org/
+[^cajs]:casperjs.org
 
 Um Tests in *casperJS* zu programmieren gibt es, wie für alle JavascriptLibraries , <!-- sodoku says so --> zwei Möglichkeiten: Tests in JavaScript  oder in CoffeeScript[^coffeescript] schreiben.
    
-Um eine sequenzielle Abarbeitung von Testschritten in der funktionalen, nicht sequenziellen Programmiersprache Javascript zu gewährleisten, bietet *casperJS* `.start()`, `.then()` und `.done()` Funktionen zum Kontrollfluss an.
+<!-- Um eine sequenzielle Abarbeitung von Testschritten in der funktionalen, nicht sequenziellen Programmiersprache Javascript zu gewährleisten, bietet *casperJS* `.start()`, `.then()` und `.done()` Funktionen zum Kontrollfluss an. -->
 <!--
 PhantomJS 1.9.8 ist ein Paket aus QTWebkit, der Rendering-Engine, einer Javascript Laufzeitumgebung und QT4 als Wrapper. PhantomJS hat enorm viele Abhängigkeiten und es ist nicht empfohlen es selbst zu kompilieren da es wahrscheinlich ist dass mindestens eine Abhängigkeit zu Komplikationen führt. Im "brew" Paketsystem wurde also eine vorkompilierte Binärdatei verteilt und mit `brew install phantomjs` anschließend ohne Probleme installiert.   -->
 
@@ -414,13 +411,17 @@ PhantomJS 1.9.8 ist ein Paket aus QTWebkit, der Rendering-Engine, einer Javascri
 
 \end{figure}
 
-In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt unterteilen. Der Aufbau einer Pipeline ist in \ref{fig:gopipelines} illustriert<!-- verdeutlicht -->. Stages werden nacheinender ausgeführt. Jobs, die zusammen eine Stage bilden, werden in beliebiger Reihenfolge oder sogar parallel ausgeführt, je nach Verfügbarkeit von zugewiesenen Agent-Servern.  Jobs werden nicht auf dem *Go* Server selbst, sonder auf den Agenten-Servern ausgeführt.     
- Jeder Job hat mindesten einen Task der ein ANT-Target anspricht oder einer standard ANT-Funktion entspricht.      
-Allen Agenten-Servern werden Ressourcen zugeordnet   , *Go* entscheidet dann zur Laufzeit auf welchen Agenten-Server ein Job ausgeführt wird.  
+In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt unterteilen. Der Aufbau einer Pipeline ist in \ref{fig:gopipelines} illustriert<!-- verdeutlicht -->. Stages werden nacheinender ausgeführt.  Jeder Job hat mindesten einen Task der ein ANT-Target anspricht oder einer standard ANT-Funktion entspricht.    Jobs, die zusammen eine Stage bilden, werden in beliebiger Reihenfolge oder sogar parallel ausgeführt, je nach Verfügbarkeit von zugewiesenen Agent-Servern. 
+\\
+ Jobs werden nicht auf dem *Go* Server selbst, sonder auf den so genannten Agenten-Servern ausgeführt, welche alle notwendigen Ressourcen für die Ausführung einer Stage bereitstellen. Einzelne Server  melden sich mit ihrem Go-Agent beim Go-Server an und bekommen Aufgaben zugeteilt.
+   
+Allen Agenten-Servern werden Ressourcen zugeordnet  , *Go* entscheidet dann zur Laufzeit auf welchen Agenten-Server ein Job ausgeführt wird.  
    Die Verteilung von Jobs geschieht zur Laufzeit anhand verfügbarer Ressourcen. Ressourcen sind in diesem Kontext die Fähigkeit von Agenten-Servern Anwendungen auszuführen, weil sie dort installiert sind. Diese müssen explizit im Admin-Interface von *Go* konfiguriert werden.
 
+Ausgaben der (ANT-)Skripte und von aufgerufenen Programmen und Artefakte[^whatareartifacts] werden in einer Ordnerstruktur auf dem Dateisystem gespeichert.  Die Speicherung auf Datei-Ebene vereinfacht die Handhabung in *Go*  und hat sich bei der Integration anderer Werkzeuge bewährt.
 
-Der Go-Server, welcher ein ANT-Skript auslöst ist in der Regel nicht der ausführende Server. Einzelne Server, die alle notwendigen Ressourcen für die Ausführung einer Stage bereitstellen (im folgenden Agentenserver genannt), melden sich mit ihrem Go-Agent beim Go-Server an und bekommen Aufgaben zugeteilt.
+[^whatareartifacts]:Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung.
+
 
 
 ###Subversion 
@@ -443,7 +444,7 @@ Das Repository habe ich so organisiert dass alleine die Pfadangabe in *Go* reich
 
 Die Benutzer der Testumgebung sollen sich schnell zurecht finden und sind bereits gewohnt, *Go* zu benutzen. Es kann darauf verzichtet werden, zusätzliche Bedienelemente und -oberflächen einzuführen. Testläufe werden wie jede Pipeline in Go ausgelöst, entweder durch einen einfachen Klick in der Web-Oberfläche, siehe Abbildung \ref{fig:goguitrigger}, oder automatisch bei Aktualisierung der SVN-Repositories.
 Die Auswahl der Testsuite und die Konfiguration weiterer Optionen erfolgt in den Umgebungsvariablen der Pipeline, diese sind ebenfalls standardmäßig in der Weboberfläche zu erreichen, siehe Abbildung \ref{fig:goguienvvars}
-Die Ausgaben von Testläufen werden in der standardmäßigen Ansicht einer Pipeline in Go sichtbar (siehe auch Abbildung \ref{fig:goguisummary} im Anhang \ref{screenshots}). Go sieht es vor, eine zusätzliche Registerkarte in der Auswertung anzuzeigen, in der Artefakte präsentiert werden. Die Registerkarte kann Inhalte von XML-Dateien anzeigen.
+Der Fortschritt (siehe Abbildung \ref{fig:goguistagedetail}) und Ausgaben von Testläufen werden in der standardmäßigen Ansicht einer Pipeline in Go sichtbar (siehe auch Abbildung \ref{fig:goguisummary} im Anhang \ref{screenshots}). Go sieht es vor, eine zusätzliche Registerkarte in der Auswertung anzuzeigen, in der Artefakte präsentiert werden. Die Registerkarte kann Inhalte von XML-Dateien anzeigen.
 
 
 ##Datenmodell
@@ -528,7 +529,7 @@ Der Testabschluss wird mit  `casper.done()` eingeleitet.
 
 Neben einer erfolgreich Testsequenz sind von mir auch strategische Fehlerpunkte eingebaut worden, die einen Test scheitern lassen. Der Fehlerfall wird dadurch absichtlich herbeigeführt, damit sein Auftreten später in der Integration getestet werden kann.
 
-[^casperdocstester]:http://casperjs.readthedocs.org/en/latest/modules/tester.htm
+[^casperdocstester]:casperjs.readthedocs.org/en/latest/modules/tester.htm
    
 ##Testing des Testrunners  
 Nach der Überprüfung der Versionen von *PhantomJS* und *casperJS* habe ich den mitgelieferten Selbsttest von *casperJS* auf dem Server durchgeführt. Der Selbsttest führt alle Funktionen in *CasperJS* einmal aus und diagnostiziert die vollständige Funktionsfähigkeit.    
@@ -564,7 +565,7 @@ Im Browser *phantomJS* können Bildschirmaufnahmen gespeichert werden. Die Funkt
 
 *Go* bietet von Haus aus einen Mechanismus, um Artefakte von Agenten-Server zentral zu speichern[^goartifacts]. Dieser wurde in die Pipeline eingesetzt und konfiguriert. Damit kann sichergestellt werden dass die maschinenlesbare Testauswertung in der Historie in *Go* immer zur Verfügung steht.
 
-[^goartifacts]:http://www.go.cd/documentation/user/current/configuration/managing_artifacts_and_reports.html
+[^goartifacts]:Dokumentation zur Handhabung von Artefakten in *Go* http://www.go.cd/documentation/user/current/configuration/managing_artifacts_and_reports.html
 
 ##Erweitern der Pipeline um Screenshotsammlung   
 
@@ -605,9 +606,9 @@ Auf generative Dokumentation wie "AntDoc" oder "JSDoc" habe ich auf Grund des en
 
 
 
-##Soll- /Ist-Vergleich
+##Soll-/Ist-Vergleich
 
-Rückblickend kann festgestellt werden, dass alle funktionalen Anforderungen gemäß dem Pflichtenheft mit den gewählten Tools erfüllt werden konnten.
+Rückblickend kann festgestellt werden, dass alle funktionalen Anforderungen gemäß dem Feinkonzept mit den gewählten Tools erfüllt werden konnten.
 Der zum Beginn des Projektes erstellte Projektplan konnte nicht vollständig eingehalten werden.  Im Projektantrag wurde leider die Phase der Abnahme unterschlagen und fälschlicherweise mehr als die von der IHK festgelegten 70 Stunden geplant. Der Zeitplan wurde in der Analysephase  angepasst.
 
 Die Analysephase wurde im Projektantrag mit insgesamt 13 Stunden angegeben. Tatsächlich habe ich nur 10 Stunden gebraucht. Nach der Besprechung mit dem Anforderer  waren die Anforderungen klar genug definiert, sodass die Phase der Bestandsanalyse entfallen konnte. 
