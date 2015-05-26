@@ -365,8 +365,8 @@ Für eine Vereinfachung der Systemanforderung wurde entschieden, einen so genann
 
 ###Continuous-Delivery-System
 
-Das Continuous-Delivery-System unterstützt die Entwickler bei der fortlaufenden Auslieferung der Software. <!-- soll Regelprozesse automatisieren--> wiederkehrende Tasks,
-in Kombination mit svn Ausspiel und Rollback. Tempo rauf, Fehleranfälligkeit runter.
+Das Continuous-Delivery-System unterstützt die Entwickler bei der fortlaufenden Auslieferung der Software. <!-- soll Regelprozesse automatisieren--> Es hilft immer wiederkehrende Aufgaben  zu automatisieren.
+Durch den Einsatz eine CD-Systems ist ein Entwicklerteam schneller und die Fehleranfälligkeit in Regelprozessen wird erheblich reduziert. Es kann zum Beispiel das gesamte Deployment so weit automatisiert werden dass im Fehlerfall das Deployment in einem Rollback zurück genommen wird. 
 
 
 ###Versionsverwaltung {#versionsverwaltung}
@@ -400,10 +400,6 @@ PhantomJS 1.9.8 ist ein Paket aus QTWebkit, der Rendering-Engine, einer Javascri
 [^coffeescript]:Coffeescript ist eine von Javascript abgeleitete Sprache mit vereinfachter Syntax die vor der Ausführung nach Javascript zurückkompiliert wird.
 
 ###Go
-
-
-
-
 
 In *Go* werden automatisierte Abläufe in Pipelines definiert die sich in große Schritte, Stages genannt unterteilen. Der Aufbau einer Pipeline ist in Abbildung \ref{fig:gopipelines} illustriert<!-- verdeutlicht -->. Stages werden nacheinender ausgeführt und enthalten Jobs.  Jeder Job hat mindesten einen Task der ein ANT-Target[^anttarget] anspricht oder einem Standard ANT-Befehl entspricht.  Jobs werden in beliebiger Reihenfolge oder sogar parallel ausgeführt, je nach Verfügbarkeit von zugewiesenen Agent-Servern.      
 
@@ -475,7 +471,7 @@ Im produktiven Einsatz genügt das Log-Level`--log-level=error`, bei dem nur Feh
 
 \begin{figure}[htb]
 \centering
-\includegraphicsKeepAspectRatio{Bilder/artifactslist.pdf}{0.45}
+\includegraphicsKeepAspectRatio{Bilder/artifactslistn.pdf}{0.45}
 \caption{Ordnerstruktur der Artefakte auf dem Server}
 \label{fig:artifactsfolderstructure}
 \end{figure}
@@ -485,17 +481,9 @@ Im produktiven Einsatz genügt das Log-Level`--log-level=error`, bei dem nur Feh
 <!-- Anschluss fehlt-->
 
 
-Eine Datei im "JUNIT XML result Format", in der die Ergebnisse der Testläufe in Testsuiten gebündelt für jeden Testfall aufgelistet werden, ist gefordert. <!-- Wrong!!!-->   Das Schema dieses XML-Austauschformats ist als de-facto Standard festgeschrieben[^xunitwebdoku] und wird von vielen \*UNIT Testframeworks erstellt und von weiteren Systemen verarbeitet. Dieses Austauschformat ermöglicht in Zukunft tiefergehende Auswertung von Testergebnissen, da es vollständig maschinenlesbar ist.    
-*casperJS* soll im produktiven Einsatz mit der Option `--XUNIT=junit.xml` eine solche Datei liefern.
-
-
-
-CasperJS Tests werden gemäß der Anforderung so gestaltet, dass sie im Fehlerfall einen Screenshot der aktuellen Seite im PNG-Format speichern. Auch damit lässt sich ein Problem leichter lokalisieren und visualisieren. Screenshots werden in der Ordner "artifacts" der jeweiligen Stage gespeichert und sind dadurch auch leicht im Webinterface von Go zu erreichen.
-
-
-
-
-
+Eine Datei, in der die Ergebnisse der Testläufe in Testsuiten gebündelt für jeden Testfall aufgelistet werden, ist gefordert. 
+Als de-facto Standard, weil es von vielen \*UNIT Testframeworks erstellt und von weiteren Systemen verarbeitet wird, habe ich mir für das ""JUNIT XML result Format"[^xunitwebdoku] entschieden. Dieses Austauschformat ermöglicht in Zukunft tiefergehende Auswertung von Testergebnissen, da es vollständig maschinenlesbar ist.    
+*casperJS* soll im produktiven Einsatz mit der Option `--XUNIT=junit.xml` eine solche Datei liefern.CasperJS Tests werden gemäß der Anforderung so gestaltet, dass sie im Fehlerfall einen Screenshot der aktuellen Seite im PNG-Format speichern. Auch damit lässt sich ein Problem leichter lokalisieren und visualisieren. Screenshots werden in der Ordner "artifacts" der jeweiligen Stage gespeichert und sind dadurch auch leicht im Webinterface von Go zu erreichen.
 [^xunitwebdoku]:JUNIT XML result schema https://windyroad.com.au/dl/Open%20Source/JUnit.xsd
 
 
