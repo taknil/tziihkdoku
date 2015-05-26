@@ -4,11 +4,11 @@
 Als Browser der Testumgebung wird PhantomJS[^phantomjsweb] gewählt.     
 Die Installation erfolgt über die Paketverwaltung der jeweiligen Distribution, das heißt portage[^portageweb] für Gentoo, APT[^aptweb] auf Ubuntu, brew[^brewweb] auf MacOS X.     
 Es werden die Binärdateien aus den jeweiligen Repositories genutzt. Zum Projektzeitpunkt wird PhantomJS 1.9.8 verteilt.       
-PhantomJS sollte nicht selbst kompiliert werden da es enorm viele Abhängigkeiten hat, was viele zusätzliche Fehlerquellen mit sich ziehen kann, und weil der Kompiliervorgang auch einem modernen Applikationsserver mehrere Stunden dauert.      
-Da PhantomJS 2.0.0 auf dem Macintosh noch nicht startet und für linux nicht kompiliert, ist es empfohlen bei der stabilen Version 1.9.8 zu bleiben die sowohl unter Linux als auch Mac und Windows eingesetzt werden kann.
+PhantomJS sollte nicht selbst kompiliert werden, da es enorm viele Abhängigkeiten hat, was viele zusätzliche Fehlerquellen mit sich ziehen kann, und weil der Kompiliervorgang auch einem modernen Applikationsserver mehrere Stunden dauert.      
+Da PhantomJS 2.0.0 auf dem Macintosh noch nicht startet und für linux nicht kompiliert, ist es empfohlen, bei der stabilen Version 1.9.8 zu bleiben die sowohl unter Linux als auch Mac und Windows eingesetzt werden kann.
 
-Als Server der alle zu testenden Webshops erreichen kann, wurde der "manager" Server als Installationsort ausgewählt.
-Auf dem "manger"-Server, einem 32-bit System mit Gentoo Linux, war eine Installation mit Hilfe von `portage` nicht möglich da es selber kompilieren möchte, die Abhängigkeiten aber nicht alle aufgelöst werden konnten.
+Als Server, der alle zu testenden Onlineshop erreichen kann, wurde der "manager" Server als Installationsort ausgewählt.
+Auf dem "manager"-Server, einem 32-bit System mit Gentoo Linux, war eine Installation mit Hilfe von `portage` nicht möglich, da es selber kompilieren möchte, die Abhängigkeiten aber nicht alle aufgelöst werden konnten.
 Der Hauptentwickler von PhantomJS bietet auf bitbucket vorkompilierte PhantomJS Versionen an. Diese wird in das Verzeichnis  `/usr/local/share` extrahiert und anschließend werden Symlinks dorthin in den Pfad gesetzt.
 
     cd /usr/local/share
@@ -38,22 +38,24 @@ Dazu wurde `git clone` verwendet. Anschließend ein symbolischer Link in ein Ver
 
 ###Funktionstest
 
-Es wurde überprüft ob die gewünschten Versionen der Software installiert wurde.
+Es wurde überprüft, ob die gewünschten Versionen der Software installiert wurde.
 
     it@manager ~ $ echo "phantomJS: $(phantomjs --version)" && echo "casperJS: $(casperjs --version)"
       phantomJS: 1.9.8
       casperJS: 1.1.0-beta3
 
-Die Funktionsfähigkeit von casperJS wird mit dem Selbsttest überprüft.
+Die Funktionsfähigkeit von casperJS wurde mit dem Selbsttest überprüft.
 
     $ casperjs selftest
        […]
        PASS 1030 tests executed in 25.753s, 1030 passed, 0 failed, 0 dubious, 5 skipped.
        
-
+<!--
 ###Konfiguration in *Go*
 Im der Weboberfläche von *Go*, der Agentenkonfigurationsseite, wurde dem Entsprechenden Agentenserver "manager" eine neue Ressource mit dem Namen "casperjs" hinzugefügt.
 Erst jetzt kann *casperJS* auch aus Go heraus tatsächlich genutzt werden.
+
+-->
 
 
 

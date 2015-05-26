@@ -1,6 +1,5 @@
  <!--extracts from goconfig.xml relevant for the project -->
  <environments>   
-
   [...]
     <environment name="G.Stage">
       <environmentvariables>
@@ -30,11 +29,10 @@
   <pipeline name="UL.casperJStests">
       <environmentvariables>
         <variable name="testproducts">129990,471100,134000,118836</variable>
-        <variable name="greet">TZI</variable>
       </environmentvariables>
       <materials>
-        <svn url="https://svn.gravis.de/testing/trunk" username="tzimmerl" encryptedPassword="stWAR6Tqgc8q2IU7e7ryIw==" dest="testing" materialName="testing" />
-        <svn url="https://svn.gravis.de/go/trunk/" username="tzimmerl" encryptedPassword="stWAR6Tqgc8q2IU7e7ryIw==" dest="go" materialName="go" />
+        <svn url="https://svn.gravis.de/testing/trunk" username="XXX" encryptedPassword="XXX" dest="testing" materialName="testing" />
+        <svn url="https://svn.gravis.de/go/trunk/" username="XXX" encryptedPassword="XXX" dest="go" materialName="go" />
       </materials>
       <stage name="prepare">
         <jobs>

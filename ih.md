@@ -231,14 +231,13 @@ Da *Go* open-source ist und die API gut dokumentiert [^gowebdoku] ist , kann ein
 ### Projektkosten
 <!-- motivation -->
 Die Projektkosten, die bei der Entwicklung des Projektes anfallen,
-sollen im Folgenden kalkuliert werden. Dafür müssen neben den
-Personalkosten für den Entwickler und weitere Mitarbeiter auch noch die
-Aufwendungen für die Ressourcen berücksichtigt werden. Die Kalkulation
+sollen im Folgenden kalkuliert werden. Dafür müssen neben den reinen
+Personalkosten für den Entwickler und anderer Mitarbeiter auch noch weitere
+Aufwendungen berücksichtigt werden. Die Kalkulation
 wird anhand von durchschnittlichen Stundensätzen im Freenet Konzern durchgeführt. Der
 Stundensatz eines Auszubildenden im 3. Lehrjahr beträgt demzufolge
-*6,79€* , der eines Mitarbeiters *28,45€* [^hourlyrate]. In diesen Preisen sind bereits die für den Konzern zu leistenden Sozialabgaben, sowie Berufsgenossenschaftsbeiträge enthalten, es sind somit die Kosten, die der mobilcom-debitel GmbH beim Einsatz des entsprechenden Mitarbeiters entstehen. Als Gemeinkosten für
-Ressourcennutzung im Unternehmen (Hardware und Software, Büroarbeitsplatz etc.) wurde ein berechneter Stundensatz von 7,90€ pro Mitarbeiter vom Controling mitgeteilt.
-Es soll nur bestehende Infrastruktur genutzt werden und keine neue Software eingekauft werden, dadurch lassen sich die Kosten allein durch o.g. Stundensätze berechnen.
+*6,79€* , der eines Mitarbeiters *28,45€* [^hourlyrate]. In diesen Preisen sind bereits die für den Konzern zu leistenden Sozialabgaben, sowie Berufsgenossenschaftsbeiträge enthalten, es sind somit die Kosten, die der mobilcom-debitel GmbH beim Einsatz des entsprechenden Mitarbeiters entstehen. Als Gemeinkosten im Unternehmen, für die Nutzung Hardware und Software, Büroarbeitsplatz etc., wurde ein berechneter Stundensatz von 7,90€ pro Mitarbeiter vom Controling mitgeteilt.
+Es soll nur bestehende Infrastruktur genutzt werden und keine neue Software eingekauft werden, dadurch lassen sich die Kosten allein durch o. g. Stundensätze berechnen.
 
 
 [^hourlyrate]: Stundensätze wurden aus dem Unternehmensinternen Controlling bereitgestellt
@@ -356,7 +355,7 @@ GRAVIS Onlineshop betrieben wird, eingesetzt werden können. Der Betrieb in eine
 ##Softwarearchitektur
 
 ###Front-End-Tests
-Es wird gefordert, funktionale Tests durchzuführen und wie ein Nutzer mit der Website zu interagieren. Damit musste ein Webbrowser mit einer Rendering-Engine und einer JavaScript Laufzeitumgebung herangezogen werden, der Formularvalidierung und Interaktionen auf Javascript Basis ermöglicht und Sessioncookies vorhalten kann. Frameworks, die nur statische Programmanalyse oder nur Unit-Tests ausführen,  wie HTMLUnit für HTML oder QUnit für Javascript, fielen aus der Auswahl, da ihr Funktionsumfang nicht ausreichend ist. <!-- Exekution basded Testung ist angesagt-->
+Es wird gefordert, funktionale Tests durchzuführen und wie ein Nutzer mit der Website zu interagieren. Damit musste ein Webbrowser mit einer Rendering-Engine und einer JavaScript Laufzeitumgebung herangezogen werden, der Formularvalidierung und Interaktionen auf Javascript Basis ermöglicht und Sessioncookies vorhalten kann. Der Browser soll dann von einem komfortabel bedienbaren Testing-Framework gesteuert werden. Frameworks, die nur statische Programmanalyse oder nur Unit-Tests ausführen,  wie HTMLUnit für HTML oder QUnit für Javascript, fielen aus der Auswahl, da ihr Funktionsumfang nicht ausreichend ist. <!-- Exekution basded Testung ist angesagt-->
 
 Für eine Vereinfachung der Systemanforderung wurde entschieden, einen so genannten \acs{headless} Browser, einen Browser ohne Grafikausgabe zu nutzen. Damit kann die Anwendung, im Folgenden "Testrunner" genannt, auf einem Server eingesetzt werden. Der Testrunner führ dann auf dem Server Testsuiten genannte Gruppen von Tests aus.
 
@@ -581,11 +580,11 @@ Nachdem die Anwendung von mir erfolgreich getestet wurde, habe ich sie dem Fachb
 
 #Einführungsphase
 
-Im Anschluss an die erfolgreiche Abnahme wurde die Pipeline für Front-End-Tests allen Benutzern des Teams *Vertrieb Onlineshop CMS* in *Go* über die integrierte Rechteverwaltung zugänglich gemacht. Die Testumgebung kann ab diesem Zeitpunkt eingesetzt werden.
+Im Anschluss an die erfolgreiche Abnahme wurde die Pipeline für Front-End-Tests allen Benutzern des Teams *Vertrieb Onlineshop CMS* in *Go* über die integrierte Rechteverwaltung zugänglich gemacht. Die Testumgebung konnte ab diesem Zeitpunkt eingesetzt werden.
 
 
 ##Schulung
-Die Applikation wurde dem gesamten Team *Vertrieb Onlineshop CMS* vorgeführt. Nach dem Funktionsüberblick wurden dem Team die eingesetzten Technologien erläutert. Ich habe dem Team vorgeführt, wie die aktuelle Testsuite einzusetzen und über Umgebungsvariablen zu konfigurieren ist.  Anschließend wurde die Struktur von CasperJS Tests erläutert und wie diese erstellt werden können. <!-- Auch ein Testaufnahmewerkzeug namens "Resurrectio"[^ressurectioweb] , mit dem sich im Webbrowser Front-End-Test aufnehmen lassen, wurde als Unterstützung den Nutzern vorgeschlagen. --> Die Fähigkeiten und Erweiterungsmöglichkeiten von CasperJS in der aktuellen Umgebung wurden anhand der Webdokumentation[^casperdocstester] präsentiert. Zum Abschluss wurde die hierarchische Organisation von Tests aufgezeigt und wie neue Testsuiten zu strukturieren sind. Es wurden Möglichkeiten diskutiert, wie und an welchen Stellen im Prozess der automatisierte Start von Tests sinnvoll ist.
+Die Applikation wurde dem gesamten Team *Vertrieb Onlineshop CMS* vorgeführt. Nach dem Funktionsüberblick wurden dem Team die eingesetzten Technologien erläutert. Ich habe dem Team vorgeführt, wie die aktuelle Testsuite einzusetzen und über Umgebungsvariablen zu konfigurieren ist.  Anschließend wurde die Struktur von CasperJS Tests erläutert und wie diese erstellt werden können. <!-- Auch ein Testaufnahmewerkzeug namens "Resurrectio"[^ressurectioweb] , mit dem sich im Webbrowser Front-End-Test aufnehmen lassen, wurde als Unterstützung den Nutzern vorgeschlagen. --> Die Fähigkeiten und Erweiterungsmöglichkeiten von CasperJS in der aktuellen Umgebung wurden anhand der Web-Dokumentation präsentiert. Zum Abschluss wurde die hierarchische Organisation von Tests aufgezeigt und wie neue Testsuiten zu strukturieren sind. Es wurden Möglichkeiten diskutiert, wie und an welchen Stellen im Prozess der automatisierte Start von Front-End-Tests sinnvoll ist.
 
 [^ressurectioweb]:https://chrome.google.com/webstore/detail/resurrectio/kicncbplfjgjlliddogifpohdhkbjogm
 
@@ -608,22 +607,22 @@ Auf generative Dokumentation wie "AntDoc" oder "JSDoc" habe ich auf Grund des en
 
 ##Soll-/Ist-Vergleich
 
-Rückblickend kann festgestellt werden, dass alle funktionalen Anforderungen gemäß dem Feinkonzept mit den gewählten Tools erfüllt werden konnten.
-Der zum Beginn des Projektes erstellte Projektplan konnte nicht vollständig eingehalten werden.  Im Projektantrag wurde leider die Phase der Abnahme unterschlagen und fälschlicherweise mehr als die von der IHK festgelegten 70 Stunden geplant. Der Zeitplan wurde in der Analysephase  angepasst.
+Rückblickend kann festgestellt werden, dass alle funktionalen Anforderungen gemäß dem Lastenheft mit den gewählten Tools erfüllt werden konnten.
+Der zu Beginn des Projektes erstellte Projektplan konnte nicht vollständig eingehalten werden.  Im Projektantrag wurde leider die Phase der Abnahme unterschlagen und fälschlicherweise mehr als die von der IHK festgelegten 70 Stunden geplant. Der Zeitplan wurde in der Analysephase  angepasst.
 
 Die Analysephase wurde im Projektantrag mit insgesamt 13 Stunden angegeben. Tatsächlich habe ich nur 10 Stunden gebraucht. Nach der Besprechung mit dem Anforderer  waren die Anforderungen klar genug definiert, sodass die Phase der Bestandsanalyse entfallen konnte. 
 
  Einzelne Abweichungen innerhalb des Zeitplans entstanden durch Erleichterungen bzw. Blockaden, die erst bei der Realisierung der einzelnen Teilschritte erkenntlich wurden. Die tatsächlich benötigte Gesamtzeit für das Projekt entsprach  der vorher veranschlagten Planzeit. 
 
-##lessons learned
-Im Zuge des Projektes konnte der Autor viele  Erfahrungen in Bezug auf Planung und Durchführung eines IT-Projektes sammeln, aber auch Erfahrungen aus dem weniger projektgetriebenen Entwicklungsalltag mit einbeziehen. Insbesondere hat es sich bewährt, Zeit für die Umsetzung großzügig zu planen: Vermeintlich schnell erledigte Aufgaben in der Planung setzen bereits viel voraus und sind bei der Planung oft nur implizit Erwähnt. Sind diese Vorbedingungen, wie z.B. installierte Sofwarelibraries, nicht erfüllt wächst die benötigte Zeit für ein Aufgäbe oft unerwartet stark an, Dies betraf in diesem Projekt besonders die Aufgaben der Systemadministration. 
-Die ideale Projektplanung gibt es nicht, spätestens in der Umsetzung werden wichtige zusätzliche Erkenntnisse gewonnen, die in einem linearen Prozess nicht mehr in die Planung einfließen können. 
+##Lessons learned
+Im Zuge des Projektes konnte der Autor viele  Erfahrungen in Bezug auf Planung und Durchführung eines IT-Projektes sammeln, aber auch Erfahrungen aus dem weniger projektgetriebenen Entwicklungsalltag mit einbeziehen. Insbesondere hat es sich bewährt, Zeit für die Umsetzung großzügig zu planen: Vermeintlich schnell erledigte Aufgaben setzen bereits viel voraus und sind bei der Planung oft nur implizit erwähnt. Sind diese Vorbedingungen, wie z.B. installierte Sofwarelibraries, nicht erfüllt, wächst die benötigte Zeit für ein Aufgabe oft unerwartet stark an. Dies betraf in diesem Projekt besonders die Aufgaben der Systemadministration. 
+Die ideale Projektplanung gibt es nicht, spätestens in der Umsetzung werden wichtige zusätzliche Erkenntnisse gewonnen, die in einem linearen Prozess nicht mehr nachträglich in die Planung einfließen können. 
 
 Ein iteratives Vorgehensmodell würde ich in Zukunft  bevorzugen, insbesondere bei der Einführung eines neuen Systems, um angemessen auf neue Erkenntnisse reagieren zu können. In jedem Fall bedeutet es, dass Kommunikation  mit dem Projektanforderer die wichtigste Komponente für eine erfolgreiche Projektumsetzung ist.
-Abschließend kann man sagen dass das Projekt in seiner Realisierung für das Team und in der Durchführung für den Autor eine große Bereicherung war.
+Abschließend kann man sagen, dass das Projekt in seiner Realisierung für das Team und in der Durchführung für den Autor eine große Bereicherung war.
 
 ##Ausblick
-In naher Zukunft werden für den Einsatz der Testumgebung mehr Tests implementiert, die mehr Funktionen im Online-Shops untersuchen.
+In naher Zukunft werden für den Einsatz der Testumgebung mehr Tests implementiert, die mehr Funktionen den Onlineshops untersuchen.
 Obwohl alle im Lastenheft definierten Anforderungen realisiert wurden, zeichnen sich bereits neue Featurewünsche und Einsatzszenarien ab.
 Das Team strebt danach, die Front-End-Tests fest in den Deploymentprozess zu integrieren, was auch ohne Probleme möglich ist.
 
@@ -631,7 +630,7 @@ Das Team strebt danach, die Front-End-Tests fest in den Deploymentprozess zu int
 
 Der modulare Aufbau der Integration der Testumgebung ermöglicht somit eine gute Erweiterbarkeit und noch tiefere Integration von Tests in vorhandene Prozesse. -->
 
-Zur Dokumentation der Testszenarien bleibt anzumerken dass es im Unternehmen Bestrebungen gibt, hier den Prozess der Testerstellung umzukehren. Das würde bedeuten, dass die Testdokumentation in Zukunft in einer menschenlesbaren, domänenspezifischen  Sprache (\acs{DSL}) geschrieben werden könnte, die die Testfälle beschreibt und als Dokumentation dient. Mit einem entsprechenden Interpreter ließen sich daraus dann die tatsächlichen Testskipte generieren.
+Zur Dokumentation der Testszenarien bleibt anzumerken, dass es im Unternehmen Bestrebungen gibt, hier den Prozess der Testerstellung umzukehren. Das würde bedeuten, dass die Testdokumentation in Zukunft in einer menschenlesbaren, domänenspezifischen  Sprache (\acs{DSL}) geschrieben werden könnte, die die Testfälle beschreibt und als Dokumentation dient. Mit einem entsprechenden Interpreter ließen sich daraus dann die tatsächlichen Testskipte generieren.
 
 
 * * * * *
