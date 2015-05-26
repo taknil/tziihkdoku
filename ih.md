@@ -45,15 +45,15 @@ eine Statistik über die Fehlerhäufigkeit zu führen. Darüber hinaus gibt
 es keine technische Möglichkeit, die das Deployen von fehlerhaftem Code
 auf das \acs{Echt-System}[^UIUSUL], also den Servern zu denen sich Kunden verbinden, verhindert.
 
-[^UIUSUS]: Der GRAVIS Onlineshop wird in drei Instanzen betrieben: Einer Integrationsumgebung die immer den aktuellsten Code enthält, einer Staging-Umgebung für Abnahmen und Tests neuer Features und einem Echt-System welches die Kunden für tatsächliche Bestellungen nutzen.
-[^Deployment]: Erklärung was ein Deployment ist \\ToDo
+[^UIUSUL]: Der GRAVIS Onlineshop wird in drei Instanzen betrieben: Einer Integrationsumgebung die immer den aktuellsten Code enthält, einer Staging-Umgebung für Abnahmen und Tests neuer Features und einem Echt-System welches die Kunden für tatsächliche Bestellungen nutzen.
+[^Deployment]: Softwareverteilung, -Auslieferung.
 
 ##Projektziele
 
 
 Im Rahmen des Projektes soll eine Laufzeitumgebung für Front-End-Tests
-bereitgestellt werden. Diese muss in das Continuous-Delivery System
-\acs{Go} (im folgenden "Go"[^listofsoftware]) eingebunden werden. Die
+bereitgestellt werden. Diese muss in das Continuous-Delivery-System
+Go (im folgenden "Go"[^listofsoftware]) eingebunden werden. Die
 Test-Umgebung muss betriebsbereit dem Team *Vertrieb Onlineshop CMS*
 übergeben werden.
 
@@ -77,9 +77,10 @@ Die Erstellung von Tests für den produktiven Einsatz
 ist nicht Teil des Projektes. Andere Testarten wie etwa
 Performancetests, muss das System nicht leisten, denn zu diesem Zweck wurden bereits andere Werkzeuge erfolgreich eingebunden.\
 Eine zusätzliche Benutzeroberfläche muss nicht erstellt werden, da die
-Steuerung ausschließlich aus dem CD-System heraus erfolgt.
+Steuerung ausschließlich aus dem CD-System[^cicds] heraus erfolgt.
 Eine Grafische Umgebung zu Erstellung von Test wird in diesem Projekt nicht zur Verfügung gestellt.
 <!-- eine (graphische) Aufbereitung der Testartefakte erfolgt nicht-->
+[^cicds]: Continuous-Delivery-System: System zur fortlaufenden Verteilung von aktueller Software 
 
 #Projektplanung
 
@@ -193,7 +194,7 @@ agilen Regelprozess, der den Alltag im Entwicklerteam prägt, erschien nicht sin
 
 
 Bis zum Zeitpunkt des Projektbeginns wurden Regressionstests in Form von Front-End-Tests ausschließlich
-manuell von Testingenieuren oder Entwicklern aus dem Team vorgenommen. Bei bevorstehendem Deployment musste der Software-Tester seine aktuelle Aufgabe unterbrechen und den gewünschten Softwarestand auf dem Staging-System, einer produktionsnahen Serverumgebung für Tests und Abnahmen, testen. Eine mündliche Abstimmung mit dem Team signalisiert dann die Bereitschaft zum Deployment. Anschließend müssen die Tests im Echt-System wiederholt werden um sicher zu gehen dass das Deployment erfolgreich war. Das erneute durchführen von Regressionstests ist erforderlich, da andere Datensätze und Serverkonfigurationen bisher unentdecktes Fehlverhalten verursachen können. Tritt hier ein Fehler auf, muss geklärt werden ob der Fehler vorher übersehen wurde (menschlicher Faktor) oder die Umgebungsparameter, z.B. die Nutzung von mehr Applikations- und Datenbankservern oder weitaus größere Datenmengen, ursächlich sind. 
+manuell von Testingenieuren oder Entwicklern aus dem Team vorgenommen. Bei bevorstehendem Deployment musste der Software-Tester seine aktuelle Aufgabe unterbrechen und den gewünschten Softwarestand auf dem Staging-System, einer produktionsnahen Serverumgebung für Tests und Abnahmen, testen. Eine mündliche Abstimmung mit dem Team signalisiert dann die Bereitschaft zum Deployment. Anschließend müssen die Tests im Echt-System wiederholt werden um sicher zu gehen dass das Deployment erfolgreich war. Das erneute durchführen von Regressionstests ist erforderlich, da andere Datensätze und Serverkonfigurationen bisher unentdecktes Fehlverhalten verursachen können. Tritt hier ein Fehler auf, muss zeitaufwändig geklärt werden ob der Fehler vorher übersehen wurde (menschlicher Faktor) oder die Umgebungsparameter, z.B. die Nutzung von mehr Applikations- und Datenbankservern oder weitaus größere Datenmengen, ursächlich sind. 
 <!--
  Zudem werden Testläufe
 und Fehlerfälle in der Regel nicht oder nicht ausführlich dokumentiert
@@ -216,12 +217,16 @@ Ausrollen von fehlerhaftem Code auf dem Echt-System verhindert.
 Front-End-Tests von Web-Applikationen sind ein häufiger Prozesschritt in der Entwicklung von e-Commerce Anwendungen und es gibt viele Anbieter von Werkzeugen dafür auf dem Markt und noch viel mehr experimentelle Ansätze dafür.
 
 Es kann daher Standardsoftware für Front-End-Tests genutzt werden: Die Produkte phantomJS, ein Webbrowser, zusammen mit
-casperJS, einem Javascipt Framework zur vereinfachten Bowsersteuerung, oder Selenium in Verbindung mit dem Selenium webdriver, einer Schnittstelle zur Browserfernsteuerung,  bieten sich als Lösungen an. Alle genannten Systeme sind kostenfrei und open-source erhältlich und sind gut dokumentiert.
+casperJS[^pcjsweb], einem Javascipt Framework zur vereinfachten Browsersteuerung, oder Selenium[^seleniumweb] in Verbindung mit dem Selenium webdriver, einer Schnittstelle zur Browserfernsteuerung,  bieten sich als Lösungen an[^ieasfet]. Alle genannten Systeme sind kostenfrei und open-source erhältlich und sind gut dokumentiert[^selcaswebdocu].
 
 Die Integration von Front-End-Tests in das CD-System *Go* ist eine  Anforderung spezifisch für das Unternehmen mobilcom-debitel GmbH. *Go* ist ein wenig verbreitetes System und keine Integration solcher Art wurde bisher publik gemacht.
 Da *Go* open-source ist und die API gut dokumentiert [^gowebdoku] ist , kann eine Integration selbst vorgenommen werden.
 
-[^gowebdoku]:http://www.go.cd/documentation/user/current/
+[^gowebdoku]:www.go.cd/documentation/user/current/
+[^ieasfet]:dev.imagineeasy.com/post/90475083894/choosing-your-automated-acceptance-testing
+[^pcjsweb]:casperjs.org, phantomjs.org
+[^seleniumweb]:docs.seleniumhq.org/
+[^selcaswebdocu]:Dokumentation Selenium: docs.seleniumhq.org/docs/ , Dokumentation casperJS casperjs.readthedocs.org/en/
 
 ### Projektkosten
 <!-- motivation -->
@@ -348,18 +353,18 @@ Wesentliche Bestandteile zur technischen Anforderung  aus dem Lastenheft sind im
 Die Testumgebung soll auf den vorhandenen Servern, auf denen auch der
 GRAVIS Onlineshop betrieben wird, eingesetzt werden können. Der Betrieb in einem anderen Rechenzentrum oder auf einem Rechner der Entwickler, z.B. zur Weiterentwicklung von Tests, sollte ebenfalls möglich sein.
 Die Abläufe werden, von Go vorgegeben, als ANT-Skripte beschrieben. 
-Ausgaben und Artefakte werden in einer Ordnerstruktur auf dem Dateisystem gespeichert. Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung. Eine Speicherung von Testergebnissen in einer Datenbank währe ebenfalls möglich. Die Speicherung auf Datei-Ebene vereinfacht die Handhabung in *Go*  und hat sich bei der Integration anderer Werkzeuge bewährt.
+Ausgaben und Artefakte werden in einer Ordnerstruktur auf dem Dateisystem gespeichert. Als Artefakte bezeichnet man Nebenprodukte der Softwareentwicklung.  Die Speicherung auf Datei-Ebene vereinfacht die Handhabung in *Go*  und hat sich bei der Integration anderer Werkzeuge bewährt.
 
 ##Softwarearchitektur
 
 ###Front-End-Tests
 Es wird gefordert, funktionale Tests durchzuführen und wie ein Nutzer mit der Website zu interagieren. Damit musste ein Webbrowser mit einer Rendering-Engine und einer JavaScript Laufzeitumgebung herangezogen werden, der Formularvalidierung und Interaktionen auf Javascript Basis ermöglicht und Sessioncookies vorhalten kann. Frameworks, die nur statische Programmanalyse oder nur Unit-Tests ausführen,  wie HTMLUnit für HTML oder QUnit für Javascript, fielen aus der Auswahl, da ihr Funktionsumfang nicht ausreichend ist. <!-- Exekution basded Testung ist angesagt-->
 
-Für eine Vereinfachung der Systemanforderung wurde entschieden, einen so genannten \acs{headless} Browser, einen Browser ohne Grafikausgabe zu nutzen. Damit kann die Anwendung, im Folgenden "Testrunner" genannt, auf einem Server eingesetzt werden.    
+Für eine Vereinfachung der Systemanforderung wurde entschieden, einen so genannten \acs{headless} Browser, einen Browser ohne Grafikausgabe zu nutzen. Damit kann die Anwendung, im Folgenden "Testrunner" genannt, auf einem Server eingesetzt werden. Der Testrunner führ dann auf dem Server Testsuiten genannte Gruppen von Tests aus.
 
 ###Continuous-Deployment-System
 
-Die Integration der Testumgebung  kann in das CD-System kann z.B. unter Nutzung von  \acs{ANT} erfolgen. Es wird eine \acs{XML} build-Datei erstellt die \acs{Target}s, vergleichbar mit Funktionen in Programmiersprachen, definiert. Das CD-System steuert in sogenannten \acs{Pipeline}s welche Targets von ANT ausgeführt werden. Die Targets müssen die Gesamtheit der Aufgaben, die für einen Testlauf notwendig sind, abbilden.
+Die Integration der Testumgebung  kann in das CD-System kann z.B. unter Nutzung von  \acs{ANT} erfolgen. Es wird eine \acs{XML} build-Datei erstellt die \acs{Target}s, vergleichbar mit Funktionen in Programmiersprachen, definiert. Das CD-System steuert in sogenannten \acs{Pipeline}s welche Targets von ANT ausgeführt werden. Die Targets müssen die Gesamtheit der Tasks, die für einen Testlauf notwendig sind, abbilden.
 Die Targets werden mit Tasks, also Befehlen gefüllt, die jeweils eine Aufgabe erledigen. ANT bietet Unterstützung für Datenoperationen und Variablen, hier Properties genannt. Properties können als wiederverwendbare Variablen genutzt werden, z.B. zu Speicherung von Datenbankadressen oder Dateipfaden. Darüber hinaus können ANT-Skripte weitere Werkzeuge, wie etwa Shell-Skripte, Java Programme oder \acs{PHP}-Scripte auslösen.
 
 Die lose Kopplung der einzelnen Tasks erhöht die Wiederverwendbarkeit und  Austauschbarkeit. Sollte z.B. der Test-Runner ausgetauscht werden, kann dies erfolgen ohne die Tasks zur Testvorbereitung oder Auswertung der Testergebnisse anpassen zu müssen. Außerdem können die einzelnen Komponenten durch die strikte Trennung einfacher getestet, gewartet und erweitert werden.
@@ -381,12 +386,13 @@ Die lose Kopplung der einzelnen Tasks erhöht die Wiederverwendbarkeit und  Aust
 
 [^phjs]:http://phantomjs.org/
 
-Die Recherche ergab, dass *casperJS*[^cajs] ein Framework für *phantomJS* ist, welches einen einfachen Einstieg in Front-End-Tests ermöglicht. Als Alternative wurde auch *DalekJS* in Betracht gezogen. Aufgrund mangelhaften Supports und lange bestehenden Bugs wurde von Kollegen und anderen Entwicklern davon abgeraten.
+Die Recherche ergab, dass *casperJS*[^cajs] ein Framework für *phantomJS* ist, welches einen einfachen Einstieg in Front-End-Tests ermöglicht. Als Alternative wurde auch *DalekJS* in Betracht gezogen. Aufgrund mangelhaften Supports und lange bestehenden Bugs[^dalekbugs] habe ich von letzerem abgeraten.
 
-[^cajs]:http://casperjs.org/
+[^dalekbugs]:github.com/dalekjs/dalek/issues
+[^cajs]:casperjs.org/
 
 Um Tests in *casperJS* zu programmieren gibt es, wie für alle JavascriptLibraries , <!-- sodoku says so --> zwei Möglichkeiten: Tests in JavaScript  oder in CoffeeScript[^coffeescript] schreiben.
-Auf Grund der Erfahrung im Team mit Javascript wurde der Beispieltest in dieser Sprache geschrieben. Es bleibt weiterhin möglich, Coffeescript zu nutzen.  Auch ein Mischbetrieb kann erreicht werden.   
+   
 Um eine sequenzielle Abarbeitung von Testschritten in der funktionalen, nicht sequenziellen Programmiersprache Javascript zu gewährleisten, bietet *casperJS* `.start()`, `.then()` und `.done()` Funktionen zum Kontrollfluss an.
 <!--
 PhantomJS 1.9.8 ist ein Paket aus QTWebkit, der Rendering-Engine, einer Javascript Laufzeitumgebung und QT4 als Wrapper. PhantomJS hat enorm viele Abhängigkeiten und es ist nicht empfohlen es selbst zu kompilieren da es wahrscheinlich ist dass mindestens eine Abhängigkeit zu Komplikationen führt. Im "brew" Paketsystem wurde also eine vorkompilierte Binärdatei verteilt und mit `brew install phantomjs` anschließend ohne Probleme installiert.   -->
@@ -494,10 +500,10 @@ Bei entsprechender Konfiguration führt *Go* selbständig Pipelines, an denen Ä
 
 
 
-##Pflichtenheft
+##Feinkonzept
 
-Am Ende der Entwurfsphase wurde ein Pflichtenheft erstellt. Es baut auf dem Lastenheft auf. Dort wird beschrieben wie und mit welchen Werkzeugen der Autor die Anforderungen des Anforderes umsetzen möchte.
-Das Pflichtenheft dient als Leitpfaden für die <!-- impementierungsphase-->Umsetzung des Projektes.
+Am Ende der Entwurfsphase wurde ein Feinkonzept erstellt. Es baut auf dem Lastenheft auf. Dort wird beschrieben wie und mit welchen Werkzeugen der Autor die Anforderungen des Anforderes umsetzen möchte.
+Das Feinkonzept dient als Leitpfaden für die <!-- impementierungsphase-->Umsetzung des Projektes.
 
 #Implementierungsphase
 
@@ -521,7 +527,7 @@ Ein Installationsprotokoll wurde erstellt damit das Vorgehen reproduzierbar und 
    
 ##Erstellen der Beispieltestsuite
 Das casperJS Modul `tester` stellt, mit Ausnahme der Screenshots, die meisten, im Lastenheft geforderten Funktionalitäten, bereit. Mit Hilfe der sehr guten online Dokumentation von casperJS und seiner Module[^casperdocstester]  wurde eine Beispieltestsuite geschrieben.
-Es musste besondere Sorgfalt auf die Struktur der Testskripte für *casperJS* gelegt werden, denn die Tests werden in Javascript geschrieben und dies wird asynchron ausgeführt, wenn nicht explizit eine Schrittfolge definiert wird. Das würde bedeuten, dass das Verhalten nicht immer reproduzierbar ist, was jedoch gerade bei Regressionstests unbedingt erforderlich ist.
+Auf Grund der Erfahrung im Team mit Javascript wurde der Beispieltest in dieser Sprache geschrieben. Es bleibt weiterhin möglich, in Zukunft auch Coffeescript zu nutzen. Es musste besondere Sorgfalt auf die Struktur der Testskripte für *casperJS* gelegt werden, denn die Tests werden in Javascript geschrieben und dies wird asynchron ausgeführt, wenn nicht explizit eine Schrittfolge definiert wird. Das würde bedeuten, dass das Verhalten nicht immer reproduzierbar ist, was jedoch gerade bei Regressionstests unbedingt erforderlich ist.
 In einer casperJS Testsuite wird eine deterministische Testsequenz mit `casper.start()` begonnen. Jeder darauf folgende Schritt wird in der Funktion `casper.then();` gekennzeichnet.
 Der Testabschluss wird mit  `casper.done()` eingeleitet.     
 
@@ -558,7 +564,9 @@ Im Browser *phantomJS* können Bildschirmaufnahmen gespeichert werden. Die Funkt
 ##Erweitern der Pipeline um Artefaktensammlung
 
 
-*Go* bietet von Haus aus einen Mechanismus um Artefakte von Agenten-Server einzusammeln. Diese wurde in die Pipeline eingesetzt und konfiguriert. Damit kann sichergestellt werden dass die maschinenlesbare Testauswertung in der Historie in *Go* immer zur Verfügung steht.
+*Go* bietet von Haus aus einen Mechanismus um Artefakte von Agenten-Server einzusammeln[^goartifacts]. Diese wurde in die Pipeline eingesetzt und konfiguriert. Damit kann sichergestellt werden dass die maschinenlesbare Testauswertung in der Historie in *Go* immer zur Verfügung steht.
+
+[^goartifacts]:http://www.go.cd/documentation/user/current/configuration/managing_artifacts_and_reports.html
 
 ##Erweitern der Pipeline um Screenshotsammlung   
 
@@ -566,21 +574,19 @@ Es wurde zusätzlich ein ANT-Task erstellt und in die Pipeline integriert, der e
 
 #Testphase
 
-Schon in der Implementierungsphase wurden die Beispieltests immer wieder, erst auf dem Entwicklungsrechner, dann auf dem Server  ausgeführt. Zur Inbetriebnahme von *casperJS* wurde auch der Selbsttest des Frameworks *casperJS* eingesetzt, bei dem alle Funktionen ausgeführt wurden.
-Auf dem Server wurde nach dem Ausführen von Tests per ssh überprüft, ob Artefakte an der richtigen Stelle erzeugt wurden. 
+Schon in der Implementierungsphase wurden die Beispieltests immer wieder, erst auf dem Entwicklungsrechner, dann auf dem Server  ausgeführt. Am Ende der Implementationssphase wurde der Testrunner und seine Integration gegen die Anforderungen aus dem Lastenheft geprüft. 
 
 #Abnahmephase
-Nachdem die Anwendung fertig gestellt war, wurde sie dem Fachbereich zur Abnahme vorgelegt. Zusammen mit dem Anforderer wurden alle Anwendungsfälle und Akzeptanzkriterien für das System im Einsatz des Beispieltests geprüft. Die ursprünglichen Anforderung wurden alle zur Zufriedenheit erfüllt. Ein Codereview wurde nicht durchgeführt.
-Bei der Abnahme entstand noch der Wunsch nach einer Instalationsprotokoll.
 
+Nachdem die Anwendung von mir erfolgreich getestet wurde, habe ich sie dem Fachbereich zur Abnahme vorgelegt. Zusammen mit dem Anforderer wurden alle Anwendungsfälle und Akzeptanzkriterien für das System im Einsatz des Beispieltests geprüft. Die ursprünglichen Anforderung wurden alle zur Zufriedenheit erfüllt. 
 
 #Einführungsphase
 
-Im Anschluss an die erfolgreiche Abnahme wurde die Pipeline für Front-End-Tests allen Benutzern des Teams *Vertrieb Onlineshop CMS* in *Go* über die integrierte Rechteverwaltung zugänglich gemacht. Da der Beispieltest bereits einen breites Spektrum an Kernfunktionen des GRAVIS Onlineshop testet, kann die Testumgebung ab diesem Zeitpunkt eingesetzt werden.
+Im Anschluss an die erfolgreiche Abnahme wurde die Pipeline für Front-End-Tests allen Benutzern des Teams *Vertrieb Onlineshop CMS* in *Go* über die integrierte Rechteverwaltung zugänglich gemacht. Die Testumgebung kann ab diesem Zeitpunkt eingesetzt werden.
 
 
 ##Schulung
-Die Applikation wurde dem gesamten Team *Vertrieb Onlienshop CMS* vorgeführt. Nach dem Funktionsüberblick wurden dem Team die eingesetzten Technologien erläutert. Ich habe dem Team vorgeführt, wie die aktuelle Testsuite einzusetzen und über Umgebungsvariablen zu konfigurieren ist.  Anschließend wurde die Struktur von CasperJS Tests erläutert und wie diese erstellt werden können. <!-- Auch ein Testaufnahmewerkzeug namens "Resurrectio"[^ressurectioweb] , mit dem sich im Webbrowser Front-End-Test aufnehmen lassen, wurde als Unterstützung den Nutzern vorgeschlagen. --> Die Fähigkeiten und Erweiterungsmöglichkeiten von CasperJS in der aktuellen Umgebung wurden anhand der Webdokumentation[^casperdocstester] präsentiert. Zum Abschluss wurde die hierarchische Organisation von Tests aufgezeigt und wie neue Testsuiten zu strukturieren sind.
+Die Applikation wurde dem gesamten Team *Vertrieb Onlineshop CMS* vorgeführt. Nach dem Funktionsüberblick wurden dem Team die eingesetzten Technologien erläutert. Ich habe dem Team vorgeführt, wie die aktuelle Testsuite einzusetzen und über Umgebungsvariablen zu konfigurieren ist.  Anschließend wurde die Struktur von CasperJS Tests erläutert und wie diese erstellt werden können. <!-- Auch ein Testaufnahmewerkzeug namens "Resurrectio"[^ressurectioweb] , mit dem sich im Webbrowser Front-End-Test aufnehmen lassen, wurde als Unterstützung den Nutzern vorgeschlagen. --> Die Fähigkeiten und Erweiterungsmöglichkeiten von CasperJS in der aktuellen Umgebung wurden anhand der Webdokumentation[^casperdocstester] präsentiert. Zum Abschluss wurde die hierarchische Organisation von Tests aufgezeigt und wie neue Testsuiten zu strukturieren sind. Es wurden Möglichkeiten diskutiert, wie und an welchen Stellen im Prozess der automatisierte Start von Tests sinnvoll ist.
 
 [^ressurectioweb]:https://chrome.google.com/webstore/detail/resurrectio/kicncbplfjgjlliddogifpohdhkbjogm
 
@@ -601,23 +607,22 @@ Auf generative Dokumentation wie "AntDoc" oder "JSDoc" habe ich auf Grund des en
 
 ##Soll- /Ist-Vergleich
 
-Rückblickend kann festgestellt werden dass alle funktionalen Anforderungen gemäß dem Pflichtenheft erfüllt werden konnten.
-Der zum Beginn des Projektes erstellte Projektplan konnte nicht vollständig eingehalten werden.  Im Projektantrag wurde leider die Phase der Abnahme unterschlagen und fälschlicherweise mehr als 70 Stunden des von der IHK festgelegten Zeitrahmen, 73 insgesamt geplant. Der Zeitplan wurde in der Analysephase leicht angepasst.
+Rückblickend kann festgestellt werden, dass alle funktionalen Anforderungen gemäß dem Pflichtenheft mit den gewählten Tools erfüllt werden konnten.
+Der zum Beginn des Projektes erstellte Projektplan konnte nicht vollständig eingehalten werden.  Im Projektantrag wurde leider die Phase der Abnahme unterschlagen und fälschlicherweise mehr als die von der IHK festgelegten 70 Stunden geplant. Der Zeitplan wurde in der Analysephase  angepasst.
 
-Die Analysephase wurde im Projektantrag mit insgesamt 13 Stunden angegeben. Tatsächlich habe ich nur 10 Stunden gebraucht. Nach der Besprechung mit dem <!-- Anforderer -->Softwarestrategen waren die Anforderungen klar genug definiert, sodass die Phase der Analyse der alten, defekten Testumgebung entfallen konnte. 
+Die Analysephase wurde im Projektantrag mit insgesamt 13 Stunden angegeben. Tatsächlich habe ich nur 10 Stunden gebraucht. Nach der Besprechung mit dem Anforderer  waren die Anforderungen klar genug definiert, sodass die Phase der Bestandsanalyse entfallen konnte. 
 
  Einzelne Abweichungen innerhalb des Zeitplans entstanden durch Erleichterungen bzw. Blockaden, die erst bei der Realisierung der einzelnen Teilschritte erkenntlich wurden. Die tatsächlich benötigte Gesamtzeit für das Projekt entsprach  der vorher veranschlagten Planzeit. 
 
 ##lessons learned
-Im Zuge des Projektes konnte der Autor viele  Erfahrungen in Bezug auf Planung und Durchführung eines IT-Projektes sammeln, aber auch Erfahrungen aus dem weniger projektgetriebenen Entwicklungsalltag mit einbeziehen. Insbesondere hat es sich bewährt, Zeit für die Umsetzung großzügig zu planen: Vermeintlich schnell erledigte Aufgaben in der Planung setzen bereits viel voraus und sind bei der Planung oft nur implizit Erwähnt. Sind diese Vorbedingungen nicht erfüllt wächst die benötigte Zeit für ein Aufgäbe oft unerwartet stark an, dies betraf in diesem Projekt besonders die Aufgaben der Systemadministration. Der zielstrebige, enge Zeitrahmen nötigte mich in der Umsetzung mehrmals mein Vorgehen zu ändern um schneller zum Ziel zu gelangen.
-
-<!-- Die ideale Projektplanung gibt es nicht, spätestens in der Umsetzung werden wichtige zusätzliche Erkenntnisse gewonnen die in einem linearen Prozess nicht mehr in die Planung einfließen können. -->
+Im Zuge des Projektes konnte der Autor viele  Erfahrungen in Bezug auf Planung und Durchführung eines IT-Projektes sammeln, aber auch Erfahrungen aus dem weniger projektgetriebenen Entwicklungsalltag mit einbeziehen. Insbesondere hat es sich bewährt, Zeit für die Umsetzung großzügig zu planen: Vermeintlich schnell erledigte Aufgaben in der Planung setzen bereits viel voraus und sind bei der Planung oft nur implizit Erwähnt. Sind diese Vorbedingungen, wie z.B. installierte Sofwarelibraries, nicht erfüllt wächst die benötigte Zeit für ein Aufgäbe oft unerwartet stark an, Dies betraf in diesem Projekt besonders die Aufgaben der Systemadministration. 
+Die ideale Projektplanung gibt es nicht, spätestens in der Umsetzung werden wichtige zusätzliche Erkenntnisse gewonnen, die in einem linearen Prozess nicht mehr in die Planung einfließen können. 
 
 Ein iteratives Vorgehensmodell würde ich in Zukunft  bevorzugen, insbesondere bei der Einführung eines neuen Systems, um angemessen auf neue Erkenntnisse reagieren zu können. In jedem Fall bedeutet es, dass Kommunikation  mit dem Projektanforderer die wichtigste Komponente für eine erfolgreiche Projektumsetzung ist.
 Abschließend kann man sagen dass das Projekt in seiner Realisierung für das Team und in der Durchführung für den Autor eine große Bereicherung war.
 
 ##Ausblick
-In naher Zukunft werden für den Einsatz der Testumgebung mehr Tests implementiert, die mehr Funktionen und Grenzbedingungen in den Online-Shops untersuchen.
+In naher Zukunft werden für den Einsatz der Testumgebung mehr Tests implementiert, die mehr Funktionen im Online-Shops untersuchen.
 Obwohl alle im Lastenheft definierten Anforderungen realisiert wurden, zeichnen sich bereits neue Featurewünsche und Einsatzszenarien ab.
 Das Team strebt danach, die Front-End-Tests fest in den Deploymentprozess zu integrieren, was auch ohne Probleme möglich ist.
 
